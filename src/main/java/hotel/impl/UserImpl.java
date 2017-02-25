@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Service("UserService")
-public class UserServiceImpl implements UserService {
+public class UserImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;

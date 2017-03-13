@@ -1,27 +1,21 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
-import { Link } from 'dva/router';
+import { Row, Col } from 'antd';
+import styles from './Header.css';
+import Link from 'dva';
 
 function Header({ location }) {
   return (
-    <Menu
-      selectedKeys={[location.pathname]}
-      mode="horizontal"
-      theme="dark"
-    >
-      <Menu.Item key="/users">
-        <Link to="/users"><Icon type="bars" />Users</Link>
-      </Menu.Item>
-      <Menu.Item key="/">
-        <Link to="/"><Icon type="home" />Home</Link>
-      </Menu.Item>
-      <Menu.Item key="/404">
-        <Link to="/page-you-dont-know"><Icon type="frown-circle" />404</Link>
-      </Menu.Item>
-      <Menu.Item key="/antd">
-        <a href="https://github.com/dvajs/dva">dva</a>
-      </Menu.Item>
-    </Menu>
+    <Row gutter={8} className={styles.wrapper}>
+      <Col className={"gutter-row"} span={2} >
+        <p className={styles.logo}>Hotel World</p>
+      </Col>
+      <Col className="gutter-row" span={20}>
+        <input className={styles.search} type="text" placeholder="输入关键字搜索旅店"/>
+      </Col>
+      <Col className="gutter-row" span={2} >
+         <p className={styles.username}>christine</p>
+      </Col>
+    </Row>
   );
 }
 

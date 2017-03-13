@@ -30,6 +30,47 @@ function RouterConfig({ history, app }) {
         });
       },
     },
+    {
+      path: '/hotel',
+      name: 'hotelDetail',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelSingle'));
+        });
+      },
+    },
+    {
+      path: '/userinfo',
+      name: 'userinfo',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/UserCenter'));
+        });
+      },
+    },
+    {
+      path: '/uservip',
+      name: 'uservip',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/UserVip'));
+        });
+      },
+    },
+    {
+      path: '/userorders',
+      name: 'userorders',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/UserOrder'));
+        });
+      },
+    }
+
   ];
 
   return <Router history={history} routes={routes} />;

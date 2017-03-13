@@ -1,14 +1,23 @@
+/**
+ * Created by christine on 2017/3/13.
+ */
 import React from 'react';
 import { connect } from 'dva';
 import styles from './IndexPage.css';
 import MainLayout from '../components/MainLayout/MainLayout';
-import HotelList from '../components/Hotels/HotelList';
+import Hotel from '../components/Hotels/HotelSingle';
 
 function IndexPage({ location }) {
+
+  const detail = {
+    name:'1111',
+    city:'南京',
+  };
+
   return (
     <MainLayout location={location}>
       <div className={styles.normal}>
-        <HotelList />
+        <Hotel detail={detail}/>
       </div>
     </MainLayout>
   );

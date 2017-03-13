@@ -1,0 +1,29 @@
+.wrapper{
+  width:100%;
+  height:70px;
+  display:flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-bottom: rgba(155,155,155,0.3) 1px solid;
+}
+
+.logo{
+  color:#FE745F;
+  /*padding-right:20px;*/
+  text-align: right;
+  line-height:70px;
+}
+.username{
+  padding-left:20px;
+  line-height:70px;
+  border-left:rgba(155,155,155,0.3) 1px solid;
+}
+.search{
+  padding-left:30px;
+  display:block;
+  width:100%;
+  height:100%;
+  border:none;
+  border-left:rgba(155,155,155,0.3) 1px solid;
+  outline:none;
+}

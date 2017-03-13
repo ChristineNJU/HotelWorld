@@ -2,3 +2,18 @@
 html, body, :global(#root) {
   height: 100%;
 }
+body{
+  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial,
+  "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN",
+  "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei",
+  "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+}
+input,button,select {
+  outline: 0;
+  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial,
+  "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN",
+  "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei",
+  "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+}
+
+

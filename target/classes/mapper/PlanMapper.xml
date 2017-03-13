@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hotel.dao.PlanMapper" >
+  <resultMap id="BaseResultMap" type="hotel.model.Plan" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="roomid" property="roomid" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomid, time, status, hotelname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from plan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from plan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hotel.model.Plan" >
+    insert into plan (id, roomid, time, 
+      status, hotelname)
+    values (#{id,jdbcType=INTEGER}, #{roomid,jdbcType=INTEGER}, #{time,jdbcType=DATE}, 
+      #{status,jdbcType=INTEGER}, #{hotelname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="hotel.model.Plan" >
+    insert into plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roomid != null" >
+        roomid,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="hotelname != null" >
+        hotelname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roomid != null" >
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="hotelname != null" >
+        #{hotelname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="hotel.model.Plan" >
+    update plan
+    <set >
+      <if test="roomid != null" >
+        roomid = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="hotelname != null" >
+        hotelname = #{hotelname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hotel.model.Plan" >
+    update plan
+    set roomid = #{roomid,jdbcType=INTEGER},
+      time = #{time,jdbcType=DATE},
+      status = #{status,jdbcType=INTEGER},
+      hotelname = #{hotelname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

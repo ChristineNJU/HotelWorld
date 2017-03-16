@@ -23,7 +23,6 @@ export default {
   effects: {
     *fetch(action, { call, put }){
       const {data} = yield call(searchService.fetch);
-      const test = {ll:data};
       yield put({
         type:'init',
         payload:{

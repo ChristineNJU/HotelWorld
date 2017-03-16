@@ -7,7 +7,7 @@ import styles from './IndexPage.css';
 import MainLayout from '../components/MainLayout/MainLayout';
 import Hotel from '../components/Hotels/HotelSingle';
 
-function IndexPage({ location }) {
+function HotelDetail({ location }) {
 
   const detail = {
     name:'1111',
@@ -23,7 +23,10 @@ function IndexPage({ location }) {
   );
 }
 
-IndexPage.propTypes = {
+HotelDetail.propTypes = {
 };
 
-export default connect()(IndexPage);
+export default connect()(HotelDetail);
+
+
+

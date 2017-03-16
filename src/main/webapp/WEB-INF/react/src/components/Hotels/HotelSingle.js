@@ -2,14 +2,14 @@
  * Created by christine on 2017/3/13.
  */
 import React from 'react';
+import { connect } from 'dva';
 import {Icon,Card,Form,Button,Input,InputNumber,DatePicker,Select} from 'antd';
 const FormItem = Form.Item;
 const {RangePicker } = DatePicker;
 import styles from './HotelSingle.css'
 
 
-function HotelSingle({location,detail}) {
-  console.log(detail);
+function HotelSingle({location,hotel}) {
   const formItemLayout = {
     labelCol: { span: 1 },
     wrapperCol: { span: 8 },
@@ -17,8 +17,8 @@ function HotelSingle({location,detail}) {
 
   return(
     <div className={styles.main}>
-      <h3>龙门客栈 南京分部</h3>
-      <p><Icon type="location" />南京</p>
+      <h3>{hotel.name}</h3>
+      <p><Icon type="location" />{hotel.city} {hotel.address}</p>
       <br/>
       <br/>
       <p className={styles.label}>房间类型</p>
@@ -80,4 +80,13 @@ function disabledDate(current) {
   return current && current.valueOf() < Date.now();
 }
 
-export default  HotelSingle;
+function mapStateToProps(state) {
+  console.log(state.hotel);
+  const { hotel } = state.hotel;
+  return {
+    loading: state.loading.models.hotels,
+    hotel
+  };
+}
+
+export default  connect(mapStateToProps)(HotelSingle);

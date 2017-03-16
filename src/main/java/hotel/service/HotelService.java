@@ -15,4 +15,13 @@ public interface HotelService {
      * @throws Exception
      */
     List<Hotel> finaAll()throws Exception;
+
+    /**
+     * 通过主键查找用户
+     * @return
+     * @throws Exception
+     */
+    Hotel selectByPrimaryKey(Integer id)throws Exception;
+
+
 }

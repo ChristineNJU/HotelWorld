@@ -26,4 +26,8 @@ public class HotelImpl implements HotelService {
         return hotelMapper.findAll();
 
     }
+
+    public Hotel selectByPrimaryKey(Integer id) throws Exception {
+        return hotelMapper.selectByPrimaryKey(id);
+    }
 }

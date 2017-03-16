@@ -31,11 +31,10 @@ function RouterConfig({ history, app }) {
       },
     },
     {
-      path: '/hotel',
-      name: 'hotelDetail',
+      path: '/hotel/:id',
+      name: 'HotelDetail',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
-          // registerModel(app, require('./models/users'));
           cb(null, require('./routes/HotelSingle'));
         });
       },

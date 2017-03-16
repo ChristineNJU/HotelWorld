@@ -1,5 +1,5 @@
 import dva from 'dva';
-import { browserHistory } from 'dva/router';
+import { browserHistory} from 'dva/router';
 import createLoading from 'dva-loading';
 import { message } from 'antd';
 import './index.html';

@@ -50,7 +50,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table tableName="hotel"
+        <table tableName="room"
                domainObjectName="Hotel"
                enableCountByExample="false"
                enableUpdateByExample="false"

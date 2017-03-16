@@ -1,20 +1,19 @@
 package hotel.controller;
 
 import hotel.model.Hotel;
-import hotel.model.User;
+import hotel.model.Room;
 import hotel.service.HotelService;
+import hotel.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /**
  * Created by christine on 2017/3/15.
@@ -26,6 +25,9 @@ public class HotelController {
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private RoomService roomService;
 
     /**
      * 查找所有客栈的方法
@@ -47,7 +49,9 @@ public class HotelController {
     public @ResponseBody Map getHotelById(@PathVariable("id") Integer id)throws Exception{
         Map<String, Object> result = new HashMap<String, Object>();
         Hotel hotel = hotelService.selectByPrimaryKey(id);
+        List<Room> rooms = roomService.getRoomsByHotelId(id);
         result.put("detail",hotel);
+        result.put("rooms",rooms);
         return result;
     }
 

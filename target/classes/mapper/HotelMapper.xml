@@ -13,7 +13,7 @@
     id, name, city, address, money, bank
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from hotel
     where id = #{id,jdbcType=INTEGER}
@@ -28,12 +28,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="hotel.model.Hotel" >
-    insert into hotel (id, name, city, 
-      address, money, bank
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, #{bank,jdbcType=VARCHAR}
-      )
+    insert into hotel (id, name, city,
+    address, money, bank
+    )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, #{bank,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="hotel.model.Hotel" >
     insert into hotel
@@ -102,10 +102,10 @@
   <update id="updateByPrimaryKey" parameterType="hotel.model.Hotel" >
     update hotel
     set name = #{name,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      money = #{money,jdbcType=INTEGER},
-      bank = #{bank,jdbcType=VARCHAR}
+    city = #{city,jdbcType=VARCHAR},
+    address = #{address,jdbcType=VARCHAR},
+    money = #{money,jdbcType=INTEGER},
+    bank = #{bank,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

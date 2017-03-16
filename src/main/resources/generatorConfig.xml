@@ -51,7 +51,7 @@
         </javaClientGenerator>
         <!-- 指定数据库表 -->
         <table tableName="room"
-               domainObjectName="Hotel"
+               domainObjectName="Room"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

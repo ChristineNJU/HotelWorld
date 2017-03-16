@@ -9,7 +9,7 @@ const {RangePicker } = DatePicker;
 import styles from './HotelSingle.css'
 
 
-function HotelSingle({location,hotel}) {
+function HotelSingle({location,info,rooms}) {
   const formItemLayout = {
     labelCol: { span: 1 },
     wrapperCol: { span: 8 },
@@ -17,15 +17,15 @@ function HotelSingle({location,hotel}) {
 
   return(
     <div className={styles.main}>
-      <h3>{hotel.name}</h3>
-      <p><Icon type="location" />{hotel.city} {hotel.address}</p>
+      <h3>{info.name}</h3>
+      <p><Icon type="location" />{info.city} {info.address}</p>
       <br/>
       <br/>
       <p className={styles.label}>房间类型</p>
       <div className={styles.roomWrapper}>
-        <RoomType price={123} number={1}/>
-        <RoomType price={123} number={1}/>
-        <RoomType price={123} number={1}/>
+        {rooms.map((value) => {
+          return <RoomType price={value.price} number={value.count}/>
+        })}
       </div>
       <br/>
       <br/>
@@ -70,7 +70,7 @@ function RoomType({price,number}){
   return(
     <Card className={styles.room}>
       <p className={styles.price}>￥{price}</p>
-      {/*<p className={styles.number}>数量：{number}</p>*/}
+      <p className={styles.number}>总数：{number}</p>
     </Card>
   )
 }
@@ -81,11 +81,10 @@ function disabledDate(current) {
 }
 
 function mapStateToProps(state) {
-  console.log(state.hotel);
-  const { hotel } = state.hotel;
+  const { info,rooms } = state.hotel;
   return {
     loading: state.loading.models.hotels,
-    hotel
+    info,rooms
   };
 }
 

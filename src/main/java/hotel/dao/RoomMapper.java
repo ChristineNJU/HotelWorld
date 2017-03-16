@@ -1,6 +1,7 @@
 package hotel.dao;
 
 import hotel.model.Room;
+import hotel.vo.RoomCon;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface RoomMapper {
     int updateByPrimaryKey(Room record);
 
     List<Room> selectByHotelId(Integer id);
+
+    List<RoomCon> selectConRooms(Integer id);
 }

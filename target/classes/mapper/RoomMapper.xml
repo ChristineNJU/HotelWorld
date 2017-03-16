@@ -96,4 +96,13 @@
     from room
     where hotelid = #{id,jdbcType=INTEGER}
   </select>
+
+  <resultMap id="ConResultMap" type="hotel.vo.RoomCon" >
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectConRooms" resultMap="ConResultMap" parameterType="java.lang.Integer" >
+    SELECT price,count(id) AS `count` FROM room where hotelid = #{id,jdbcType=INTEGER} GROUP BY price;
+  </select>
+
 </mapper>

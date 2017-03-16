@@ -1,6 +1,7 @@
 package hotel.service;
 
 import hotel.model.Room;
+import hotel.vo.RoomCon;
 
 import java.util.List;
 
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface RoomService {
     List<Room> getRoomsByHotelId(Integer id);
+
+    List<RoomCon> getConRooms(Integer id);
 }

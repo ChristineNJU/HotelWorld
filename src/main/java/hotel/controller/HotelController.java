@@ -4,6 +4,7 @@ import hotel.model.Hotel;
 import hotel.model.Room;
 import hotel.service.HotelService;
 import hotel.service.RoomService;
+import hotel.vo.RoomCon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +50,7 @@ public class HotelController {
     public @ResponseBody Map getHotelById(@PathVariable("id") Integer id)throws Exception{
         Map<String, Object> result = new HashMap<String, Object>();
         Hotel hotel = hotelService.selectByPrimaryKey(id);
-        List<Room> rooms = roomService.getRoomsByHotelId(id);
+        List<RoomCon> rooms = roomService.getConRooms(id);
         result.put("detail",hotel);
         result.put("rooms",rooms);
         return result;

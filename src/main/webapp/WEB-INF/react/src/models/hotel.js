@@ -4,15 +4,19 @@ import * as hotelService from '../services/hotel'
 export default {
   namespace: 'hotel',
   state: {
-    hotel:{
+    info:{
       name:'龙门客栈 南京分部',
       city:'南京',
       address:'鼓楼区'
     },
+    rooms:[{
+      price:null,
+      count:null,
+    }]
   },
   reducers: {
-    init(state,{payload:{hotel}}){
-      return {...state,hotel}
+    init(state,{payload:{info,rooms}}){
+      return {...state,info,rooms}
     }
   },
   effects: {
@@ -21,7 +25,8 @@ export default {
       yield put({
         type:'init',
         payload:{
-          hotel:data.detail
+          info:data.detail,
+          rooms:data.rooms,
         }
       })
     }

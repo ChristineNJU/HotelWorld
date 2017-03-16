@@ -3,6 +3,7 @@ package hotel.impl;
 import hotel.dao.RoomMapper;
 import hotel.model.Room;
 import hotel.service.RoomService;
+import hotel.vo.RoomCon;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,5 +20,9 @@ public class RoomImpl implements RoomService{
 
     public List<Room> getRoomsByHotelId(Integer id) {
         return roomMapper.selectByHotelId(id);
+    }
+
+    public List<RoomCon> getConRooms(Integer id) {
+        return roomMapper.selectConRooms(id);
     }
 }

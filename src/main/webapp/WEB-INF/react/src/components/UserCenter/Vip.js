@@ -50,7 +50,7 @@ function Vip({location}) {
       <FormItem label="充值余额" {...formItemLayout}>
         <div style={{display:'flex',justifyContent:'flex-start'}}>
           <InputNumber style={{width:'120px'}} size="large">123222222222</InputNumber>
-          <Button>充值</Button>
+          <Button type="primary"  style={{fontWeight:'lighter'}}>充值</Button>
         </div>
       </FormItem>
 

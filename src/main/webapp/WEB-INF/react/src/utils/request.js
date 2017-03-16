@@ -10,6 +10,10 @@ function checkStatus(response) {
   throw error;
 }
 
+function parseJSON(response) {
+  return response.json();
+}
+
 /**
  * Requests a URL, returning a promise.
  *
@@ -18,20 +22,26 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default async function request(url, options) {
-  const response = await fetch(url, options);
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON)
+    .then((data) => ({ data }))
+    .catch((err) => ({ err }));
 
-  checkStatus(response);
-
-  const data = await response.json();
-
-  const ret = {
-    data,
-    headers: {},
-  };
-
-  if (response.headers.get('x-total-count')) {
-    ret.headers['x-total-count'] = response.headers.get('x-total-count');
-  }
-
-  return ret;
+  // const response = await fetch(url, options);
+  //
+  // checkStatus(response);
+  //
+  // const data = await response.json();
+  //
+  // const ret = {
+  //   data,
+  //   headers: {},
+  // };
+  //
+  // if (response.headers.get('x-total-count')) {
+  //   ret.headers['x-total-count'] = response.headers.get('x-total-count');
+  // }
+  //
+  // return ret;
 }

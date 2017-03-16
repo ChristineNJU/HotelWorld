@@ -69,6 +69,61 @@ function RouterConfig({ history, app }) {
           cb(null, require('./routes/UserOrder'));
         });
       },
+    },
+    {
+      path: '/hotelinfo',
+      name: 'hotelinfo',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelInfo'));
+        });
+      },
+    },{
+      path: '/hotelcheckin',
+      name: 'hotelcheckin',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelCheckin'));
+        });
+      },
+    },{
+      path: '/hotelcurrent',
+      name: 'hotelcurrent',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelCurrent'));
+        });
+      },
+    },{
+      path: '/hotelorder',
+      name: 'hotelorder',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelOrder'));
+        });
+      },
+    },{
+      path: '/hotelbefore',
+      name: 'hotelbefore',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelBefore'));
+        });
+      },
+    },{
+      path: '/hotelfinance',
+      name: 'hotelfinance',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelFinance'));
+        });
+      },
     }
 
   ];

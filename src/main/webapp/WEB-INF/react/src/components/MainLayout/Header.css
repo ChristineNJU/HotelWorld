@@ -9,14 +9,15 @@
 
 .logo{
   color:#FE745F;
-  /*padding-right:20px;*/
-  text-align: right;
+  padding-left:20px;
+  text-align: left;
   line-height:70px;
 }
 .username{
-  padding-left:20px;
+  padding-right:20px;
   line-height:70px;
-  border-left:rgba(155,155,155,0.3) 1px solid;
+  text-align:right;
+  /*border-left:rgba(155,155,155,0.3) 1px solid;*/
 }
 .search{
   padding-left:30px;

@@ -3,6 +3,8 @@ package hotel.dao;
 import hotel.model.Hotel;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface HotelMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface HotelMapper {
     int updateByPrimaryKeySelective(Hotel record);
 
     int updateByPrimaryKey(Hotel record);
+
+    List<Hotel> findAll();
 }

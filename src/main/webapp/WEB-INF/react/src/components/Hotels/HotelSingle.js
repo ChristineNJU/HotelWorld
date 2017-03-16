@@ -31,24 +31,31 @@ function HotelSingle({location,detail}) {
       <br/>
       <p className={styles.label}>预定房间</p>
       <Form style={{marginTop:'1em'}}>
-        <FormItem label="价格" {...formItemLayout}>
-          <Select size={"large"} style={{width:'200px'}}
-                  defaultValue="1"
-          >
-            <Option value="1">￥123</Option>
-            <Option value="2">￥2333</Option>
-            <Option value="3">￥54</Option>
-            <Option value="4">￥78</Option>
-          </Select>
-        </FormItem>
 
         <FormItem label="时间" {...formItemLayout}>
           <RangePicker size={"large"} disabledDate={disabledDate}/>
         </FormItem>
 
+        <FormItem label="价格" {...formItemLayout}>
+          <Select size={"large"} style={{width:'200px'}}
+                  defaultValue="1"
+          >
+            <Select.Option value="1">￥123</Select.Option>
+            <Select.Option value="2">￥2333</Select.Option>
+            <Select.Option value="3">￥54</Select.Option>
+            <Select.Option value="4">￥78</Select.Option>
+          </Select>
+        </FormItem>
+
         <FormItem label="数量" {...formItemLayout}>
-          <InputNumber size={"large"} style={{width:'200px'}}
-            defaultValue={1}/>
+          <Select size={"large"} style={{width:'200px'}}
+                  defaultValue="1"
+          >
+            <Select.Option value="1">1</Select.Option>
+            <Select.Option value="2">2</Select.Option>
+            <Select.Option value="3">3</Select.Option>
+            <Select.Option value="4">4</Select.Option>
+          </Select>
         </FormItem>
 
         <FormItem >
@@ -63,7 +70,7 @@ function RoomType({price,number}){
   return(
     <Card className={styles.room}>
       <p className={styles.price}>￥{price}</p>
-      <p className={styles.number}>数量：{number}</p>
+      {/*<p className={styles.number}>数量：{number}</p>*/}
     </Card>
   )
 }

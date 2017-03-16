@@ -2,17 +2,26 @@
  * Created by christine on 2017/3/13.
  */
 import React from 'react';
-import { Row, Col,DatePicker,InputNumber,Input,Table } from 'antd';
+import { connect } from 'dva';
+import { Row, Col,DatePicker,InputNumber,Input,Table,Select } from 'antd';
 const {RangePicker } = DatePicker;
 const InputGroup = Input.Group;
 import styles from './HotelList.css';
 import Link from 'dva';
 
-function HotelList({ location }) {
+function HotelList({ dispatch,list:hotels,loading,keyword,beginDate,endDate,low,high }) {
+  // console.log(hotels);
   return (
     <div>
       <Row gutter={8} className={styles.selectors}>
-        <Col className="gutter-row" span={12} >
+        <Col className="gutter-row" span={12} style={{display:'flex',flexDirection:'row'}} >
+          <Select defaultValue="所有城市" className={styles.selector} style={{}}>
+            <Select.Option value="南京">南京</Select.Option>
+            <Select.Option value="上海">上海</Select.Option>
+            <Select.Option value="杭州">杭州</Select.Option>
+          </Select>
+        {/*</Col>*/}
+        {/*<Col className="gutter-row" span={8} >*/}
           <div className={styles.selector}>
             <RangePicker onChange={onChange} style={{border:"none"}} disabledDate={disabledDate}/>
           </div>
@@ -20,14 +29,14 @@ function HotelList({ location }) {
         <Col className="gutter-row" span={12} >
           <div className={styles.right}>
             <InputGroup compact>
-              <InputNumber style={{ width: '30%',border:'none',outline:'none'}} placeholder="最低价格" />
-              <InputNumber style={{ width: '30%',border:'none',outline:'none'}} placeholder="最高价格" />
+              <InputNumber style={{ width: '30%',border:'',outline:'none'}} placeholder="最低价格" />
+              <InputNumber style={{ width: '30%',border:'',outline:'none'}} placeholder="最高价格" />
             </InputGroup>
           </div>
         </Col>
       </Row>
       <div className={styles.tableWrapper}>
-        <Table columns={columns} dataSource={data}/>
+        <Table columns={columns} dataSource={hotels}/>
       </div>
     </div>
   );
@@ -76,4 +85,19 @@ const columns = [{
   key: 'price',
 }];
 
-export default HotelList;
+
+function mapStateToProps(state) {
+  console.log(state.hotels);
+  const { list, keyword, beginDate,endDate,low,high } = state.hotels;
+  return {
+    loading: state.loading.models.hotels,
+    list,
+    keyword,
+    beginDate,
+    endDate,
+    low,
+    high
+  };
+}
+
+export default connect(mapStateToProps)(HotelList);

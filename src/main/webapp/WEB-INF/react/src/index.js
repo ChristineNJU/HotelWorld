@@ -19,6 +19,10 @@ const app = dva({
 // 2. Plugins
 app.use(createLoading());
 
+app.model(require("./models/hotels"));
+
+app.model(require("./models/hotel"));
+
 // 3. Model
 // Moved to router.js
 

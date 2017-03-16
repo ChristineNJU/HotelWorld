@@ -4,25 +4,26 @@ export default {
   namespace: 'hotels',
   state: {
     list:[],
+    city:null,
     keyword:null,
-    beginDate:null,
-    endDate:null,
-    low:null,
-    high:null,
   },
   reducers: {
     init(state,{payload:{list}}){
       return {...state,list};
+    },
+    changeCity(state,{payload:{city}}){
+      return {...state,city};
+    },
+    changeKeyword(state,{payload:{keyword}}){
+      // console.log('in reducer');
+      // console.log(keyword);
+      return {...state,keyword}
     }
   },
   effects: {
     *fetch(action, { call, put }){
-      console.log(yield call(searchService.fetch));
       const {data} = yield call(searchService.fetch);
-      console.log('111');
-      console.log(data);
       const test = {ll:data};
-      console.log(test);
       yield put({
         type:'init',
         payload:{

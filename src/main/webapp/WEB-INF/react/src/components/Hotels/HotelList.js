@@ -3,40 +3,66 @@
  */
 import React from 'react';
 import { connect } from 'dva';
-import { Row, Col,DatePicker,InputNumber,Input,Table,Select } from 'antd';
+import { Row, Col,DatePicker,Input,Table,Select,Button } from 'antd';
 const {RangePicker } = DatePicker;
 const InputGroup = Input.Group;
 import styles from './HotelList.css';
 import Link from 'dva';
 
-function HotelList({ dispatch,list:hotels,loading,keyword,beginDate,endDate,low,high }) {
-  // console.log(hotels);
+function HotelList({ dispatch,list:hotels,city,keyword }) {
+
+  function cityChange(value) {
+    dispatch({
+      type: 'hotels/changeCity',
+      payload: { city:value },
+    });
+  }
+
+  function keyWordChange(e) {
+    dispatch({
+      type: 'hotels/changeKeyword',
+      payload: { keyword:e.target.value },
+    });
+  }
+
+  let filtered = hotels.filter((value) => {
+    let noCity = city == null || city == '';
+    let noKeyword = keyword == null || keyword == '';
+
+    if (!noCity && !noKeyword)
+      return value.city === city && value.name.indexOf(keyword) >= 0;
+    if (!noCity)
+      return value.city === city ;
+    if (!noKeyword)
+      return value.name.indexOf(keyword) >= 0;
+
+    return true;
+  });
+
   return (
     <div>
-      <Row gutter={8} className={styles.selectors}>
-        <Col className="gutter-row" span={12} style={{display:'flex',flexDirection:'row'}} >
-          <Select defaultValue="所有城市" className={styles.selector} style={{}}>
-            <Select.Option value="南京">南京</Select.Option>
-            <Select.Option value="上海">上海</Select.Option>
-            <Select.Option value="杭州">杭州</Select.Option>
-          </Select>
-        {/*</Col>*/}
-        {/*<Col className="gutter-row" span={8} >*/}
-          <div className={styles.selector}>
-            <RangePicker onChange={onChange} style={{border:"none"}} disabledDate={disabledDate}/>
-          </div>
-        </Col>
-        <Col className="gutter-row" span={12} >
-          <div className={styles.right}>
-            <InputGroup compact>
-              <InputNumber style={{ width: '30%',border:'',outline:'none'}} placeholder="最低价格" />
-              <InputNumber style={{ width: '30%',border:'',outline:'none'}} placeholder="最高价格" />
-            </InputGroup>
-          </div>
-        </Col>
-      </Row>
       <div className={styles.tableWrapper}>
-        <Table columns={columns} dataSource={hotels}/>
+        <Row style={{paddingBottom:'10px'}}>
+          <Col span={2}>
+            <Select
+              defaultValue="所有城市"
+              className={styles.selector} style={{}}
+              onChange={cityChange}>
+              <Select.Option value="">所有城市</Select.Option>
+              <Select.Option value="南京">南京</Select.Option>
+              <Select.Option value="上海">上海</Select.Option>
+              <Select.Option value="杭州">杭州</Select.Option>
+            </Select>
+          </Col>
+          <Col span={6}>
+            <Input type="text" placeholder="输入关键字以搜索" onChange={keyWordChange}/>
+          </Col>
+          {/*<Col span={2}>*/}
+            {/*<Button type="primary" style={{fontWeight:'lighter'}}>搜索</Button>*/}
+          {/*</Col>*/}
+        </Row>
+
+        <Table columns={columns} dataSource={filtered}/>
       </div>
     </div>
   );
@@ -59,44 +85,33 @@ const data = [{
   key:'1',
   name:'龙门客栈',
   city:'南京',
-  number:1,
-  price:'111',
+  // number:1,
+  // price:'111',
 }];
 
-const columns = [{
+const columns = [ {
+  title: '地点',
+  dataIndex: 'city',
+  key: 'city',
+},{
   title: '客栈',
   dataIndex: 'name',
   key: 'name',
   render: (text, row, index) => {
     // console.log(row);
-    return <a href={row.key}>{text}</a>
+    return <a href={'/hotel/'+row.id}>{text}</a>
   },
-}, {
-  title: '地点',
-  dataIndex: 'city',
-  key: 'city',
-}, {
-  title: '房间数',
-  dataIndex: 'number',
-  key: 'number',
-},{
-  title: '价格',
-  dataIndex: 'price',
-  key: 'price',
 }];
 
 
 function mapStateToProps(state) {
-  console.log(state.hotels);
-  const { list, keyword, beginDate,endDate,low,high } = state.hotels;
+  // console.log(state.hotels);
+  const { list, city, keyword } = state.hotels;
   return {
     loading: state.loading.models.hotels,
     list,
+    city,
     keyword,
-    beginDate,
-    endDate,
-    low,
-    high
   };
 }
 

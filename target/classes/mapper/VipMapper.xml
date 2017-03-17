@@ -12,6 +12,8 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="statusbegin" property="statusbegin" jdbcType="DATE" />
     <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, gender, phone, credit, money, points, status, statusbegin, level
@@ -149,4 +151,9 @@
       level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByUsername" resultType="java.lang.String" parameterType="java.lang.String">
+    SELECT password
+    FROM vip
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
 </mapper>

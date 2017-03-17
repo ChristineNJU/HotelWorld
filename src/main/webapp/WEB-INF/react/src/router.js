@@ -40,6 +40,15 @@ function RouterConfig({ history, app }) {
       },
     },
     {
+      path: '/login',
+      name: 'login',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./routes/Login'));
+        });
+      },
+    },
+    {
       path: '/userinfo',
       name: 'userinfo',
       getComponent(nextState, cb) {

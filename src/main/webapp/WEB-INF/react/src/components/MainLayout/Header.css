@@ -17,6 +17,7 @@
   padding-right:20px;
   line-height:70px;
   text-align:right;
+  float:right;
   /*border-left:rgba(155,155,155,0.3) 1px solid;*/
 }
 .search{
@@ -27,4 +28,11 @@
   border:none;
   border-left:rgba(155,155,155,0.3) 1px solid;
   outline:none;
+}
+.notice{
+  position:fixed;
+  top:80px;
+  left:50%;
+  transform: translate(-50%,0);
+  z-index: 999;
 }

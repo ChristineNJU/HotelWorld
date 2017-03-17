@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hotel.dao.TokenMapper" >
+  <resultMap id="BaseResultMap" type="hotel.model.Token" >
+    <id column="username" property="username" jdbcType="CHAR" />
+    <id column="type" property="type" jdbcType="INTEGER" />
+    <result column="token" property="token" jdbcType="CHAR" />
+    <result column="exptime" property="exptime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    username, type, token, exptime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="hotel.model.TokenKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from token
+    where username = #{username,jdbcType=CHAR}
+      and type = #{type,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="hotel.model.TokenKey" >
+    delete from token
+    where username = #{username,jdbcType=CHAR}
+      and type = #{type,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hotel.model.Token" >
+    insert into token (username, type, token, 
+      exptime)
+    values (#{username,jdbcType=CHAR}, #{type,jdbcType=INTEGER}, #{token,jdbcType=CHAR}, 
+      #{exptime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="hotel.model.Token" >
+    insert into token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="exptime != null" >
+        exptime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=CHAR},
+      </if>
+      <if test="exptime != null" >
+        #{exptime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="hotel.model.Token" >
+    update token
+    <set >
+      <if test="token != null" >
+        token = #{token,jdbcType=CHAR},
+      </if>
+      <if test="exptime != null" >
+        exptime = #{exptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where username = #{username,jdbcType=CHAR}
+      and type = #{type,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hotel.model.Token" >
+    update token
+    set token = #{token,jdbcType=CHAR},
+      exptime = #{exptime,jdbcType=TIMESTAMP}
+    where username = #{username,jdbcType=CHAR}
+      and type = #{type,jdbcType=INTEGER}
+  </update>
+  <select id="getAllToken" resultType="java.lang.String">
+    SELECT `token` FROM token
+  </select>
+</mapper>

@@ -23,8 +23,11 @@ app.model(require("./models/hotels"));
 
 app.model(require("./models/hotel"));
 
+app.model(require("./models/session"));
+
 // 3. Model
 // Moved to router.js
+
 
 // 4. Router
 app.router(require('./router'));

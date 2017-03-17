@@ -16,4 +16,6 @@ public interface VipMapper {
     int updateByPrimaryKeySelective(Vip record);
 
     int updateByPrimaryKey(Vip record);
+
+    String selectByUsername(String username);
 }

@@ -15,6 +15,7 @@ function HotelSingle({location,info,rooms}) {
     wrapperCol: { span: 8 },
   };
 
+  console.log(rooms);
   return(
     <div className={styles.main}>
       <h3>{info.name}</h3>
@@ -23,8 +24,8 @@ function HotelSingle({location,info,rooms}) {
       <br/>
       <p className={styles.label}>房间类型</p>
       <div className={styles.roomWrapper}>
-        {rooms.map((value) => {
-          return <RoomType price={value.price} number={value.count}/>
+        {rooms.map((value,index) => {
+          return <RoomType price={value.price} number={value.count} key={index}/>
         })}
       </div>
       <br/>

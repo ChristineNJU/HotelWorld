@@ -1,10 +1,16 @@
+.outer{
+  border-bottom: rgba(155,155,155,0.3) 1px solid;
+
+}
 .wrapper{
+  margin:0 auto 0 auto ;
+  max-width:1200px;
   width:100%;
   height:70px;
   display:flex;
   flex-direction: row;
   align-items: stretch;
-  border-bottom: rgba(155,155,155,0.3) 1px solid;
+  /*border-bottom: rgba(155,155,155,0.3) 1px solid;*/
 }
 
 .logo{
@@ -35,4 +41,10 @@
   left:50%;
   transform: translate(-50%,0);
   z-index: 999;
+}
+.dropdownWrapper{
+  position: absolute;
+  right: 20px;
+  top: 25px;
+  /*transform: translate(0,-50%);*/
 }

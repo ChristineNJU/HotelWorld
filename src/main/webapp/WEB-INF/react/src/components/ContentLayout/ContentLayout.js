@@ -12,6 +12,7 @@ function ContentLayout({ children, index }) {
         <Link className={index === 0 ? styles.linkCurrent : styles.link} to="/userinfo">个人资料</Link>
         <Link className={index === 1 ? styles.linkCurrent : styles.link} to="/uservip">会员资格</Link>
         <Link className={index === 2 ? styles.linkCurrent : styles.link} to="/userorders">我的订单</Link>
+        {/*<Link className={styles.link} >退出登录</Link>*/}
       </div>
       <div className={styles.rightContent}>
         {children}

@@ -7,46 +7,43 @@ const FormItem = Form.Item;
 import { connect } from 'dva';
 import styles from './user.css';
 
-function Info({location}) {
+function Info({location,user}) {
   const formItemLayout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 12 },
   };
+  console.log(user);
 
   return(
     <Form style={{}}>
+      <FormItem label="用户名" {...formItemLayout}>
+        <p style={{textAlign:'left'}}>{user.username}</p>
+      </FormItem>
+
       <FormItem label="姓名" {...formItemLayout}>
-        <Input type="text"/>
+        <p style={{textAlign:'left'}}>{user.name}</p>
       </FormItem>
 
       <FormItem label="性别" {...formItemLayout}>
-        <Select size={"large"} style={{width:'100%'}}
-                defaultValue="男"
-        >
-          <Option value="男">男</Option>
-          <Option value="女">女</Option>
-        </Select>
+        <p style={{textAlign:'left'}}>{user.gender == 'f' ? '男' : '女'}</p>
       </FormItem>
 
       <FormItem label="手机号" {...formItemLayout}>
-        <div style={{display:'flex',justifyContent:'flex-start'}}>
-          <Input type="text"/>
-        </div>
+        <p style={{textAlign:'left'}}>{user.phone}</p>
       </FormItem>
 
-      <FormItem label="身份证号" {...formItemLayout}>
-        <div style={{display:'flex',justifyContent:'flex-start'}}>
-          <Input type="text"/>
-        </div>
-      </FormItem>
-
-      <FormItem  {...formItemLayout}>
-        <div style={{marginLeft:'5.2em',display:'flex',justifyContent:'flex-start'}}>
-          <Button type="primary" htmlType="submit" size="large" style={{fontWeight:'lighter'}}>修改</Button>
-        </div>
+      <FormItem label="银行卡号" {...formItemLayout}>
+        <p style={{textAlign:'left'}}>{user.credit}</p>
       </FormItem>
     </Form>
   )
 }
 
-export default Info;
+function mapStateToProps(state) {
+  return {
+    loading:state.loading.models.user,
+    user:state.user.user,
+  }
+}
+
+export default connect(mapStateToProps)(Info);

@@ -1,5 +1,6 @@
 package hotel.dao;
 
+import hotel.model.User;
 import hotel.model.Vip;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +18,7 @@ public interface VipMapper {
 
     int updateByPrimaryKey(Vip record);
 
-    String selectByUsername(String username);
+    String getPasswordByUsername(String username);
+
+    Vip selectByUsername(String username);
 }

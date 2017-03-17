@@ -3,6 +3,7 @@ package hotel.impl;
 import com.alibaba.fastjson.JSON;
 import hotel.Util.MyDate;
 import hotel.dao.VipMapper;
+import hotel.model.User;
 import hotel.model.Vip;
 import hotel.service.VipService;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,16 @@ public class VipImpl implements VipService {
         vip.setCredit(credit);
         vip.setPassword(password);
         vip.setStatusbegin(new Date());
+        vip.setStatus(0);
+        vip.setMoney(0);
+        vip.setLevel(0);
+        vip.setPoints(0);
         int key = vipMapper.insert(vip);
-        return key;
+        return key == 1?vip.getId():0;
     }
+
+    public Vip getUserByUsername(String username){
+        return vipMapper.selectByUsername(username);
+    }
+
 }

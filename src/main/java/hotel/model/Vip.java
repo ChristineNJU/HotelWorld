@@ -1,5 +1,7 @@
 package hotel.model;
 
+import hotel.Util.MyDate;
+
 import java.util.Date;
 
 public class Vip {
@@ -19,7 +21,7 @@ public class Vip {
 
     private Integer status;
 
-    private Date statusbegin;
+    private String statusbegin;
 
     private Integer level;
 
@@ -91,12 +93,13 @@ public class Vip {
         this.status = status;
     }
 
-    public Date getStatusbegin() {
+    public String  getStatusbegin() {
         return statusbegin;
     }
 
     public void setStatusbegin(Date statusbegin) {
-        this.statusbegin = statusbegin;
+
+        this.statusbegin = MyDate.getFormatedDate(statusbegin);
     }
 
     public Integer getLevel() {

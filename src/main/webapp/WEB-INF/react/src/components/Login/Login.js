@@ -2,13 +2,10 @@
  * Created by christine on 2017/3/16.
  */
 import React from 'react';
-import { Tabs,Form,Input,Button,Select,InputNumber } from 'antd';
+import { Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
-const FormItem = Form.Item;
 import styles from './Login.css';
 import { connect } from 'dva';
-import { Row, Col } from 'antd';
-import Link from 'dva';
 import VipRegister from './VipRegister';
 import VipLogin from './VipLogin';
 

@@ -20,4 +20,5 @@ public interface UserService {
 
     List<User> getAllUsers();
 
+    boolean canLogin(String type,String username,String password);
 }

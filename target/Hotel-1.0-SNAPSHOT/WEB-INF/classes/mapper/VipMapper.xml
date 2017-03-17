@@ -17,7 +17,7 @@
     <result column="spend" property="spend" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, gender, phone, credit, money, points, status, statusbegin, level
+    id, name, gender, phone, credit, money, points, status, statusbegin, level,username
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,11 +25,19 @@
     from vip
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUsername" resultMap="BaseResultMap" parameterType="String">
+    select
+    <include refid="Base_Column_List" />
+    from vip
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from vip
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="hotel.model.Vip" >
+  <insert id="insert" parameterType="hotel.model.Vip" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into vip (name, gender,
       phone, credit, money, 
       points, status, statusbegin, 
@@ -38,7 +46,10 @@
       #{phone,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, 
       #{points,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusbegin,jdbcType=DATE}, 
       #{level,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
-  </insert>
+    <selectKey keyProperty="id" resultType="int" order="AFTER">
+      SELECT LAST_INSERT_ID();
+    </selectKey>
+</insert>
   <insert id="insertSelective" parameterType="hotel.model.Vip" >
     insert into vip
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -152,7 +163,7 @@
       level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByUsername" resultType="java.lang.String" parameterType="java.lang.String">
+  <select id="getPasswordByUsername" resultType="java.lang.String" parameterType="java.lang.String">
     SELECT password
     FROM vip
     WHERE username = #{username,jdbcType=VARCHAR}

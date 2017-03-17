@@ -29,7 +29,7 @@ public class SessionImpl implements SessionService{
     private TokenMapper tokenMapper;
 
     public int canVipLogin(String username, String password) {
-        String truePass = vipMapper.selectByUsername(username);
+        String truePass = vipMapper.getPasswordByUsername(username);
         if(truePass ==  null)
             return 0;
         return truePass.equals(password) ? 1 : 0;

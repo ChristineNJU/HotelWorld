@@ -18,4 +18,8 @@ export function vipRegister(values){
   });
 }
 
+export function getVip({username}) {
+  return request(`/api/user/`+username);
+}
+
 

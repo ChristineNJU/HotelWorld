@@ -12,22 +12,30 @@ export default {
     userType:null,
     loginSuccess:null,
     registerSuccess:null,
+    logoutSuccess:null,
   },
   reducers:{
     check(state){
       let token = localStorage.getItem("token");
       let username = localStorage.getItem("username");
-      return  {...state,loginSuccess:null,registerSuccess:null,token:token,username:username};
+      let userType = localStorage.getItem("userType");
+      return  {...state,loginSuccess:null,registerSuccess:null,logoutSuccess:null,token:token,username:username,userType:userType};
     },
     vipLoginResult(state,{payload:{loginSuccess,token,username,userType}}){
       localStorage.setItem("token",token);
       localStorage.setItem("username",username);
+      localStorage.setItem("userType",1);
       return {...state,loginSuccess,token,username,userType};
     },
     vipRegisterResult(state,{payload:{registerSuccess,token,username,userType}}){
       localStorage.setItem("token",token);
       localStorage.setItem("username",username);
+      localStorage.setItem("userType",1);
       return {...state,registerSuccess,token,username,userType};
+    },
+    vipLogoutResult(state){
+      localStorage.clear();
+      return {...state,logoutSuccess:1}
     }
   },
   effects:{
@@ -56,16 +64,8 @@ export default {
       }
     },
     *vipRegister({payload},{call,put}){
-      console.log('in vip model');
       let values = {...payload.values,type:1};
-      console.log(values);
       const result = yield call (sessionService.vipRegister,{values:values}).data;
-      // const result = {
-      //   success:1,
-      //   token:'1111111',
-      // };
-
-      console.log(result);
 
       yield put({
         type:'vipRegisterResult',
@@ -79,14 +79,27 @@ export default {
 
       if(result.success == 1){
         const path = `/`;
-
         setTimeout(
           function(){
             browserHistory.push(path);
           },1000
         );
       }
+    },
+    *vipLogout(action,{call,put}){
+
+      yield put({
+        type:'vipLogoutResult',
+      });
+
+      setTimeout(
+        function(){
+          browserHistory.push('/');
+
+        },1000
+      );
     }
+
   },
   subscriptions:{
     setup({ dispatch, history }) {

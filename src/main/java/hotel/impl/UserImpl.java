@@ -29,4 +29,8 @@ public class UserImpl implements UserService {
     public List<User> getAllUsers() {
         return userMapper.getAllUsers();
     }
+
+    public boolean canLogin(String type, String username, String password) {
+        return false;
+    }
 }

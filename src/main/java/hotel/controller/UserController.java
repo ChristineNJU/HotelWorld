@@ -3,15 +3,13 @@ package hotel.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import hotel.model.User;
+import hotel.model.Vip;
 import hotel.service.SessionService;
 import hotel.service.UserService;
 import hotel.service.VipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -60,15 +58,24 @@ public class UserController {
         int success = vipService.vipRegister(
                 params.getString("username"),params.getString("name"),params.getString("gender"),
                 params.getString("phone"),params.getString("credit"),params.getString("password"));
-        result.put("success",success);
+        result.put("success",success > 0 ? 1 : 0);
 
-        if(success == 1){
+        if(success > 0){
             String token = sessionService.getSession(params.getString("username"),1);
             result.put("token",token);
         }
 
         System.out.println("in controller");
         System.out.println(JSON.toJSONString(result));
+        return result;
+    }
+
+    @RequestMapping(value="/user/{username}",method = RequestMethod.GET)
+    public @ResponseBody  Map getUserInfo(@PathVariable String username)throws Exception{
+        Map<String,Object> result = new HashMap<String,Object>();
+        Vip vip = vipService.getUserByUsername(username);
+        System.out.println(JSON.toJSONString(vip));
+        result.put("user",vip);
         return result;
     }
 }

@@ -2,24 +2,31 @@
  * Created by christine on 2017/3/16.
  */
 import React from 'react';
-import { Tabs,Form,Input,Button } from 'antd';
+import { Tabs,Form,Input,Button,Select,InputNumber } from 'antd';
 const TabPane = Tabs.TabPane;
 const FormItem = Form.Item;
 import styles from './Login.css';
 import { connect } from 'dva';
 import { Row, Col } from 'antd';
 import Link from 'dva';
-
-const formItemLayout = {
-  labelCol: { span: 4},
-  wrapperCol: { span: 8 },
-};
+import VipRegister from './VipRegister';
+import VipLogin from './VipLogin';
 
 function Login({dispatch}) {
   function vipLogin(values) {
     console.log(values);
     dispatch({
       type:'session/vipLogin',
+      payload:{
+        values
+      }
+    })
+  }
+
+  function vipRegister(values) {
+    console.log(values);
+    dispatch({
+      type:'session/vipRegister',
       payload:{
         values
       }
@@ -35,7 +42,7 @@ function Login({dispatch}) {
               <VipLogin handle={vipLogin} username={""} password={""}/>
             </TabPane>
             <TabPane tab="注册" key="2">
-              <VipRegister/>
+              <VipRegister handle={vipRegister}/>
             </TabPane>
           </Tabs>
         </TabPane>
@@ -63,43 +70,6 @@ function Login({dispatch}) {
 
 export default connect()(Login);
 
-function VipLogin({handle,username,password}) {
-
-  let values = {username:'',password:''};
-
-  function userNameChange (e) {
-    values.username = e.target.value;
-  }
-
-  function passwordChange (e) {
-    values.password = e.target.value;
-  }
-
-  function handleClick() {
-    // console.log(values);
-    handle(values);
-  }
-
-  return (
-    <Form style={{marginTop:'1em'}}>
-
-      <FormItem label="用户名" {...formItemLayout}>
-        <Input type="text" defaultValue={username} onChange={userNameChange}/>
-      </FormItem>
-
-      <FormItem label="密码" {...formItemLayout}>
-        <Input type="password" defaultValue={password} onChange={passwordChange}/>
-      </FormItem>
-      <FormItem label="" {...formItemLayout}>
-        <Button type="primary" onClick={handleClick}>登录</Button>
-      </FormItem>
-    </Form>
-  )
-}
-
-function VipRegister() {
-  return (<div>vip register</div>)
-}
 
 function HotelLogin() {
   return (<div>hotel login</div>)

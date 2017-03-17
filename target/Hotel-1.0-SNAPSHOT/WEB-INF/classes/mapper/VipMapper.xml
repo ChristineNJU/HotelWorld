@@ -14,6 +14,7 @@
     <result column="level" property="level" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="spend" property="spend" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, gender, phone, credit, money, points, status, statusbegin, level
@@ -29,14 +30,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="hotel.model.Vip" >
-    insert into vip (id, name, gender, 
+    insert into vip (name, gender,
       phone, credit, money, 
       points, status, statusbegin, 
-      level)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, 
+      level,username,password)
+    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
       #{phone,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, 
       #{points,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{statusbegin,jdbcType=DATE}, 
-      #{level,jdbcType=INTEGER})
+      #{level,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="hotel.model.Vip" >
     insert into vip

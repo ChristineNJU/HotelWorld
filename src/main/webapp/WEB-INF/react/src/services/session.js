@@ -11,3 +11,11 @@ export function vipLogin(values){
 }
 
 
+export function vipRegister(values){
+  return request(`/api/user`,{
+    method:'POST',
+    body:JSON.stringify(values)
+  });
+}
+
+

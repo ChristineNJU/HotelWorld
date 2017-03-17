@@ -33,7 +33,7 @@ public class SessionController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> login(@RequestBody String body){
 
-        System.out.println(body);
+//        System.out.println(body);
         JSONObject params = JSON.parseObject(body).getJSONObject("values");
         String username = params.getString("username");
         String password = params.getString("password");

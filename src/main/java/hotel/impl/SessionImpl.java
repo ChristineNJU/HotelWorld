@@ -40,24 +40,46 @@ public class SessionImpl implements SessionService{
         TokenKey key = new TokenKey();
         key.setUsername(username);
         key.setType(type);
+        System.out.println("getSession 1");
         Token token = tokenMapper.selectByPrimaryKey(key);
-        Date expTime = token.getExptime();
-        Date now = new Date();
         String session;
-        if(expTime.before(now)){
-            session = createSession();
-            token.setToken(session);
-            Calendar calendar   =   new GregorianCalendar();
-            calendar.setTime(now);
-            calendar.add(calendar.DATE,1);
-            token.setExptime(calendar.getTime());
-            tokenMapper.updateByPrimaryKeySelective(token);
-//            System.out.println("before");
+        System.out.println("getSession 2");
+
+        if(token != null){
+            Date expTime = token.getExptime();
+            Date now = new Date();
+            if(expTime.before(now)){
+                //token 过期了
+                session = createSession();
+                token.setToken(session);
+                token.setExptime(getExpTime());
+                tokenMapper.updateByPrimaryKeySelective(token);
+    //            System.out.println("before");
+            }else{
+    //            System.out.println("after");
+                //token 没有过期
+                session = token.getToken();
+            }
         }else{
-//            System.out.println("after");
-            session = token.getToken();
+            //刚注册的用户
+            session = createSession();
+            token = new Token();
+            token.setToken(session);
+            token.setType(type);
+            token.setUsername(username);
+            token.setExptime(getExpTime());
+            tokenMapper.insert(token);
         }
+
         return session;
+    }
+
+    public Date getExpTime(){
+        Date now = new Date();
+        Calendar calendar   =   new GregorianCalendar();
+        calendar.setTime(now);
+        calendar.add(calendar.DATE,1);
+        return calendar.getTime();
     }
 
     private String createSession(){

@@ -1,9 +1,34 @@
 package hotel.impl;
 
+import com.alibaba.fastjson.JSON;
+import hotel.Util.MyDate;
+import hotel.dao.VipMapper;
+import hotel.model.Vip;
 import hotel.service.VipService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * Created by christine on 2017/2/23.
  */
+@Service("VipService")
 public class VipImpl implements VipService {
+
+    @Resource
+    private VipMapper vipMapper;
+
+    public int vipRegister(String username, String name, String gender, String phone, String credit, String password) {
+        Vip vip = new Vip();
+        vip.setUsername(username);
+        vip.setName(name);
+        vip.setGender(gender);
+        vip.setPhone(phone);
+        vip.setCredit(credit);
+        vip.setPassword(password);
+        vip.setStatusbegin(new Date());
+        int key = vipMapper.insert(vip);
+        return key;
+    }
 }

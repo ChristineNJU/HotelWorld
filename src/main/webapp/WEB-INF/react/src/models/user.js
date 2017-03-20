@@ -18,6 +18,7 @@ export default {
       money:0,
     },
     moneySuccess:null,
+    inputValue:null,
   },
   reducers: {
     init(state,{payload}){
@@ -25,7 +26,11 @@ export default {
       return {...state,user:payload.user,moneySuccess:null};
     },
     moneyResult(state,{payload}){
-      return {...state,moneySuccess:payload.success}
+      return {...state,moneySuccess:payload.success,inputValue:null};
+    },
+    inputValueChange(state,{payload}){
+      // console.log(payload);
+      return {...state,inputValue:payload.inputValue};
     }
   },
   effects: {
@@ -37,9 +42,20 @@ export default {
       })
     },
     *pointsToMoney({payload},{call,put}){
-      console.log('in effect');
       const {data} = yield call (sessionService.pointsToMoney,{type:1,amount:null,token:localStorage.getItem("token")});
-      console.log('in effect2');
+      yield put({
+        type:'moneyResult',
+        payload:{
+          success:data.success != undefined ? data.success : null
+        }
+      });
+
+      setTimeout(function () {
+        browserHistory.push('/uservip');
+      },1000)
+    },
+    *addMoney({payload},{call,put}){
+      const {data} = yield call (sessionService.pointsToMoney,{type:2,amount:payload.amount,token:localStorage.getItem("token")});
       yield put({
         type:'moneyResult',
         payload:{

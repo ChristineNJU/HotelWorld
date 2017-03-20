@@ -7,7 +7,7 @@ const FormItem = Form.Item;
 import { connect} from 'dva';
 import styles from './user.css';
 
-function Vip({dispatch,user,moneySuccess}) {
+function Vip({dispatch,user,moneySuccess,inputValue}) {
   const formItemLayout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 12 },
@@ -18,6 +18,25 @@ function Vip({dispatch,user,moneySuccess}) {
     console.log('in handle');
     dispatch({
       type:'user/pointsToMoney'
+    })
+  }
+
+  function inputNumberChange(e) {
+    dispatch({
+      type:'user/inputValueChange',
+      payload:{
+        inputValue:e,
+      }
+    })
+  }
+
+  function addMoney() {
+    console.log(inputValue);
+    dispatch({
+      type:'user/addMoney',
+      payload:{
+        amount:inputValue,
+      }
     })
   }
 
@@ -78,8 +97,8 @@ function Vip({dispatch,user,moneySuccess}) {
 
         <FormItem label="充值余额" {...formItemLayout}>
           <div style={{display:'flex',justifyContent:'flex-start'}}>
-            <InputNumber style={{width:'120px'}} size="large">123222222222</InputNumber>
-            <Button type="primary"  style={{fontWeight:'lighter'}}>充值</Button>
+            <InputNumber style={{width:'120px'}} size="large" onChange={inputNumberChange} value={inputValue==null?'':inputValue}>{inputValue}</InputNumber>
+            <Button type="primary"  style={{fontWeight:'lighter'}} onClick={addMoney}>充值</Button>
           </div>
         </FormItem>
 
@@ -90,10 +109,12 @@ function Vip({dispatch,user,moneySuccess}) {
 
 
 function mapStateToProps(state) {
+  console.log(state.user);
   return {
     loading:state.loading.models.user,
     user:state.user.user,
     moneySuccess:state.user.moneySuccess,
+    inputValue:state.user.inputValue,
   }
 }
 

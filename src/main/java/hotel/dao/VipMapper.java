@@ -2,6 +2,7 @@ package hotel.dao;
 
 import hotel.model.User;
 import hotel.model.Vip;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -23,4 +24,6 @@ public interface VipMapper {
     Vip selectByUsername(String username);
 
     int pointsToMoney(String token);
+
+    int addMoney(@Param("token")String token, @Param("money")int money);
 }

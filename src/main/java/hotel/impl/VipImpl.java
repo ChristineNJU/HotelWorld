@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by christine on 2017/2/23.
@@ -46,7 +48,10 @@ public class VipImpl implements VipService {
     }
 
     public int addMoney(String token, int money) {
-        return 0;
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("token",token);
+        map.put("money",money);
+        return vipMapper.addMoney(token,money);
     }
 
 }

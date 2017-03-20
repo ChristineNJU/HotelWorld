@@ -33,6 +33,11 @@ public class MoneyController {
         int success = 0;
         if(type == 1){
             success = vipService.pointsToMoney(token);
+        }else if(type==2){
+            int money = params.getInteger("amount");
+            success = vipService.addMoney(token,money);
+        }else{
+            success = 0;
         }
         result.put("success",success);
         System.out.println(JSON.toJSONString(result));

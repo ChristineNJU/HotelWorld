@@ -109,7 +109,7 @@ function Vip({dispatch,user,moneySuccess,inputValue}) {
 
 
 function mapStateToProps(state) {
-  console.log(state.user);
+  // console.log(state.user);
   return {
     loading:state.loading.models.user,
     user:state.user.user,

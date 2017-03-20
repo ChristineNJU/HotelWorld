@@ -1,6 +1,7 @@
 package hotel.dao;
 
 import hotel.model.Room;
+import hotel.model.RoomWithPlans;
 import hotel.vo.RoomCon;
 import org.springframework.stereotype.Repository;
 

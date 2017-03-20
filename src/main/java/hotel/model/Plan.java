@@ -11,8 +11,6 @@ public class Plan {
 
     private Integer status;
 
-    private String hotelname;
-
     public Integer getId() {
         return id;
     }
@@ -45,11 +43,4 @@ public class Plan {
         this.status = status;
     }
 
-    public String getHotelname() {
-        return hotelname;
-    }
-
-    public void setHotelname(String hotelname) {
-        this.hotelname = hotelname == null ? null : hotelname.trim();
-    }
 }

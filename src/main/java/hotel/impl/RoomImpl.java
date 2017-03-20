@@ -1,12 +1,20 @@
 package hotel.impl;
 
+import com.alibaba.fastjson.JSON;
+import hotel.Util.MyDate;
+import hotel.dao.PlanMapper;
 import hotel.dao.RoomMapper;
+import hotel.model.Plan;
 import hotel.model.Room;
 import hotel.service.RoomService;
 import hotel.vo.RoomCon;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,11 +26,31 @@ public class RoomImpl implements RoomService{
     @Resource
     private RoomMapper roomMapper;
 
+    @Resource
+    private PlanMapper planMapper;
+
     public List<Room> getRoomsByHotelId(Integer id) {
         return roomMapper.selectByHotelId(id);
     }
 
     public List<RoomCon> getConRooms(Integer id) {
         return roomMapper.selectConRooms(id);
+    }
+
+    public List<Room> getRoomByPlan(int hotelId,String begin,String end){
+        List<Room> allRooms = this.getRoomsByHotelId(hotelId);
+        List<Room> filteredRooms = new ArrayList<Room>();
+
+        int gap = MyDate.getGap(begin,end);
+//        System.out.println(gap);
+        for(Room room : allRooms){
+            List<Plan> plans = planMapper.getPlansByRoomId(room.getId(),begin,end);
+//            System.out.println(JSON.toJSONString(plans));
+            if(plans.size() == 0){
+                filteredRooms.add(room);
+            }
+
+        }
+        return filteredRooms;
     }
 }

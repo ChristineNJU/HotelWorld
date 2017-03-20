@@ -12,11 +12,12 @@ export default {
     rooms:[{
       price:null,
       count:null,
-    }]
+    }],
+    hasLogin:null,
   },
   reducers: {
     init(state,{payload:{info,rooms}}){
-      return {...state,info,rooms}
+      return {...state,info,rooms,hasLogin:localStorage.getItem("token") != null}
     }
   },
   effects: {
@@ -37,12 +38,10 @@ export default {
         const match_detail = pathToRegexp(`/hotel/:hotelId`).exec(location.pathname);
         if (match_detail){
           let id = match_detail[1];
-          // console.log('hotel id :'+id);
           dispatch({
             type: `fetch`,
             payload: {id:id}
           });
-          // console.log('in setup');
         }
       })
     }

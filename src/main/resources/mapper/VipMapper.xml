@@ -172,12 +172,12 @@
     update vip
     set money = money + points/100,
     points = 0
-    where id = (SELECT id FROM token where token = #{token,jdbcType=VARCHAR})
+    where username = (SELECT username FROM token where token = #{token,jdbcType=VARCHAR})
   </update>
 
   <update id="addMoney">
     update vip
     set money = money + #{money}
-    where id = (SELECT id FROM token where token = #{token})
+    where username = (SELECT username FROM token where token = #{token})
   </update>
 </mapper>

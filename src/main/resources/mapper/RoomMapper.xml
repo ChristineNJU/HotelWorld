@@ -104,5 +104,4 @@
   <select id="selectConRooms" resultMap="ConResultMap" parameterType="java.lang.Integer" >
     SELECT price,count(id) AS `count` FROM room where hotelid = #{id,jdbcType=INTEGER} GROUP BY price;
   </select>
-
 </mapper>

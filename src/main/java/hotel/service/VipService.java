@@ -9,5 +9,9 @@ import hotel.model.Vip;
 public interface VipService {
     int vipRegister(String username,String name,String gender,String phone,String credit,String password);
 
-    public Vip getUserByUsername(String username);
+    Vip getUserByUsername(String username);
+
+    int pointsToMoney(String token);
+
+    int addMoney(String token,int money);
 }

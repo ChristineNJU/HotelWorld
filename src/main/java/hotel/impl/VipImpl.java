@@ -30,7 +30,7 @@ public class VipImpl implements VipService {
         vip.setPassword(password);
         vip.setStatusbegin(new Date());
         vip.setStatus(0);
-        vip.setMoney(0);
+        vip.setMoney(new Float (0));
         vip.setLevel(0);
         vip.setPoints(0);
         int key = vipMapper.insert(vip);
@@ -39,6 +39,14 @@ public class VipImpl implements VipService {
 
     public Vip getUserByUsername(String username){
         return vipMapper.selectByUsername(username);
+    }
+
+    public int pointsToMoney(String token) {
+        return vipMapper.pointsToMoney(token);
+    }
+
+    public int addMoney(String token, int money) {
+        return 0;
     }
 
 }

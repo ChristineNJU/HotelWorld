@@ -23,3 +23,10 @@ export function getVip({username}) {
 }
 
 
+export function pointsToMoney({type,amount,token}) {
+  console.log('in service');
+  return request(`/api/money`,{
+    method:'POST',
+    body:JSON.stringify({type,amount,token})
+  });
+}

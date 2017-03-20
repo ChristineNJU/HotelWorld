@@ -7,4 +7,5 @@ public interface SessionService {
     public int canVipLogin(String username,String password);
 
     public String getSession(String username,int type);
+
 }

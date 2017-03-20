@@ -7,7 +7,7 @@
     <result column="gender" property="gender" jdbcType="CHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="credit" property="credit" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="FLOAT" />
     <result column="points" property="points" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="statusbegin" property="statusbegin" jdbcType="DATE" />
@@ -168,4 +168,10 @@
     FROM vip
     WHERE username = #{username,jdbcType=VARCHAR}
   </select>
+  <update id="pointsToMoney" parameterType="java.lang.String" >
+    update vip
+    set money = money + points/100,
+    points = 0
+    where id = (SELECT id FROM token where token = #{token,jdbcType=VARCHAR})
+  </update>
 </mapper>

@@ -21,4 +21,6 @@ public interface VipMapper {
     String getPasswordByUsername(String username);
 
     Vip selectByUsername(String username);
+
+    int pointsToMoney(String token);
 }

@@ -2,63 +2,89 @@
  * Created by christine on 2017/3/13.
  */
 import React from 'react';
-import {Form,Button,Input,InputNumber,DatePicker,Select,Row} from 'antd';
+import {Form,Button,Input,InputNumber,DatePicker,Select,Row,Alert} from 'antd';
 const FormItem = Form.Item;
-import { connect } from 'dva';
+import { connect} from 'dva';
 import styles from './user.css';
 
-function Vip({location,user}) {
+function Vip({dispatch,user,moneySuccess}) {
   const formItemLayout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 12 },
   };
   let statusMap = ['未激活','正常','暂停','停止'];
+
+  function pointsToMoney() {
+    console.log('in handle');
+    dispatch({
+      type:'user/pointsToMoney'
+    })
+  }
+
+  function Notice() {
+    // console.log(moneySuccess);
+    if (moneySuccess === null)
+      return <div></div>;
+    if (moneySuccess > 1)
+      return <Alert message="余额增加成功" type="success" className={styles.notice}/>;
+    if (moneySuccess === 0)
+      return <Alert message="余额增加失败，请重新尝试" type="error" className={styles.notice}/>;
+  }
+
+
   return(
-    <Form style={{fontSize:'0.75em'}}>
-      <FormItem label="会员卡号" {...formItemLayout}>
-        <p className={styles.info}>{user.id}</p>
-      </FormItem>
+    <div>
+      <Notice/>
+      <Form style={{fontSize:'0.75em'}}>
+        <FormItem label="会员卡号" {...formItemLayout}>
+          <p className={styles.info}>{user.id}</p>
+        </FormItem>
 
-      <FormItem label="会员状态" {...formItemLayout}>
-        <p className={styles.info}>{statusMap[user.status]}</p>
-      </FormItem>
+        <FormItem label="会员状态" {...formItemLayout}>
+          <p className={styles.info}>{statusMap[user.status]}</p>
+        </FormItem>
 
-      <FormItem label="会员级别" {...formItemLayout}>
-        <p className={styles.info}>{user.level}</p>
-      </FormItem>
+        <FormItem label="会员级别" {...formItemLayout}>
+          <p className={styles.info}>{user.level}</p>
+        </FormItem>
 
-      <FormItem label="会员积分" {...formItemLayout}>
-        <div style={{display:'flex',flexDirection:'row'}}>
-        <p className={styles.info}>{user.points}</p>
-        <Button type="primary" size="small" style={{fontWeight:'lighter',marginLeft:'20px'}}>积分兑换余额</Button>
-        </div>
-      </FormItem>
+        <FormItem label="会员积分" {...formItemLayout}>
+          <div style={{display:'flex',flexDirection:'row'}}>
+          <p className={styles.info}>{user.points}</p>
+            {user.points == 0
+              ? <Button disabled={true} type="primary" size="small" style={{fontWeight:'lighter',marginLeft:'20px'}}>积分兑换余额</Button>
+              : <Button onClick={pointsToMoney} type="primary" size="small" style={{fontWeight:'lighter',marginLeft:'20px'}}>积分兑换余额</Button>
+            }
 
-      <br/>
-      <br/>
-      <br/>
+          </div>
+        </FormItem>
 
-      <FormItem label="账户余额" {...formItemLayout}>
-        <p className={styles.info}>{user.money}</p>
-      </FormItem>
+        <br/>
+        <br/>
+        <br/>
 
-      <FormItem label="银行卡号" {...formItemLayout}>
-        <p className={styles.info}>{user.credit}</p>
-      </FormItem>
+        <FormItem label="账户余额" {...formItemLayout}>
+          <p className={styles.info}>{user.money}</p>
+        </FormItem>
+
+        <FormItem label="银行卡号" {...formItemLayout}>
+          <p className={styles.info}>{user.credit}</p>
+        </FormItem>
 
 
-      <br/>
-      <br/>
-      <br/>
+        <br/>
+        <br/>
+        <br/>
 
-      <FormItem label="充值余额" {...formItemLayout}>
-        <div style={{display:'flex',justifyContent:'flex-start'}}>
-          <InputNumber style={{width:'120px'}} size="large">123222222222</InputNumber>
-          <Button type="primary"  style={{fontWeight:'lighter'}}>充值</Button>
-        </div>
-      </FormItem>
+        <FormItem label="充值余额" {...formItemLayout}>
+          <div style={{display:'flex',justifyContent:'flex-start'}}>
+            <InputNumber style={{width:'120px'}} size="large">123222222222</InputNumber>
+            <Button type="primary"  style={{fontWeight:'lighter'}}>充值</Button>
+          </div>
+        </FormItem>
 
-    </Form>
+      </Form>
+    </div>
   )
 }
 
@@ -67,6 +93,7 @@ function mapStateToProps(state) {
   return {
     loading:state.loading.models.user,
     user:state.user.user,
+    moneySuccess:state.user.moneySuccess,
   }
 }
 

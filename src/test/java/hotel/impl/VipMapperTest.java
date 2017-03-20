@@ -43,7 +43,7 @@ public class VipMapperTest {
         vip.setPassword("111");
         vip.setStatusbegin(new Date());
         vip.setStatus(0);
-        vip.setMoney(0);
+        vip.setMoney(new Float(0));
         vip.setLevel(0);
         vip.setPoints(0);
         int key = vipMapper.insert(vip);

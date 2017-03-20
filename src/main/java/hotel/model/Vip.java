@@ -1,5 +1,6 @@
 package hotel.model;
 
+import com.sun.org.apache.bcel.internal.generic.FLOAD;
 import hotel.Util.MyDate;
 
 import java.util.Date;
@@ -15,7 +16,7 @@ public class Vip {
 
     private String credit;
 
-    private Integer money;
+    private Float money;
 
     private Integer points;
 
@@ -69,11 +70,11 @@ public class Vip {
         this.credit = credit == null ? null : credit.trim();
     }
 
-    public Integer getMoney() {
+    public Float getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
+    public void setMoney(Float money) {
         this.money = money;
     }
 

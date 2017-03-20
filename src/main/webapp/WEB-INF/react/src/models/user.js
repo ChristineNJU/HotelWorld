@@ -1,4 +1,5 @@
 import * as sessionService from '../services/session';
+// import * as moneyService from '../services/money';
 import { browserHistory } from 'dva/router';
 
 export default {
@@ -15,12 +16,16 @@ export default {
       id:'',
       status:null,
       money:0,
-    }
+    },
+    moneySuccess:null,
   },
   reducers: {
     init(state,{payload}){
       // console.log(payload);
-      return {...state,user:payload.user};
+      return {...state,user:payload.user,moneySuccess:null};
+    },
+    moneyResult(state,{payload}){
+      return {...state,moneySuccess:payload.success}
     }
   },
   effects: {
@@ -30,7 +35,22 @@ export default {
         type:'init',
         payload:data,
       })
-    }
+    },
+    *pointsToMoney({payload},{call,put}){
+      console.log('in effect');
+      const {data} = yield call (sessionService.pointsToMoney,{type:1,amount:null,token:localStorage.getItem("token")});
+      console.log('in effect2');
+      yield put({
+        type:'moneyResult',
+        payload:{
+          success:data.success != undefined ? data.success : null
+        }
+      });
+
+      setTimeout(function () {
+        browserHistory.push('/uservip');
+      },1000)
+    },
   },
   subscriptions: {
     setup({dispatch,history}){

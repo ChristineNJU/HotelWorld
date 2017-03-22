@@ -53,4 +53,15 @@ public class RoomImpl implements RoomService{
         }
         return filteredRooms;
     }
+
+    public List<Room> getRoomByPlanWithPrice(int hotelId,String begin,String end,int price){
+        List<Room> rooms = this.getRoomByPlan(hotelId,begin,end);
+        List<Room> result = new ArrayList<Room>();
+        for (Room room:rooms){
+            if(room.getPrice() == price){
+                result.add(room);
+            }
+        }
+        return result;
+    }
 }

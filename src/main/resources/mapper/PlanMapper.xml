@@ -6,9 +6,10 @@
     <result column="roomid" property="roomid" jdbcType="INTEGER" />
     <result column="time" property="time" jdbcType="DATE" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="hotelid" property="hotelid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, roomid, time, status
+    id, roomid, time, status,hotelid
   </sql>
   <select id="getPlansByRoomId" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
@@ -17,4 +18,9 @@
     AND time &gt;= #{begin,jdbcType=DATE}
     AND time &lt; #{end,jdbcType=DATE}
   </select>
+  <insert id="insertPlan">
+    INSERT INTO plan (roomid,`time`,status,hotelid)
+    VALUES (#{roomid,jdbcType=INTEGER},#{time,jdbcType=DATE},
+    #{status,jdbcType=INTEGER},#{hotelid,jdbcType=INTEGER})
+  </insert>
 </mapper>

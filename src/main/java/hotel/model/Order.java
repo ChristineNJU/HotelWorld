@@ -9,10 +9,12 @@ public class Order {
 
     private String hotelname;
 
-    private Date time;
+    private Date begintime;
+    private Date endtime;
 
     private String phone;
 
+    //0 预定，1 顾客取消，2酒店取消，3结账
     private Integer status;
 
     private Integer price;
@@ -20,6 +22,16 @@ public class Order {
     private Integer vipid;
 
     private Integer roomid;
+
+    private Integer count;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     public Integer getId() {
         return id;
@@ -45,13 +57,6 @@ public class Order {
         this.hotelname = hotelname == null ? null : hotelname.trim();
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 
     public String getPhone() {
         return phone;
@@ -91,5 +96,21 @@ public class Order {
 
     public void setRoomid(Integer roomid) {
         this.roomid = roomid;
+    }
+
+    public Date getBegintime() {
+        return begintime;
+    }
+
+    public void setBegintime(Date begintime) {
+        this.begintime = begintime;
+    }
+
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
     }
 }

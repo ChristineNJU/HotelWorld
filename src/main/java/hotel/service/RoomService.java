@@ -14,4 +14,6 @@ public interface RoomService {
     List<RoomCon> getConRooms(Integer id);
 
     List<Room> getRoomByPlan(int hotelId,String begin,String end);
+
+    List<Room> getRoomByPlanWithPrice(int hotelId,String begin,String end,int price);
 }

@@ -11,4 +11,6 @@ public interface PlanMapper {
     List<Plan> getPlansByRoomId(@Param("roomid") int roomid,
                                 @Param("begin")String begin,
                                 @Param("end")String end);
+
+    int insertPlan(Plan plan);
 }

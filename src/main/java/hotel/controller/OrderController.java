@@ -31,11 +31,14 @@ public class OrderController {
         int hotelId = params.getInteger("hotelId");
         String begin = params.getString("begin");
         String end = params.getString("end");
+        String username = params.getString("username");
         int price = params.getInteger("price");
         int count = params.getInteger("count");
 
-        Map<String,Object> result = new HashMap<String, Object>() ;
+        int createResult = orderService.createOrder(hotelId,username,begin,end,price,count);
 
+        Map<String,Object> result = new HashMap<String, Object>() ;
+        result.put("success",createResult);
         return result;
     }
 }

@@ -1,5 +1,7 @@
 package hotel.Util;
 
+import org.omg.CORBA.DATA_CONVERSION;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,8 +33,8 @@ public class MyDate {
         return s;
     }
 
-    public List<String> getDuring(String begin, String end){
-        List<String> days = new ArrayList<String>();
+    public static List<Date> getDuring(String begin, String end){
+        List<Date> days = new ArrayList<Date>();
         Date dateBegin = new Date();
         Date dateEnd = new Date();
         try {
@@ -45,7 +47,7 @@ public class MyDate {
         Calendar c = Calendar.getInstance();
         Date temp = dateBegin;
         while (dateEnd.getTime() > temp.getTime()){
-            days.add(sdf.format((temp)));
+            days.add(temp);
             c.setTime(temp);
             c.add(Calendar.DATE, 1);
             temp = c.getTime();
@@ -66,5 +68,16 @@ public class MyDate {
         long gap = (dateEnd.getTime() - dateBegin.getTime())/(24*3600*1000);
         int result = (int)gap;
         return result;
+    }
+
+
+    public static Date strToDate(String str){
+        try {
+            return sdf.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }

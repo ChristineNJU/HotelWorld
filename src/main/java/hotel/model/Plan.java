@@ -11,6 +11,16 @@ public class Plan {
 
     private Integer status;
 
+    public int getHotelid() {
+        return hotelid;
+    }
+
+    public void setHotelid(int hotelid) {
+        this.hotelid = hotelid;
+    }
+
+    private int hotelid;
+
     public Integer getId() {
         return id;
     }

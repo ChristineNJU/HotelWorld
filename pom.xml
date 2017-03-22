@@ -27,15 +27,15 @@
         <configuration>
 
           <webResources>
-            <!--<resource>-->
-              <!-- this is relative to the pom.xml directory -->
-              <!--<directory>src/main/webapp2</directory>-->
-              <!--<filtering>true</filtering>-->
-              <!-- the list has a default value of ** -->
-              <!--<excludes>-->
+            <resource>
+               this is relative to the pom.xml directory
+              <directory>src/main/webapp2</directory>
+              <filtering>true</filtering>
+               <!--the list has a default value of **-->
+              <excludes>
                 <!--<exclude>**/WEB-INF/react</exclude>-->
-              <!--</excludes>-->
-            <!--</resource>-->
+              </excludes>
+            </resource>
 
             <!--<resource>-->
               <!-- this is relative to the pom.xml directory -->

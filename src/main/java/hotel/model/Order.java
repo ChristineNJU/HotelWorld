@@ -1,6 +1,9 @@
 package hotel.model;
 
+import hotel.Util.MyDate;
+
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class Order {
     private Integer id;
@@ -23,15 +26,38 @@ public class Order {
 
     private Integer roomid;
 
-    private Integer count;
+    private String begin;
+    private String end;
 
-    public Integer getCount() {
-        return count;
+    public String getBegin() {
+        return begin;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public String getEnd() {
+        return end;
     }
+
+    public String getVipname() {
+        return vipname;
+    }
+
+    public void setVipname(String vipname) {
+        this.vipname = vipname;
+    }
+    //    private Integer count;
+
+    private String roomname;
+
+    private String vipname;
+
+    public String getRoomname() {
+        return roomname;
+    }
+
+    public void setRoomname(String roomname) {
+        this.roomname = roomname;
+    }
+
 
     public Integer getId() {
         return id;
@@ -104,6 +130,7 @@ public class Order {
 
     public void setBegintime(Date begintime) {
         this.begintime = begintime;
+        this.begin = MyDate.getFormatedDate(begintime);
     }
 
     public Date getEndtime() {
@@ -112,5 +139,6 @@ public class Order {
 
     public void setEndtime(Date endtime) {
         this.endtime = endtime;
+        this.end = MyDate.getFormatedDate(endtime);
     }
 }

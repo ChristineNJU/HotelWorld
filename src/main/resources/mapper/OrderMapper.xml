@@ -12,21 +12,34 @@
     <result column="price" property="price" jdbcType="INTEGER" />
     <result column="vipid" property="vipid" jdbcType="INTEGER" />
     <result column="roomid" property="roomid" jdbcType="INTEGER" />
-    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="roomname" property="roomname" jdbcType="VARCHAR" />
+    <result column="vipname" property="vipname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, hotelid, hotelname, begintime,endtime, phone, status, price, vipid, roomid, `count`
+    id, hotelid, hotelname, begintime,endtime, phone, status, price, vipid, roomid, roomname, vipname
   </sql>
   <insert id="insertNewOrder" parameterType="hotel.model.Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into orders (hotelid, hotelname,
-    begintime, endtime, phone,
-    status, price, vipid,roomid)
+    begintime, endtime, phone,vipname,
+    status, price, vipid,roomid,roomname)
     values (#{hotelid,jdbcType=INTEGER},#{hotelname,jdbcType=VARCHAR},
-    #{begintime,jdbcType=DATE},#{endtime,jdbcType=DATE},#{phone,jdbcType=VARCHAR},
-    #{status,jdbcType=INTEGER},#{price,jdbcType=INTEGER},#{vipid,jdbcType=INTEGER},#{roomid,jdbcType=INTEGER})
+    #{begintime,jdbcType=DATE},#{endtime,jdbcType=DATE},#{phone,jdbcType=VARCHAR},#{vipname,jdbcType=VARCHAR},
+    #{status,jdbcType=INTEGER},#{price,jdbcType=INTEGER},#{vipid,jdbcType=INTEGER},#{roomid,jdbcType=INTEGER},#{roomname,jdbcType=VARCHAR})
     <selectKey keyProperty="id" resultType="int" order="AFTER">
       SELECT LAST_INSERT_ID();
     </selectKey>
   </insert>
+  <select id="getOrdersByVipname" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from orders
+    where vipname = #{vipname,jdbcType=VARCHAR}
+  </select>
+  <select id="getOrdersByHotelId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from orders
+    where hotelid = #{hotelid,jdbcType=INTEGER}
+  </select>
 
 </mapper>

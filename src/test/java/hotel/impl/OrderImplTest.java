@@ -1,0 +1,41 @@
+package hotel.impl;
+
+import com.alibaba.fastjson.JSON;
+import hotel.dao.OrderMapper;
+import hotel.dao.VipMapper;
+import hotel.model.Order;
+import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * Created by christine on 2017/3/23.
+ */
+@RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
+
+public class OrderImplTest {
+
+    private static Logger logger = Logger.getLogger(HotelImplTest.class);
+
+    @Resource
+    private OrderMapper orderMapper;
+
+
+    @Test
+    public void testByVipname() throws Exception {
+        List<Order> orders = orderMapper.getOrdersByVipname("christine");
+        logger.info(JSON.toJSONString(orders));
+    }
+
+    @Test
+    public void testByHotelid() throws Exception {
+        List<Order> orders = orderMapper.getOrdersByHotelId(1);
+        logger.info(JSON.toJSONString(orders));
+    }
+}

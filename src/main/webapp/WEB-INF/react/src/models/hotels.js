@@ -21,8 +21,8 @@ export default {
     }
   },
   effects: {
-    *fetch(action, { call, put }){
-      const {data} = yield call(searchService.fetch);
+    *fetch({payload}, { call, put }){
+      const {data} = yield call(searchService.fetch,{queryString:payload.queryString});
       yield put({
         type:'init',
         payload:{
@@ -35,8 +35,13 @@ export default {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
         if (pathname === '/') {
-          dispatch({ type: 'fetch'});
+          console.log('in set up index');
+          dispatch({
+            type: 'fetch',
+            payload:{queryString:''},
+          });
         }
+
       });
     },
   },

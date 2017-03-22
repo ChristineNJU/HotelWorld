@@ -9,8 +9,12 @@ export function queryRoom({payload}) {
 
 export function createOrder(values) {
   console.log(values);
-  return request(`api/order`,{
+  return request(`api/orders`,{
     method:'POST',
     body:JSON.stringify(values)
   })
+}
+
+export function queryOrders({payload}) {
+  return request(`api/orders`+payload.queryString);
 }

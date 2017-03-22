@@ -4,32 +4,32 @@
 import React from 'react';
 import { Row, Col,DatePicker,InputNumber,Input,Table,Button } from 'antd';
 import { connect } from 'dva';
+import HotelList from '../Hotels/HotelList';
 import styles from './user.css';
 
 const columns = [{
-  title: '客栈',
-  dataIndex: 'name',
-  key: 'name',
+  title: '客栈名称',
+  dataIndex: 'hotelname',
+  key: 'hotelname',
   render: (text, row, index) => {
     // console.log(row);
-    return <a href={row.hotelId}>{text}</a>
+    return <a href={row.hotelid}>{text}</a>
   },
 }, {
-  title: '地点',
-  dataIndex: 'city',
-  key: 'city',
-}, {
-  title: '房间数',
-  dataIndex: 'number',
-  key: 'number',
+  title: '时间',
+  dataIndex: 'time',
+  key: 'time',
+  render:(text,row,index) => {
+    return row.begin+' ~ '+row.end;
+  }
 },{
   title: '价格',
   dataIndex: 'price',
   key: 'price',
 },{
-  title: '入住时间',
-  dataIndex: 'time',
-  key: 'time',
+  title: '房间号',
+  dataIndex: 'roomname',
+  key: 'roomname',
 },{
   title:'操作',
   dataIndex:'operation',
@@ -40,32 +40,32 @@ const columns = [{
 }];
 
 
-function Orders({location}) {
+function Orders({location,orders}) {
+
+  console.log(orders);
   return(
     <div>
-      <Table columns={columns} dataSource={data} style={{fontSize:'0.5em'}}/>
+      <Table columns={columns} dataSource={orders} style={{fontSize:'0.5em'}}/>
     </div>
   )
 }
 
 const data = [{
-  key:'1',
-  name:'龙门客栈',
+  id:'1',
+  key:1,
+  hotelid:1,
+  hotelname:'龙门客栈',
   city:'南京',
   number:1,
   price:'111',
-  time:'2017.01.01 - 2017.01.03',
-  hotelId:1,
-  status:0,
-},{
-  key:'2',
-  name:'龙门客栈',
-  city:'北京',
-  number:1,
-  price:'111',
-  time:'2017.01.01 - 2017.01.03',
-  hotelId:1,
+  begintime:'2017.01.01',
+  endtime:'2017.01.03',
   status:1,
+  roomname:'121',
 }];
 
-export default Orders;
+function mapStateToProps(state) {
+  return {orders:state.order.orders};
+}
+
+export default connect(mapStateToProps)(Orders);

@@ -55,6 +55,8 @@ public class OrderImpl implements OrderService {
             order.setPrice(price);
             order.setVipid(vip.getId());
             order.setRoomid(room.getId());
+            order.setRoomname(room.getName());
+            order.setVipname(username);
 //            order.setCount(count);
 
 
@@ -74,5 +76,13 @@ public class OrderImpl implements OrderService {
 
 
         return 1;
+    }
+
+    public List<Order> getOrdersByVipname(String username) {
+        return orderMapper.getOrdersByVipname(username);
+    }
+
+    public List<Order> getOrdersByHotelid(int hotelid) {
+        return orderMapper.getOrdersByHotelId(hotelid);
     }
 }

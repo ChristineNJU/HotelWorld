@@ -34,21 +34,21 @@ public class VipMapperTest {
     @Test
     public void testFinaAll() throws Exception {
 
-        Vip vip = new Vip();
-        vip.setUsername("11s132");
-        vip.setName("111");
-        vip.setGender("f");
-        vip.setPhone("111332");
-        vip.setCredit("111");
-        vip.setPassword("111");
-        vip.setStatusbegin(new Date());
-        vip.setStatus(0);
-        vip.setMoney(new Float(0));
-        vip.setLevel(0);
-        vip.setPoints(0);
-        int key = vipMapper.insert(vip);
-        System.out.println(key);
-        System.out.println(vip.getId());
+//        Vip vip = new Vip();
+//        vip.setUsername("11s132");
+//        vip.setName("111");
+//        vip.setGender("f");
+//        vip.setPhone("111332");
+//        vip.setCredit("111");
+//        vip.setPassword("111");
+//        vip.setStatusbegin(new Date());
+//        vip.setStatus(0);
+//        vip.setMoney(new Float(0));
+//        vip.setLevel(0);
+//        vip.setPoints(0);
+//        int key = vipMapper.insert(vip);
+//        System.out.println(key);
+//        System.out.println(vip.getId());
 //        logger.info(JSON.toJSONString(hotels));
     }
 }

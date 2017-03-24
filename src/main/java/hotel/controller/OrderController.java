@@ -72,7 +72,7 @@ public class OrderController {
     }
 
     /**
-     * 会员取消订单：type=1/酒店取消订单：type=2
+     * 会员取消订单：type=1/酒店取消订单：type=2/已入住：type=3/已退房：type=4
      * @return
      * @throws Exception
      */

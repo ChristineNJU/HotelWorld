@@ -106,8 +106,8 @@ function RouterConfig({ history, app }) {
         });
       },
     },{
-      path: '/hotelorder',
-      name: 'hotelorder',
+      path: '/hotelorders',
+      name: 'hotelorders',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           // registerModel(app, require('./models/users'));
@@ -130,6 +130,15 @@ function RouterConfig({ history, app }) {
         require.ensure([], (require) => {
           // registerModel(app, require('./models/users'));
           cb(null, require('./routes/HotelFinance'));
+        });
+      },
+    },{
+      path: '/hotelinvalid',
+      name: 'hotelinvalid',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelInvalid'));
         });
       },
     }

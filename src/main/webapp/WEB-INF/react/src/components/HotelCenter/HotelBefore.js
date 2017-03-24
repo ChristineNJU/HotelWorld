@@ -3,56 +3,41 @@
  */
 import React from 'react';
 import {Table } from 'antd';
+import {connect} from 'dva';
 
+function HotelBefore({dispatch,before}){
 
-function HotelBefore({locatiion}){
+  const columns = [{
+    title: '房间号',
+    dataIndex: 'roomname',
+    key: 'roomname',
+  }, {
+    title: '房间价格',
+    dataIndex: 'price',
+    key: 'price',
+  }, {
+    title: '住客手机',
+    dataIndex: 'phone',
+    key: 'phone',
+  },{
+    title: '时间',
+    dataIndex: 'timestart',
+    key: 'timestart',
+    render:(text,row,index) =>{
+      return row.begin + ' ~ '+row.end;
+    }
+  }];
+
   return (
     <div>
-      <Table columns={columns} dataSource={data} style={{fontSize:'0.5em'}}/>
+      <Table columns={columns} dataSource={before} style={{fontSize:'0.5em'}}/>
     </div>
   )
 }
-const columns = [{
-  title: '房间号',
-  dataIndex: 'roomid',
-  key: 'roomid',
-}, {
-  title: '房间价格',
-  dataIndex: 'price',
-  key: 'price',
-}, {
-  title: '住客手机',
-  dataIndex: 'phone',
-  key: 'phone',
-},{
-  title: '入住时间',
-  dataIndex: 'timestart',
-  key: 'timestart',
-},{
-  title: '离店时间',
-  dataIndex: 'timedepart',
-  key: 'timedepart',
-},{
-  title:'会员id',
-  dataIndex:'vip',
-  key:'vip',
-}];
 
-const data = [{
-  key:'1',
-  roomid:'111',
-  price:'123',
-  phone:'11111111111',
-  timestart:'2017.01.01',
-  timedepart:'2017.01.03',
-  vip:'1100000'
-},{
-  key:'2',
-  roomid:'112',
-  price:'123',
-  phone:'12537265172',
-  timestart:'2017.01.01',
-  timedepart:'2017.01.03',
-  vip:'2451671',
-}];
-export default HotelBefore;
+
+function mapStateToProps(state) {
+  return {before:state.order.hotelBefore};
+}
+
+export default connect(mapStateToProps)(HotelBefore);

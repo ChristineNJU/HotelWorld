@@ -15,9 +15,12 @@ export default {
     },
     roomShow: null,
     orderSuccess: null,
-    orders:{
-
-    }
+    orders:[],
+    hotelOrders:[],
+    hotelOrdersYu:[],
+    hotelCurrent:[],
+    hotelBefore:[],
+    hotelInvalid:[],
   },
   reducers: {
     orderChange(state, {payload:{price, count}}){
@@ -59,11 +62,29 @@ export default {
     },
     getOrders(state,{payload:{orders}}){
      return {...state,orders:orders};
+    },
+    getHotelOrders(state,{payload:{orders}}){
+      return {...state,hotelOrders:orders,
+        hotelOrdersYu:orders.filter((order) => {return order.status === 0})};
+    },
+    getHotelCurrent(state,{payload:{orders}}){
+      return {...state,hotelOrders:orders,
+        hotelCurrent:orders.filter((order) => {return order.status===3})};
+    },
+    getHotelBefore(state,{payload:{orders}}){
+      return {...state,hotelOrders:orders,
+        hotelBefore:orders.filter((order) => {return order.status === 4})};
+    },
+    getHotelInvalid(state,{payload:{orders}}){
+      return {...state,hotelOrders:orders,
+        hotelInvalid:orders.filter((order) => {return order.status === 2 || order.status == 1})};
     }
+
   },
   effects: {
     *fetch({payload},{call,put}){
-        const {data} = yield call(orderServices.queryOrders,{payload});
+      let username = localStorage.getItem("username");
+      const {data} = yield call(orderServices.queryOrders,{payload:{queryString: '?username=' + username}});
         // console.log(data);
         yield put({
           type:'getOrders',
@@ -71,6 +92,46 @@ export default {
             orders:data.orders,
           }
         })
+    },
+    *fetchHotelOrders({payload},{call,put}){
+      let hotelId = localStorage.getItem("hotelId");
+      const {data} = yield call(orderServices.queryOrders,{payload:{queryString:'?hotelId=' + hotelId}});
+      yield put({
+        type:'getHotelOrders',
+        payload:{
+          orders:data.orders,
+        }
+      })
+    },
+    *fetchHotelCurrent({payload},{call,put}){
+      let hotelId = localStorage.getItem("hotelId");
+      const {data} = yield call(orderServices.queryOrders,{payload:{queryString:'?hotelId=' + hotelId}});
+      yield put({
+        type:'getHotelCurrent',
+        payload:{
+          orders:data.orders,
+        }
+      })
+    },
+    *fetchHotelBefore({payload},{call,put}){
+      let hotelId = localStorage.getItem("hotelId");
+      const {data} = yield call(orderServices.queryOrders,{payload:{queryString:'?hotelId=' + hotelId}});
+      yield put({
+        type:'getHotelBefore',
+        payload:{
+          orders:data.orders,
+        }
+      })
+    },
+    *fetchHotelInvalid({payload},{call,put}){
+      let hotelId = localStorage.getItem("hotelId");
+      const {data} = yield call(orderServices.queryOrders,{payload:{queryString:'?hotelId=' + hotelId}});
+      yield put({
+        type:'getHotelInvalid',
+        payload:{
+          orders:data.orders,
+        }
+      })
     },
     *queryRoom({payload}, {call, put}){
       const {data} = yield call(orderServices.queryRoom, {payload});
@@ -116,8 +177,25 @@ export default {
       if(data.success == 1){
         dispatch({
           type: 'fetch',
-          payload: {queryString: '?username=' + username},
         });
+      }
+    },
+    *hotelCancel({payload}, {call, put}){
+      const {data} = yield call(orderServices.vipCancelOrder,{...payload.order,type:2});
+      if(data.success == 1) {
+        browserHistory.push('/hotelorders');
+      }
+    },
+    *hotelCheckIn({payload}, {call, put}){
+      const {data} = yield call(orderServices.vipCancelOrder,{...payload.order,type:3});
+      if(data.success == 1) {
+        browserHistory.push('/hotelorders');
+      }
+    },
+    *hotelCheckOut({payload}, {call, put}){
+      const {data} = yield call(orderServices.vipCancelOrder,{...payload.order,type:4});
+      if(data.success == 1) {
+        browserHistory.push('/hotelorders');
       }
     }
   },
@@ -125,11 +203,29 @@ export default {
     setup({dispatch, history}){
       return history.listen(({pathname}) => {
         if( pathname === 'userorders') {
-          let username = localStorage.getItem("username");
           // console.log('in setup');
           dispatch({
-            type: 'fetch',
-            payload: {queryString: '?username=' + username},
+            type: 'fetch'
+          });
+        }
+        if( pathname === 'hotelorders') {
+          dispatch({
+            type: 'fetchHotelOrders'
+          });
+        }
+        if( pathname === 'hotelcurrent') {
+          dispatch({
+            type: 'fetchHotelCurrent'
+          });
+        }
+        if( pathname === 'hotelbefore') {
+          dispatch({
+            type: 'fetchHotelBefore'
+          });
+        }
+        if( pathname === 'hotelinvalid') {
+          dispatch({
+            type: 'fetchHotelInvalid'
           });
         }
       })

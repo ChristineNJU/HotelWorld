@@ -43,7 +43,7 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
           <a  rel="noopener noreferrer" href="/hotelcurrent">入住情况</a>
         </Menu.Item>
         <Menu.Item key={4}>
-          <a  rel="noopener noreferrer" href="/hotelorder">查看预定</a>
+          <a  rel="noopener noreferrer" href="/hotelorders">查看预定</a>
         </Menu.Item>
         <Menu.Item key={5}>
           <a  rel="noopener noreferrer" href="/hotelbefore">以往入住</a>

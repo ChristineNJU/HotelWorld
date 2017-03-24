@@ -1,11 +1,12 @@
 /**
- * Created by christine on 2017/3/14.
+ * Created by christine on 2017/3/25.
  */
 import React from 'react';
 import { Table,Button } from 'antd';
 import { connect } from 'dva';
 
-function HotelCurrent({dispatch,current}){
+
+function HotelInvalid({dispatch,invalid}){
 
   function hotelCheckOut(order) {
     dispatch({
@@ -39,22 +40,26 @@ function HotelCurrent({dispatch,current}){
     dataIndex:'operation',
     key:'dataIndex',
     render:(text,row,index)=>{
-      return(
-          <Button onClick={() => {hotelCheckOut(row)}}>离店</Button>
-      );
+      switch (row.status){
+        case 1:
+          return '顾客已取消';
+        case 2:
+          return '过期已取消';
+
+      }
     }
   }];
 
   return (
     <div>
-      <Table columns={columns} dataSource={current} style={{fontSize:'0.5em'}}/>
+      <Table columns={columns} dataSource={invalid} style={{fontSize:'0.5em'}}/>
     </div>
   )
 }
 
 
 function mapStateToProps(state) {
-  return {current:state.order.hotelCurrent};
+  return {invalid:state.order.hotelInvalid};
 }
 
-export default connect(mapStateToProps)(HotelCurrent);
+export default connect(mapStateToProps)(HotelInvalid);

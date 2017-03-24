@@ -40,6 +40,8 @@
     <include refid="Base_Column_List"/>
     from orders
     where hotelid = #{hotelid,jdbcType=INTEGER}
+    ORDER BY begintime DESC
+--     AND (status &lt; 3)
   </select>
   <update id="statusChange">
     UPDATE orders SET status = #{status,jdbcType=INTEGER}

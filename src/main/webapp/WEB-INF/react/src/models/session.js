@@ -128,7 +128,7 @@ export default {
       let values = {...payload.values,type:2};
       const {data} = yield call (sessionService.hotelLogin,{values:values});
       yield put({
-        type:'hotelLoginSuccess',
+        type:'hotelLoginResult',
         payload:{
           loginSuccess:data.success,
           token:data.token,

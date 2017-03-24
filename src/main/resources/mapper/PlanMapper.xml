@@ -17,10 +17,17 @@
     WHERE roomid = #{roomid,jdbcType=INTEGER}
     AND time &gt;= #{begin,jdbcType=DATE}
     AND time &lt; #{end,jdbcType=DATE}
+    AND status=0
   </select>
   <insert id="insertPlan">
     INSERT INTO plan (roomid,`time`,status,hotelid)
     VALUES (#{roomid,jdbcType=INTEGER},#{time,jdbcType=DATE},
     #{status,jdbcType=INTEGER},#{hotelid,jdbcType=INTEGER})
   </insert>
+  <update id="cancelPlan">
+    UPDATE plan
+    SET status = 1
+    WHERE roomid=#{roomid,jdbcType=INTEGER}
+    AND `time`=#{time,jdbcType=DATE}
+  </update>
 </mapper>

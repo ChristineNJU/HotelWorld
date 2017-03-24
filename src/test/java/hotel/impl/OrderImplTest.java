@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import hotel.dao.OrderMapper;
 import hotel.dao.VipMapper;
 import hotel.model.Order;
+import hotel.service.OrderService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,9 @@ public class OrderImplTest {
     @Resource
     private OrderMapper orderMapper;
 
+    @Resource
+    private OrderService orderService;
+
 
     @Test
     public void testByVipname() throws Exception {
@@ -35,6 +39,15 @@ public class OrderImplTest {
 
     @Test
     public void testByHotelid() throws Exception {
+        List<Order> orders = orderMapper.getOrdersByHotelId(1);
+        logger.info(JSON.toJSONString(orders));
+    }
+
+    @Test
+    public void testCancelOrder() throws Exception {
+        int result = orderService.cancelOrder(1,1,
+                "2017-03-23","2017-03-25",2);
+
         List<Order> orders = orderMapper.getOrdersByHotelId(1);
         logger.info(JSON.toJSONString(orders));
     }

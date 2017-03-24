@@ -13,4 +13,6 @@ public interface OrderService {
     List<Order>  getOrdersByVipname(String vipname);
 
     List<Order> getOrdersByHotelid(int hotelid);
+
+    int cancelOrder(int orderId,int type,String begin,String end,int roomid);
 }

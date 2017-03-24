@@ -18,3 +18,11 @@ export function createOrder(values) {
 export function queryOrders({payload}) {
   return request(`api/orders`+payload.queryString);
 }
+
+export function vipCancelOrder(values) {
+  console.log(values);
+  return request(`api/orders`,{
+    method:'PATCH',
+    body:JSON.stringify(values)
+  })
+}

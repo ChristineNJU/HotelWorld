@@ -4,6 +4,7 @@ import hotel.model.Plan;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -13,4 +14,7 @@ public interface PlanMapper {
                                 @Param("end")String end);
 
     int insertPlan(Plan plan);
+
+    int cancelPlan(@Param("roomid") int roomid,
+                   @Param("time") Date time);
 }

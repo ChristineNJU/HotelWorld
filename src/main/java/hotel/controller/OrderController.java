@@ -6,6 +6,7 @@ import hotel.model.Hotel;
 import hotel.model.Order;
 import hotel.model.Room;
 import hotel.service.OrderService;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -67,6 +68,30 @@ public class OrderController {
         List<Order> orders = orderService.getOrdersByHotelid(hotelid);
         Map<String,Object> result = new HashMap<String,Object>();
         result.put("orders",orders);
+        return result;
+    }
+
+    /**
+     * 会员取消订单：type=1/酒店取消订单：type=2
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(method = RequestMethod.PATCH)
+    public @ResponseBody Map<String,Object> cancelOrder(@RequestBody String body)throws Exception{
+
+//        List<Order> orders = orderService.getOrdersByHotelid(hotelid);
+        Map<String,Object> result = new HashMap<String,Object>();
+        JSONObject ob = JSON.parseObject(body);
+        System.out.println(body);
+        int orderId = ob.getInteger("id");
+        int type = ob.getInteger("type");
+        int hotelId = ob.getInteger("hotelid");
+        String begin = ob.getString("begin");
+        String end = ob.getString("end");
+        int roomid = ob.getInteger("roomid");
+
+        int success = orderService.cancelOrder(orderId,type, begin,end,roomid);
+        result.put("success",success);
         return result;
     }
 

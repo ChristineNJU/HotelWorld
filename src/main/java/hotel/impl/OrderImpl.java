@@ -8,6 +8,7 @@ import hotel.model.*;
 import hotel.service.OrderService;
 import hotel.service.RoomService;
 import hotel.service.VipService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -85,4 +86,16 @@ public class OrderImpl implements OrderService {
     public List<Order> getOrdersByHotelid(int hotelid) {
         return orderMapper.getOrdersByHotelId(hotelid);
     }
+
+    public int cancelOrder(int orderId,int type,String begin,String end,int roomid) {
+        int orderChangeResult = orderMapper.statusChange(orderId,type);
+        if(orderChangeResult == 1){
+            List<Date> dates = MyDate.getDuring(begin,end);
+            for(Date date :dates){
+                planMapper.cancelPlan(roomid,date);
+            }
+        }
+        return orderChangeResult;
+    }
+
 }

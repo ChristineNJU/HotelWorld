@@ -41,5 +41,9 @@
     from orders
     where hotelid = #{hotelid,jdbcType=INTEGER}
   </select>
+  <update id="statusChange">
+    UPDATE orders SET status = #{status,jdbcType=INTEGER}
+    WHERE id=#{orderid,jdbcType=INTEGER}
+  </update>
 
 </mapper>

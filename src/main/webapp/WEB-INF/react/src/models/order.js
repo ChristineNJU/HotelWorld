@@ -109,6 +109,16 @@ export default {
           type: 'init'
         })
         , 1000)
+    },
+    *vipCancel({payload}, {call, put}){
+      console.log(payload.orderId);
+      const {data} = yield call(orderServices.vipCancelOrder,{...payload.order,type:1});
+      if(data.success == 1){
+        dispatch({
+          type: 'fetch',
+          payload: {queryString: '?username=' + username},
+        });
+      }
     }
   },
   subscriptions: {

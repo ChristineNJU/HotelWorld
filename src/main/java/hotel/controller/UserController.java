@@ -2,8 +2,10 @@ package hotel.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import hotel.model.Hotel;
 import hotel.model.User;
 import hotel.model.Vip;
+import hotel.service.HotelService;
 import hotel.service.SessionService;
 import hotel.service.UserService;
 import hotel.service.VipService;
@@ -31,6 +33,9 @@ public class UserController {
     @Autowired
     private SessionService sessionService;
 
+    @Autowired
+    private HotelService hotelService;
+
     /**
      * 查找所用用户控制器方法
      * @return
@@ -55,17 +60,33 @@ public class UserController {
         Map<String,Object> result = new HashMap<String,Object>();
         System.out.println(body);
         JSONObject params = JSON.parseObject(body).getJSONObject("values");
-        int success = vipService.vipRegister(
-                params.getString("username"),params.getString("name"),params.getString("gender"),
-                params.getString("phone"),params.getString("credit"),params.getString("password"));
+        int type = params.getInteger("type");
+
+        int success = 0;
+        if(type == 1){
+            success = vipService.vipRegister(
+                    params.getString("username"),params.getString("name"),params.getString("gender"),
+                    params.getString("phone"),params.getString("credit"),params.getString("password"));
+        }else if(type == 2){
+            System.out.println("hotel register controller");
+            success = hotelService.hotelRegister(
+                    params.getString("username"),params.getString("password"),params.getString("name"),
+                    params.getString("city"),params.getString("address"),params.getString("bank"));
+            int hotelid = hotelService.selectIdByUsername(params.getString("username"));
+            result.put("hotelId",hotelid);
+        }
+
+
         result.put("success",success > 0 ? 1 : 0);
 
         if(success > 0){
             String token = sessionService.getSession(params.getString("username"),1);
             result.put("token",token);
+        }else{
+            String token = sessionService.getSession(params.getString("username"),2);
+            result.put("token",token);
         }
 
-        System.out.println("in controller");
         System.out.println(JSON.toJSONString(result));
         return result;
     }

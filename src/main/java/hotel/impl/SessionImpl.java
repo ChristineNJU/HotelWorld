@@ -1,6 +1,7 @@
 package hotel.impl;
 
 import com.alibaba.fastjson.JSON;
+import hotel.dao.HotelMapper;
 import hotel.dao.TokenMapper;
 import hotel.dao.UserMapper;
 import hotel.dao.VipMapper;
@@ -28,9 +29,19 @@ public class SessionImpl implements SessionService{
     @Resource
     private TokenMapper tokenMapper;
 
+    @Resource
+    private HotelMapper hotelMapper;
+
     public int canVipLogin(String username, String password) {
         String truePass = vipMapper.getPasswordByUsername(username);
         if(truePass ==  null)
+            return 0;
+        return truePass.equals(password) ? 1 : 0;
+    }
+
+    public int canHotelLogin(String username, String password) {
+        String truePass = hotelMapper.getPasswordByUsername(username);
+        if(truePass == null)
             return 0;
         return truePass.equals(password) ? 1 : 0;
     }
@@ -40,10 +51,10 @@ public class SessionImpl implements SessionService{
         TokenKey key = new TokenKey();
         key.setUsername(username);
         key.setType(type);
-        System.out.println("getSession 1");
+
         Token token = tokenMapper.selectByPrimaryKey(key);
         String session;
-        System.out.println("getSession 2");
+
 
         if(token != null){
             Date expTime = token.getExptime();
@@ -54,9 +65,7 @@ public class SessionImpl implements SessionService{
                 token.setToken(session);
                 token.setExptime(getExpTime());
                 tokenMapper.updateByPrimaryKeySelective(token);
-    //            System.out.println("before");
             }else{
-    //            System.out.println("after");
                 //token 没有过期
                 session = token.getToken();
             }

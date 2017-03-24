@@ -8,5 +8,7 @@ import hotel.model.Vip;
 public interface SessionService {
     public int canVipLogin(String username,String password);
 
+    public int canHotelLogin(String username,String password);
+
     public String getSession(String username,int type);
 }

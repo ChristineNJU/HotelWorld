@@ -8,6 +8,8 @@ import styles from './Login.css';
 import { connect } from 'dva';
 import VipRegister from './VipRegister';
 import VipLogin from './VipLogin';
+import HotelLogin from './HotelLogin';
+import HotelRegister from './HotelRegister';
 
 function Login({dispatch}) {
   function vipLogin(values) {
@@ -30,6 +32,24 @@ function Login({dispatch}) {
     })
   }
 
+  function hotelRegister(values) {
+    dispatch({
+      type:'session/hotelRegister',
+      payload:{
+        values
+      }
+    })
+  }
+
+  function hotelLogin(values) {
+    dispatch({
+      type:'session/hotelLogin',
+      payload:{
+        values
+      }
+    })
+  }
+
   return(
     <div className={styles.wrapper}>
       <Tabs tabPosition={'left'}>
@@ -46,10 +66,10 @@ function Login({dispatch}) {
         <TabPane tab="客栈" key="2">
           <Tabs  type="card">
             <TabPane tab="登录" key="1">
-              <HotelLogin/>
+              <HotelLogin handle={hotelLogin}/>
             </TabPane>
             <TabPane tab="注册" key="2">
-              <HotelRegister/>
+              <HotelRegister handle={hotelRegister}/>
             </TabPane>
           </Tabs>
         </TabPane>
@@ -67,14 +87,6 @@ function Login({dispatch}) {
 
 export default connect()(Login);
 
-
-function HotelLogin() {
-  return (<div>hotel login</div>)
-}
-
-function HotelRegister() {
-  return (<div>hotel register</div>)
-}
 
 function AdminLogin() {
   return (<div>admin login</div>)

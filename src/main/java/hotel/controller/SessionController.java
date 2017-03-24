@@ -30,7 +30,7 @@ public class SessionController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public @ResponseBody Map<String,Object> login(@RequestBody String body){
 
 //        System.out.println(body);
@@ -44,9 +44,12 @@ public class SessionController {
 
         if(type == 1){
             canLog = sessionService.canVipLogin(username,password);
-            if(canLog == 1){
-                token = sessionService.getSession(username,1);
-            }
+        }else if(type == 2){
+            canLog = sessionService.canHotelLogin(username,password);
+        }
+
+        if(canLog == 1){
+            token = sessionService.getSession(username,type);
         }
 
         Map<String,Object> result = new HashMap<String,Object>();

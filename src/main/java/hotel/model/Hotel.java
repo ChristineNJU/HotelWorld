@@ -13,6 +13,10 @@ public class Hotel {
 
     private String bank;
 
+    private String username;
+
+    private String password;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +63,21 @@ public class Hotel {
 
     public void setBank(String bank) {
         this.bank = bank == null ? null : bank.trim();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

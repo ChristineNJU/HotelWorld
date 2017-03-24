@@ -30,4 +30,21 @@ public class HotelImpl implements HotelService {
     public Hotel selectByPrimaryKey(Integer id) throws Exception {
         return hotelMapper.selectByPrimaryKey(id);
     }
+
+    public int hotelRegister(String username, String password, String name, String city, String address, String bank) {
+        Hotel hotel = new Hotel();
+        hotel.setUsername(username);
+        hotel.setPassword(password);
+        hotel.setName(name);
+        hotel.setCity(city);
+        hotel.setAddress(address);
+        hotel.setBank(bank);
+        hotel.setMoney(0);
+        return hotelMapper.insert(hotel);
+    }
+
+    public int selectIdByUsername(String username) {
+
+        return hotelMapper.selectIdByUsername(username);
+    }
 }

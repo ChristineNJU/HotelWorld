@@ -33,9 +33,23 @@ export default {
       localStorage.setItem("userType",1);
       return {...state,registerSuccess,token,username,userType};
     },
-    vipLogoutResult(state){
+    logoutResult(state){
       localStorage.clear();
       return {...state,logoutSuccess:1}
+    },
+    hotelRegisterResult(state,{payload:{registerSuccess,token,username,userType,hotelId}}){
+      localStorage.setItem("token",token);
+      localStorage.setItem("username",username);
+      localStorage.setItem("userType",2);
+      localStorage.setItem("hotelId",hotelId);
+      return {...state,registerSuccess,token,username,userType};
+    },
+    hotelLoginResult(state,{payload:{loginSuccess,token,username,userType,hotelId}}){
+      localStorage.setItem("token",token);
+      localStorage.setItem("username",username);
+      localStorage.setItem("userType",2);
+      localStorage.setItem("hotelId",hotelId);
+      return{...state,loginSuccess,token,username,userType}
     }
   },
   effects:{
@@ -55,7 +69,6 @@ export default {
 
       if(result.data.success == 1){
         const path = `/`;
-
         setTimeout(
           function(){
             browserHistory.push(path);
@@ -86,10 +99,58 @@ export default {
         );
       }
     },
-    *vipLogout(action,{call,put}){
+    *hotelRegister({payload},{call,put}){
+      let values = {...payload.values,type:2};
+      const {data} = yield call (sessionService.hotelRegister,{values:values});
+      console.log(data);
+      yield put({
+        type:'hotelRegisterResult',
+        payload:{
+          registerSuccess:data.success,
+          token:data.token,
+          hotelId:data.hotelId,
+          username:payload.values.username,
+          userType:2,
+        }
+      });
+
+      if(data.success == 1){
+        const path = `/`;
+        setTimeout(
+          function(){
+            browserHistory.push(path);
+          },1000
+        );
+      }
+    },
+    *hotelLogin({payload},{call,put}){
+      console.log('in hotel login reducer');
+      let values = {...payload.values,type:2};
+      const {data} = yield call (sessionService.hotelLogin,{values:values});
+      yield put({
+        type:'hotelLoginSuccess',
+        payload:{
+          loginSuccess:data.success,
+          token:data.token,
+          hotelId:data.hotelId,
+          username:payload.values.username,
+          userType:2,
+        }
+      });
+      if(data.success == 1){
+        const path = `/`;
+        setTimeout(
+          function(){
+            browserHistory.push(path);
+          },1000
+        );
+      }
+
+    },
+    *logout(action,{call,put}){
 
       yield put({
-        type:'vipLogoutResult',
+        type:'logoutResult',
       });
 
       setTimeout(

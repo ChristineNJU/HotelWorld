@@ -8,6 +8,8 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="money" property="money" jdbcType="INTEGER" />
     <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR"/>
+    <result column="password" property="password" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, city, address, money, bank
@@ -27,56 +29,17 @@
     delete from hotel
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="hotel.model.Hotel" >
+  <insert id="insert" parameterType="hotel.model.Hotel"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS id
+    </selectKey>
     insert into hotel (id, name, city,
-    address, money, bank
+    address, money, bank,username,password
     )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
-    #{address,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, #{bank,jdbcType=VARCHAR}
+    #{address,jdbcType=VARCHAR}, #{money,jdbcType=INTEGER}, #{bank,jdbcType=VARCHAR},
+    #{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
     )
-  </insert>
-  <insert id="insertSelective" parameterType="hotel.model.Hotel" >
-    insert into hotel
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="city != null" >
-        city,
-      </if>
-      <if test="address != null" >
-        address,
-      </if>
-      <if test="money != null" >
-        money,
-      </if>
-      <if test="bank != null" >
-        bank,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null" >
-        #{city,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="money != null" >
-        #{money,jdbcType=INTEGER},
-      </if>
-      <if test="bank != null" >
-        #{bank,jdbcType=VARCHAR},
-      </if>
-    </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="hotel.model.Hotel" >
     update hotel
@@ -96,6 +59,12 @@
       <if test="bank != null" >
         bank = #{bank,jdbcType=VARCHAR},
       </if>
+      <if test="username != null" >
+        bank = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        bank = #{password,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -105,7 +74,19 @@
     city = #{city,jdbcType=VARCHAR},
     address = #{address,jdbcType=VARCHAR},
     money = #{money,jdbcType=INTEGER},
-    bank = #{bank,jdbcType=VARCHAR}
+    bank = #{bank,jdbcType=VARCHAR},
+    username = #{username,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectIdByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id
+    from hotel
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="getPasswordByUsername" parameterType="java.lang.String" resultType="java.lang.String">
+    select password
+    from hotel
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
 </mapper>

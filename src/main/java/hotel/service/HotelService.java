@@ -23,5 +23,7 @@ public interface HotelService {
      */
     Hotel selectByPrimaryKey(Integer id)throws Exception;
 
+    int hotelRegister(String username,String password,String name,String city,String address,String bank);
 
+    int selectIdByUsername(String  username);
 }

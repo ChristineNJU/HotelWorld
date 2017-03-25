@@ -50,6 +50,12 @@ export default {
       localStorage.setItem("userType",2);
       localStorage.setItem("hotelId",hotelId);
       return{...state,loginSuccess,token,username,userType}
+    },
+    adminLoginResult(state,{payload:{loginSuccess,token,username,userType}}){
+      localStorage.setItem("token",token);
+      localStorage.setItem("username",username);
+      localStorage.setItem("userType",3);
+      return{...state,loginSuccess,token,username,userType}
     }
   },
   effects:{
@@ -124,7 +130,6 @@ export default {
       }
     },
     *hotelLogin({payload},{call,put}){
-      console.log('in hotel login reducer');
       let values = {...payload.values,type:2};
       const {data} = yield call (sessionService.hotelLogin,{values:values});
       yield put({
@@ -145,7 +150,27 @@ export default {
           },1000
         );
       }
-
+    },
+    *adminLogin({payload},{call,put}){
+      let values = {...payload.values,type:3};
+      const {data} = yield call(sessionService.adminLogin,{values:values});
+      yield put({
+        type:'adminLoginResult',
+        payload:{
+          loginSuccess:data.success,
+          token:data.token,
+          username:'admin',
+          userType:3,
+        }
+      });
+      if(data.success == 1){
+        const path = `/`;
+        setTimeout(
+          function(){
+            browserHistory.push(path);
+          },1000
+        );
+      }
     },
     *logout(action,{call,put}){
 

@@ -10,5 +10,7 @@ public interface SessionService {
 
     public int canHotelLogin(String username,String password);
 
+    public int canAdminLogin(String username,String password);
+
     public String getSession(String username,int type);
 }

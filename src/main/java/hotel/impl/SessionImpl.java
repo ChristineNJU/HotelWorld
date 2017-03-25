@@ -46,6 +46,14 @@ public class SessionImpl implements SessionService{
         return truePass.equals(password) ? 1 : 0;
     }
 
+    public int canAdminLogin(String username, String password) {
+        if(username.equals("admin") && password.equals("admin")){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
     public String getSession(String username, int type){
 
         TokenKey key = new TokenKey();

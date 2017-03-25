@@ -10,6 +10,7 @@ import VipRegister from './VipRegister';
 import VipLogin from './VipLogin';
 import HotelLogin from './HotelLogin';
 import HotelRegister from './HotelRegister';
+import AdminLogin from './AdminLogin';
 
 function Login({dispatch}) {
   function vipLogin(values) {
@@ -50,6 +51,16 @@ function Login({dispatch}) {
     })
   }
 
+  function adminLogin(values) {
+    // console.log(values);
+    dispatch({
+      type:'session/adminLogin',
+      payload:{
+        values
+      }
+    })
+  }
+
   return(
     <div className={styles.wrapper}>
       <Tabs tabPosition={'left'}>
@@ -76,7 +87,7 @@ function Login({dispatch}) {
         <TabPane tab="管理" key="3">
           <Tabs  type="card">
             <TabPane tab="登录" key="1">
-              <AdminLogin/>
+              <AdminLogin handle={adminLogin}/>
             </TabPane>
           </Tabs>
         </TabPane>
@@ -87,7 +98,3 @@ function Login({dispatch}) {
 
 export default connect()(Login);
 
-
-function AdminLogin() {
-  return (<div>admin login</div>)
-}

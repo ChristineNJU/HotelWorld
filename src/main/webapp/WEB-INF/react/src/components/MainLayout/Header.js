@@ -48,7 +48,7 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
         <Menu.Item key={5}>
           <a  rel="noopener noreferrer" href="/hotelbefore">以往入住</a>
         </Menu.Item>
-        <Menu.Item key={3}>
+        <Menu.Item key={6}>
           <a  rel="noopener noreferrer" href="/hotelfinance">财务情况</a>
         </Menu.Item>
         <Menu.Divider />
@@ -59,11 +59,34 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
     );
   }
 
+  function AdminMenu() {
+    return(
+      <Menu>
+        <Menu.Item key={1}>
+          <a  rel="noopener noreferrer" href="/admincheck">资料修改</a>
+        </Menu.Item>
+        <Menu.Item key={2}>
+          <a  rel="noopener noreferrer" href="/admingive">客栈结账</a>
+        </Menu.Item>
+        <Menu.Item key={3}>
+          <a  rel="noopener noreferrer" href="/adminmoney">财务情况</a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key={9}>
+          <a  rel="noopener noreferrer" onClick={handleLogout}>退出登录</a>
+        </Menu.Item>
+      </Menu>
+    )
+  }
+
   function getDrop(username,userType) {
 
+    const DropDown = ['',<VipMenu/>,<HotelMenu/>,<AdminMenu/>];
+    const link = ['','userinfo','hotelinfo','admincheck'];
+
     return (
-      <Dropdown overlay={userType == 1?<VipMenu/>:<HotelMenu/>}>
-        <a className="ant-dropdown-link" href="/userinfo">
+      <Dropdown overlay={DropDown[userType]}>
+        <a className="ant-dropdown-link" href={link[userType]}>
           {username} <Icon type="down" />
         </a>
       </Dropdown>

@@ -17,6 +17,13 @@ export function hotelLogin(values){
   });
 }
 
+export function adminLogin(values){
+  return request(`/api/session`,{
+    method:'POST',
+    body:JSON.stringify(values)
+  });
+}
+
 
 export function vipRegister(values){
   return request(`/api/user`,{

@@ -141,6 +141,33 @@ function RouterConfig({ history, app }) {
           cb(null, require('./routes/HotelInvalid'));
         });
       },
+    },{
+      path: '/admincheck',
+      name: 'admincheck',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/AdminCheck'));
+        });
+      },
+    },{
+      path: '/admingive',
+      name: 'admingive',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/AdminGive'));
+        });
+      },
+    },{
+      path: '/adminmoney',
+      name: 'adminmoney',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/AdminMoney'));
+        });
+      },
     }
 
   ];

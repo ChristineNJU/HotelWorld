@@ -51,6 +51,8 @@ public class SessionController {
             canLog = sessionService.canHotelLogin(username,password);
             int hotelId = hotelService.selectIdByUsername(username);
             result.put("hotelId",hotelId);
+        }else if(type == 3){
+            canLog = sessionService.canAdminLogin(username,password);
         }
 
         if(canLog == 1){

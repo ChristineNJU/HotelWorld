@@ -6,6 +6,7 @@ export default {
     list:[],
     city:null,
     keyword:null,
+    checkingList:[],
   },
   reducers: {
     init(state,{payload:{list}}){
@@ -15,9 +16,10 @@ export default {
       return {...state,city};
     },
     changeKeyword(state,{payload:{keyword}}){
-      // console.log('in reducer');
-      // console.log(keyword);
       return {...state,keyword}
+    },
+    initChecking(state,{payload:{checkingList}}){
+      return {...state,checkingList}
     }
   },
   effects: {
@@ -30,18 +32,30 @@ export default {
         }
       })
     },
+    *fetchChecking({payload},{call,put}){
+      const {data} = yield call(searchService.fetch,{queryString:'?unchecked=true'});
+      yield put({
+        type:'initChecking',
+        payload:{
+          checkingList:data.hotels
+        }
+      })
+    }
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname }) => {
         if (pathname === '/') {
-          console.log('in set up index');
           dispatch({
             type: 'fetch',
             payload:{queryString:''},
           });
         }
-
+        if(pathname === 'admincheck'){
+          dispatch({
+            type: 'fetchChecking'
+          });
+        }
       });
     },
   },

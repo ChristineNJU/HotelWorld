@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import hotel.model.Display;
 import hotel.model.Hotel;
+import hotel.model.Order;
 import hotel.model.Room;
 import hotel.service.HotelService;
 import hotel.service.RoomService;
@@ -41,6 +42,21 @@ public class HotelController {
 
         List<Display> hotels = hotelService.finaAll();
         return hotels;
+    }
+
+
+    /**
+     * 查询所有未审核的信息
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(method = RequestMethod.GET,params = {"unchecked"})
+    public @ResponseBody Map<String,Object> getOrdersByHotel(@RequestParam(value="unchecked") String unchecked)throws Exception{
+
+        List<Hotel> hotels = hotelService.findUnchecked();
+        Map<String,Object> result = new HashMap<String,Object>();
+        result.put("hotels",hotels);
+        return result;
     }
 
 

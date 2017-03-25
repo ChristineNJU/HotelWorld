@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import hotel.service.HotelService;
 import hotel.service.SessionService;
 import hotel.service.UserService;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,14 +46,19 @@ public class SessionController {
         int canLog = 0;
         String token = "";
 
-        if(type == 1){
-            canLog = sessionService.canVipLogin(username,password);
-        }else if(type == 2){
-            canLog = sessionService.canHotelLogin(username,password);
-            int hotelId = hotelService.selectIdByUsername(username);
-            result.put("hotelId",hotelId);
-        }else if(type == 3){
-            canLog = sessionService.canAdminLogin(username,password);
+
+        try {
+            if (type == 1) {
+                canLog = sessionService.canVipLogin(username, password);
+            } else if (type == 2) {
+                canLog = sessionService.canHotelLogin(username, password);
+                int hotelId = hotelService.selectIdByUsername(username);
+                result.put("hotelId", hotelId);
+            } else if (type == 3) {
+                canLog = sessionService.canAdminLogin(username, password);
+            }
+        }catch (BindingException e){
+            canLog = 0;
         }
 
         if(canLog == 1){
@@ -60,7 +66,7 @@ public class SessionController {
             System.out.println("token"+token);
         }
 
-        result.put("success",new Integer(canLog));
+        result.put("success",canLog);
         result.put("token",token);
 
         return result;

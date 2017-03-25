@@ -17,6 +17,8 @@ public interface HotelService {
      */
     List<Display> finaAll()throws Exception;
 
+    List<Hotel> findUnchecked();
+
     /**
      * 通过主键查找房间
      * @return

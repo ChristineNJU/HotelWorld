@@ -1,6 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
 import * as hotelService from '../services/hotel'
-
+import {browserHistory} from 'dva/router';
 export default {
   namespace: 'hotel',
   state: {
@@ -78,6 +78,16 @@ export default {
         hotelService.update,
         {...payload,hotelId:localStorage.getItem("hotelId"),type:1}
         );
+    },
+    *infoChecked({payload},{call,put}){
+        console.log(payload);
+      const {data} = yield call(
+        hotelService.update,
+        {...payload,hotelId:payload.hotelId,type:2}
+      );
+      if(data.success == 1){
+        browserHistory.push('/admincheck');
+      }
     }
   },
   subscriptions: {

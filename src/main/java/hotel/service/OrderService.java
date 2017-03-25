@@ -16,4 +16,6 @@ public interface OrderService {
     List<Order> getOrdersByHotelid(int hotelid);
     int updateOrder(int orderId,int type,String begin,String end,int roomid);
 
+
+
 }

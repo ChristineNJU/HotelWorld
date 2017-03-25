@@ -23,6 +23,8 @@ public interface HotelMapper {
 
     List<Display> findAll();
 
+    List<Hotel> findUnchecked();
+
     int selectIdByUsername(String username);
 
     String getPasswordByUsername(String username);

@@ -29,6 +29,10 @@ public class HotelImpl implements HotelService {
 
     }
 
+    public List<Hotel> findUnchecked() {
+        return hotelMapper.findUnchecked();
+    }
+
     public Display selectDisplayByPrimaryKey(Integer id) throws Exception {
         return hotelMapper.selectDisplayByPrimaryKey(id);
     }
@@ -79,6 +83,10 @@ public class HotelImpl implements HotelService {
             result = hotelMapper.insertDisplay(display);
         }else if(displayStatus == 2){
             result = hotelMapper.updateDisplay(display);
+        }
+        if(result == 1){
+            hotel.setDisplay(1);
+            hotelMapper.updateByPrimaryKeySelective(hotel);
         }
 
         return result;

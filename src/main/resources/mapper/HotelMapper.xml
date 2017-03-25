@@ -21,7 +21,12 @@
     from hotel
     where id = #{id,jdbcType=INTEGER}
   </select>
-
+  <select id="findUnchecked" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hotel
+    WHERE display &lt;&gt; 1
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from hotel
     where id = #{id,jdbcType=INTEGER}

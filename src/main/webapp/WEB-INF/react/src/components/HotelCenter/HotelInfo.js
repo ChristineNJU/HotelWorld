@@ -36,6 +36,17 @@ function HotelInfo({dispatch,info,infoChecking}){
 
   return (
     <Form style={{fontSize:'0.75em',display:'flex',flexDirection:'column',justifyContent:'flex-start'}}>
+      <FormItem label="id" {...formItemLayout}>
+        <p className={styles.info}>{infoChecking.hotelNumber}</p>
+      </FormItem>
+
+      <FormItem label="银行" {...formItemLayout}>
+        <p className={styles.info}>{infoChecking.bank}</p>
+      </FormItem>
+      <br/>
+      <br/>
+      <br/>
+
       <label className={styles.label}>展示中</label>
       <FormItem label="名字" {...formItemLayout}>
         <p className={styles.info}>{info.name}</p>
@@ -52,6 +63,7 @@ function HotelInfo({dispatch,info,infoChecking}){
       <br/>
       <br/>
       <br/>
+
       <label className={styles.label}>审核中</label>
       <FormItem label="名字" {...formItemLayout}>
         <Input type="text" value={infoChecking.name} onChange={(e) => {inputChange({name:e.target.value})}} />

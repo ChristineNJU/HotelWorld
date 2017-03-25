@@ -9,4 +9,8 @@ export function fetch({ id }) {
 
 export function update(values) {
   console.log(values);
+  return request(`/api/hotels`,{
+    method:'PATCH',
+    body:JSON.stringify(values)
+  })
 }

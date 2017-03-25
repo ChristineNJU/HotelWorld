@@ -38,7 +38,7 @@ public class OrderImpl implements OrderService {
     private PlanMapper planMapper;
 
     public int createOrder(int hotelId, String username, String begin, String end, int price, int count) {
-        Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+        Hotel hotel = hotelMapper.selectHotelByPrimaryKey(hotelId);
         List<Room> rooms= roomService.getRoomByPlanWithPrice(hotelId,begin,end,price);
         Vip vip = vipService.getUserByUsername(username);
         if(rooms.size() < count){
@@ -74,7 +74,7 @@ public class OrderImpl implements OrderService {
     public int createNoneVipOrder(int hotelId, String phone, String begin, String end, int price, int count) {
         System.out.println("in create Vip order");
 
-        Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+        Hotel hotel = hotelMapper.selectHotelByPrimaryKey(hotelId);
         List<Room> rooms= roomService.getRoomByPlanWithPrice(hotelId,begin,end,price);
         if(rooms.size() < count){
             return 0;

@@ -14,7 +14,8 @@ public interface HotelMapper {
 
 //    int insertSelective(Hotel record);
 
-    Hotel selectByPrimaryKey(Integer id);
+    Hotel selectHotelByPrimaryKey(Integer id);
+
 
     int updateByPrimaryKeySelective(Hotel record);
 
@@ -26,5 +27,10 @@ public interface HotelMapper {
 
     String getPasswordByUsername(String username);
 
+    int updateDisplay(Display display);
+
+    int insertDisplay(Display display);
+
+    Display selectDisplayByPrimaryKey(Integer id);
 
 }

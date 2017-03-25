@@ -18,13 +18,19 @@ public interface HotelService {
     List<Display> finaAll()throws Exception;
 
     /**
-     * 通过主键查找用户
+     * 通过主键查找房间
      * @return
      * @throws Exception
      */
-    Hotel selectByPrimaryKey(Integer id)throws Exception;
+    Display selectDisplayByPrimaryKey(Integer id)throws Exception;
+
+    Hotel selectCheckingByPrimaryKey(Integer id);
 
     int hotelRegister(String username,String password,String name,String city,String address,String bank);
 
     int selectIdByUsername(String  username);
+
+    int updateHotel(int hotelId,String name,String city,String address);
+
+    int hotelInfoChecked(int hotelId);
 }

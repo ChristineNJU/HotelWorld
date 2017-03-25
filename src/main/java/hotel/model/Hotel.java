@@ -19,13 +19,16 @@ public class Hotel {
 
     private String hotelNumber;
 
+    //0新注册，1展示中，2审核中
+    private int display;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-        this.hotelNumber = String.format("%7d",id);
+        this.hotelNumber = String.format("%07d",id);
     }
 
     public String getName() {
@@ -86,5 +89,17 @@ public class Hotel {
 
     public String getHotelNumber() {
         return hotelNumber;
+    }
+
+    public void setHotelNumber(String hotelNumber) {
+        this.hotelNumber = hotelNumber;
+    }
+
+    public int getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(int display) {
+        this.display = display;
     }
 }

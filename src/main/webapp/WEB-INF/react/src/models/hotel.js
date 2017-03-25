@@ -24,6 +24,10 @@ export default {
     init(state,{payload:{info,rooms}}){
       return {...state,info,rooms,hasLogin:localStorage.getItem("type") == 1}
     },
+    initIncludingChecking(state,{payload:{info,rooms,infoChecking}}){
+      // console.log(info,rooms,infoChecking);
+      return {...state,info,rooms,infoChecking}
+    },
     checkingChange(state,{payload:{newValue}}){
       let key = Object.keys(newValue)[0];
       if(key === 'name')
@@ -46,12 +50,34 @@ export default {
         }
       })
     },
+    *fetchIncludingChecking({payload},{call,put}){
+      const {data} = yield call (hotelService.fetch,{id:payload.id});
+      console.log(data);
+      let infoChecking = data.checking;
+
+      if(data.checking.display == 1){
+        infoChecking.name = null;
+        infoChecking.city = null;
+        infoChecking.address = null;
+      }
+      let info = {name:'',city:'', address:''};
+      if(data.checking.display > 0){
+        info=data.detail;
+      }
+      yield put({
+        type:'initIncludingChecking',
+        payload:{
+          info:info,
+          rooms:data.rooms,
+          infoChecking:infoChecking
+        }
+      })
+    },
     *infoChange({payload},{call,put}){
       const {data} = yield call(
         hotelService.update,
         {...payload,hotelId:localStorage.getItem("hotelId"),type:1}
         );
-
     }
   },
   subscriptions: {
@@ -69,15 +95,21 @@ export default {
         }
 
         //客栈看自己的页面
-        if(pathname === 'hotelcheckin' || pathname === 'hotelinfo'){
+        if(pathname === 'hotelcheckin'){
           let hotelId = localStorage.getItem("hotelId");
           dispatch({
             type:`fetch`,
             payload:{id:hotelId}
           })
-
         }
 
+        if(pathname === 'hotelinfo') {
+          let hotelId = localStorage.getItem("hotelId");
+          dispatch({
+            type: `fetchIncludingChecking`,
+            payload: {id: hotelId}
+          })
+        }
       })
     }
   },

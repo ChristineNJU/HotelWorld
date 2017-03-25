@@ -1,5 +1,6 @@
 package hotel.impl;
 
+import com.alibaba.fastjson.JSON;
 import hotel.dao.HotelMapper;
 import hotel.model.Display;
 import hotel.model.Hotel;
@@ -28,8 +29,12 @@ public class HotelImpl implements HotelService {
 
     }
 
-    public Hotel selectByPrimaryKey(Integer id) throws Exception {
-        return hotelMapper.selectByPrimaryKey(id);
+    public Display selectDisplayByPrimaryKey(Integer id) throws Exception {
+        return hotelMapper.selectDisplayByPrimaryKey(id);
+    }
+
+    public Hotel selectCheckingByPrimaryKey(Integer id) {
+        return hotelMapper.selectHotelByPrimaryKey(id);
     }
 
     public int hotelRegister(String username, String password, String name, String city, String address, String bank) {
@@ -47,5 +52,35 @@ public class HotelImpl implements HotelService {
     public int selectIdByUsername(String username) {
 
         return hotelMapper.selectIdByUsername(username);
+    }
+
+    public int updateHotel(int hotelId, String name, String city, String address) {
+        Hotel hotel = hotelMapper.selectHotelByPrimaryKey(hotelId);
+        hotel.setName(name);
+        hotel.setCity(city);
+        hotel.setAddress(address);
+        hotel.setDisplay(2);
+        System.out.println(JSON.toJSONString(hotel));
+//        return 1;
+        return hotelMapper.updateByPrimaryKeySelective(hotel);
+    }
+
+    public int hotelInfoChecked(int hotelId) {
+        Hotel hotel = hotelMapper.selectHotelByPrimaryKey(hotelId);
+        int displayStatus = hotel.getDisplay();
+        Display display = new Display();
+        display.setId(hotelId);
+        display.setName(hotel.getName());
+        display.setCity(hotel.getCity());
+        display.setAddress(hotel.getAddress());
+
+        int result  = 0;
+        if (displayStatus == 0){
+            result = hotelMapper.insertDisplay(display);
+        }else if(displayStatus == 2){
+            result = hotelMapper.updateDisplay(display);
+        }
+
+        return result;
     }
 }

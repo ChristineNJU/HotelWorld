@@ -30,12 +30,15 @@ public class Vip {
 
     private String password;
 
+    private String vipNumber;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+        this.vipNumber = String.format("%07d", id);
     }
 
     public String getName() {
@@ -125,5 +128,9 @@ public class Vip {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getVipNumber() {
+        return vipNumber;
     }
 }

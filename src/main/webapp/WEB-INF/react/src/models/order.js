@@ -12,6 +12,7 @@ export default {
     order: {
       price: null,
       count: 1,
+      phone:null,
     },
     roomShow: null,
     orderSuccess: null,
@@ -23,8 +24,8 @@ export default {
     hotelInvalid:[],
   },
   reducers: {
-    orderChange(state, {payload:{price, count}}){
-      return {...state, order: {price: price, count: count}};
+    orderChange(state, {payload:{price, count,phone}}){
+      return {...state, order: {price: price, count: count,phone:phone}};
     },
     loadQueryResult(state, {payload:{queryResult, begin, end, gap}}){
       let roomShow = {};
@@ -147,7 +148,33 @@ export default {
     },
     *orderConfirm({payload}, {call, put}){
       let values = {...payload, username: localStorage.getItem('username')};
-      console.log(values);
+      // console.log(values);
+      const {data} = yield call(orderServices.createOrder, {values: values});
+      if (data.success != null && data.success != undefined) {
+        yield put({
+          type: 'orderResultChange',
+          payload: {
+            result: data.success
+          }
+        })
+      } else {
+        yield put({
+          type: 'orderResultChange',
+          payload: {
+            result: 0
+          }
+        })
+      }
+
+      setTimeout(
+        yield put({
+          type: 'init'
+        })
+        , 1000)
+    },
+    *orderConfirmByHotel({payload},{call,put}){
+      let values = {...payload, username: null};
+      // console.log(values);
       const {data} = yield call(orderServices.createOrder, {values: values});
       if (data.success != null && data.success != undefined) {
         yield put({

@@ -35,8 +35,14 @@ public class OrderController {
         String username = params.getString("username");
         int price = params.getInteger("price");
         int count = params.getInteger("count");
+        String phone = params.getString("phone");
 
-        int createResult = orderService.createOrder(hotelId,username,begin,end,price,count);
+        int createResult = 0;
+        if(username != null){
+            createResult = orderService.createOrder(hotelId,username,begin,end,price,count);
+        }else{
+            createResult = orderService.createNoneVipOrder(hotelId,phone,begin,end,price,count);
+        }
 
         Map<String,Object> result = new HashMap<String, Object>() ;
         result.put("success",createResult);
@@ -72,7 +78,10 @@ public class OrderController {
     }
 
     /**
-     * 会员取消订单：type=1/酒店取消订单：type=2/已入住：type=3/已退房：type=4
+     * 会员取消订单：type=1
+     * 酒店取消订单：type=2
+     * 已入住：type=3
+     * 已退房：type=4
      * @return
      * @throws Exception
      */
@@ -90,7 +99,7 @@ public class OrderController {
         String end = ob.getString("end");
         int roomid = ob.getInteger("roomid");
 
-        int success = orderService.cancelOrder(orderId,type, begin,end,roomid);
+        int success = orderService.updateOrder(orderId,type, begin,end,roomid);
         result.put("success",success);
         return result;
     }

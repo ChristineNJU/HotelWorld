@@ -15,6 +15,7 @@ function HotelCurrent({dispatch,current}){
       }
     })
   }
+
   const columns = [{
     title: '房间号',
     dataIndex: 'roomname',
@@ -24,6 +25,10 @@ function HotelCurrent({dispatch,current}){
     dataIndex: 'price',
     key: 'price',
   }, {
+    title: '会员号',
+    dataIndex: 'vipNumber',
+    key: 'vipNumber',
+  },{
     title: '住客手机',
     dataIndex: 'phone',
     key: 'phone',

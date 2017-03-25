@@ -45,7 +45,7 @@ public class OrderImplTest {
 
     @Test
     public void testCancelOrder() throws Exception {
-        int result = orderService.cancelOrder(1,1,
+        int result = orderService.updateOrder(1,1,
                 "2017-03-23","2017-03-25",2);
 
         List<Order> orders = orderMapper.getOrdersByHotelId(1);

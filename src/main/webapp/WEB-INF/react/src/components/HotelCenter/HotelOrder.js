@@ -36,7 +36,11 @@ function HotelOrder({dispatch,orders}){
     title: '房间价格',
     dataIndex: 'price',
     key: 'price',
-  }, {
+  },{
+    title: '会员号',
+    dataIndex: 'vipNumber',
+    key: 'vipNumber',
+  },{
     title: '住客手机',
     dataIndex: 'phone',
     key: 'phone',

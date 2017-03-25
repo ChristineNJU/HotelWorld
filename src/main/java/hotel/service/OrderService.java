@@ -9,10 +9,11 @@ import java.util.List;
  */
 public interface OrderService {
     int createOrder(int hotelId,String username,String begin,String end,int price,int count);
+    int createNoneVipOrder(int hotelId,String phone,String begin,String end,int price,int count);
 
     List<Order>  getOrdersByVipname(String vipname);
 
     List<Order> getOrdersByHotelid(int hotelid);
+    int updateOrder(int orderId,int type,String begin,String end,int roomid);
 
-    int cancelOrder(int orderId,int type,String begin,String end,int roomid);
 }

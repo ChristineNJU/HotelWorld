@@ -17,7 +17,7 @@ export default {
   },
   reducers: {
     init(state,{payload:{info,rooms}}){
-      return {...state,info,rooms,hasLogin:localStorage.getItem("token") != null}
+      return {...state,info,rooms,hasLogin:localStorage.getItem("type") == 1}
     }
   },
   effects: {
@@ -35,6 +35,8 @@ export default {
   subscriptions: {
     setup({dispatch,history}){
       return history.listen(({ pathname }) => {
+
+        //vip 看单个客栈的页面
         const match_detail = pathToRegexp(`/hotel/:hotelId`).exec(location.pathname);
         if (match_detail){
           let id = match_detail[1];
@@ -43,6 +45,17 @@ export default {
             payload: {id:id}
           });
         }
+
+        //客栈看自己的页面
+        if(pathname === 'hotelcheckin'){
+          let hotelId = localStorage.getItem("hotelId");
+          dispatch({
+            type:`fetch`,
+            payload:{id:hotelId}
+          })
+
+        }
+
       })
     }
   },

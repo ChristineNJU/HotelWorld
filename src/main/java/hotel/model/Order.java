@@ -29,6 +29,12 @@ public class Order {
     private String begin;
     private String end;
 
+    private String roomname;
+
+    private String vipname;
+
+    private String vipNumber;
+
     public String getBegin() {
         return begin;
     }
@@ -46,9 +52,7 @@ public class Order {
     }
     //    private Integer count;
 
-    private String roomname;
 
-    private String vipname;
 
     public String getRoomname() {
         return roomname;
@@ -114,6 +118,7 @@ public class Order {
 
     public void setVipid(Integer vipid) {
         this.vipid = vipid;
+        this.vipNumber = String.format("%07d", vipid);
     }
 
     public Integer getRoomid() {
@@ -141,4 +146,9 @@ public class Order {
         this.endtime = endtime;
         this.end = MyDate.getFormatedDate(endtime);
     }
+
+    public String getVipNumber() {
+        return vipNumber;
+    }
+
 }

@@ -63,15 +63,40 @@ public class OrderImpl implements OrderService {
 
             int insertResult = orderMapper.insertNewOrder(order);
             if(insertResult > 0){
-                List<Date> dates = MyDate.getDuring(begin,end);
-                for(Date date :dates){
-                    Plan plan = new Plan();
-                    plan.setRoomid(room.getId());
-                    plan.setTime(date);
-                    plan.setStatus(0);
-                    plan.setHotelid(hotelId);
-                    planMapper.insertPlan(plan);
-                }
+                addPlans(room.getId(),hotelId,begin,end);
+            }
+        }
+
+
+        return 1;
+    }
+
+    public int createNoneVipOrder(int hotelId, String phone, String begin, String end, int price, int count) {
+        System.out.println("in create Vip order");
+
+        Hotel hotel = hotelMapper.selectByPrimaryKey(hotelId);
+        List<Room> rooms= roomService.getRoomByPlanWithPrice(hotelId,begin,end,price);
+        if(rooms.size() < count){
+            return 0;
+        }
+
+        for(Room room:rooms){
+            Order order = new Order();
+            order.setHotelid(hotelId);
+            order.setHotelname(hotel.getName());
+            order.setBegintime(MyDate.strToDate(begin));
+            order.setEndtime(MyDate.strToDate(end));
+            order.setPhone(phone);
+            order.setStatus(3);
+            order.setPrice(price);
+            order.setVipid(null);
+            order.setRoomid(room.getId());
+            order.setRoomname(room.getName());
+            order.setVipname(null);
+
+            int insertResult = orderMapper.insertNewOrder(order);
+            if(insertResult > 0){
+                addPlans(room.getId(),hotelId,begin,end);
             }
         }
 
@@ -87,15 +112,27 @@ public class OrderImpl implements OrderService {
         return orderMapper.getOrdersByHotelId(hotelid);
     }
 
-    public int cancelOrder(int orderId,int type,String begin,String end,int roomid) {
+    public int updateOrder(int orderId,int type,String begin,String end,int roomid) {
         int orderChangeResult = orderMapper.statusChange(orderId,type);
-        if(orderChangeResult == 1){
+        if(orderChangeResult == 1 && (type == 1 || type == 2)){
             List<Date> dates = MyDate.getDuring(begin,end);
             for(Date date :dates){
                 planMapper.cancelPlan(roomid,date);
             }
         }
         return orderChangeResult;
+    }
+
+    private void addPlans(int roomid,int hotelId,String begin,String end){
+        List<Date> dates = MyDate.getDuring(begin,end);
+        for(Date date :dates){
+            Plan plan = new Plan();
+            plan.setRoomid(roomid);
+            plan.setTime(date);
+            plan.setStatus(0);
+            plan.setHotelid(hotelId);
+            planMapper.insertPlan(plan);
+        }
     }
 
 }

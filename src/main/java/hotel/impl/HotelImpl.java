@@ -1,6 +1,7 @@
 package hotel.impl;
 
 import hotel.dao.HotelMapper;
+import hotel.model.Display;
 import hotel.model.Hotel;
 import hotel.service.HotelService;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class HotelImpl implements HotelService {
      * @return
      * @throws Exception
      */
-    public List<Hotel> finaAll()throws Exception{
+    public List<Display> finaAll()throws Exception{
         return hotelMapper.findAll();
 
     }

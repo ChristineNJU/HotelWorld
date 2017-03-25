@@ -5,9 +5,14 @@ export default {
   namespace: 'hotel',
   state: {
     info:{
-      name:'龙门客栈 南京分部',
-      city:'南京',
-      address:'鼓楼区'
+      name:'',
+      city:'',
+      address:''
+    },
+    infoChecking:{
+      name:null,
+      city:null,
+      address:null,
     },
     rooms:[{
       price:null,
@@ -18,6 +23,16 @@ export default {
   reducers: {
     init(state,{payload:{info,rooms}}){
       return {...state,info,rooms,hasLogin:localStorage.getItem("type") == 1}
+    },
+    checkingChange(state,{payload:{newValue}}){
+      let key = Object.keys(newValue)[0];
+      if(key === 'name')
+        return {...state,infoChecking:{...state.infoChecking,name:newValue.name}};
+      if(key === 'city')
+        return {...state,infoChecking:{...state.infoChecking,city:newValue.city}};
+      if(key === 'address')
+        return {...state,infoChecking:{...state.infoChecking,address:newValue.address}};
+
     }
   },
   effects: {
@@ -30,6 +45,13 @@ export default {
           rooms:data.rooms,
         }
       })
+    },
+    *infoChange({payload},{call,put}){
+      const {data} = yield call(
+        hotelService.update,
+        {...payload,hotelId:localStorage.getItem("hotelId"),type:1}
+        );
+
     }
   },
   subscriptions: {
@@ -47,7 +69,7 @@ export default {
         }
 
         //客栈看自己的页面
-        if(pathname === 'hotelcheckin'){
+        if(pathname === 'hotelcheckin' || pathname === 'hotelinfo'){
           let hotelId = localStorage.getItem("hotelId");
           dispatch({
             type:`fetch`,

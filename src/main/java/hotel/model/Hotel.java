@@ -17,12 +17,15 @@ public class Hotel {
 
     private String password;
 
+    private String hotelNumber;
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+        this.hotelNumber = String.format("%7d",id);
     }
 
     public String getName() {
@@ -79,5 +82,9 @@ public class Hotel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getHotelNumber() {
+        return hotelNumber;
     }
 }

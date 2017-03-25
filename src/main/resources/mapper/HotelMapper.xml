@@ -20,11 +20,7 @@
     from hotel
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="findAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from hotel
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from hotel
     where id = #{id,jdbcType=INTEGER}
@@ -88,5 +84,16 @@
     select password
     from hotel
     WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <resultMap id="DisplayMap" type="hotel.model.Display" >
+    <id column="hotelid" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findAll" resultMap="DisplayMap">
+    select hotelid,`name`,city,address
+    from display
   </select>
 </mapper>

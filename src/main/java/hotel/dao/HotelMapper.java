@@ -1,5 +1,6 @@
 package hotel.dao;
 
+import hotel.model.Display;
 import hotel.model.Hotel;
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +20,11 @@ public interface HotelMapper {
 
     int updateByPrimaryKey(Hotel record);
 
-    List<Hotel> findAll();
+    List<Display> findAll();
 
     int selectIdByUsername(String username);
 
     String getPasswordByUsername(String username);
+
+
 }

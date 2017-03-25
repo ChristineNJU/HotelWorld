@@ -1,5 +1,6 @@
 package hotel.service;
 
+import hotel.model.Display;
 import hotel.model.Hotel;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface HotelService {
      * @return
      * @throws Exception
      */
-    List<Hotel> finaAll()throws Exception;
+    List<Display> finaAll()throws Exception;
 
     /**
      * 通过主键查找用户

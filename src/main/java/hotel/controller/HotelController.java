@@ -1,5 +1,6 @@
 package hotel.controller;
 
+import hotel.model.Display;
 import hotel.model.Hotel;
 import hotel.model.Room;
 import hotel.service.HotelService;
@@ -34,9 +35,9 @@ public class HotelController {
      * @throws Exception
      */
     @RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody List<Hotel> allHotels()throws Exception{
+    public @ResponseBody List<Display> allHotels()throws Exception{
 
-        List<Hotel> hotels = hotelService.finaAll();
+        List<Display> hotels = hotelService.finaAll();
         return hotels;
     }
 

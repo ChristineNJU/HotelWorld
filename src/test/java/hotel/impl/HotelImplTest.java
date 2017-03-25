@@ -3,10 +3,7 @@ package hotel.impl;
 import com.alibaba.fastjson.JSON;
 import hotel.dao.PlanMapper;
 import hotel.dao.RoomMapper;
-import hotel.model.Hotel;
-import hotel.model.Plan;
-import hotel.model.Room;
-import hotel.model.RoomWithPlans;
+import hotel.model.*;
 import hotel.service.HotelService;
 import hotel.service.RoomService;
 import org.apache.log4j.Logger;
@@ -38,24 +35,24 @@ public class HotelImplTest {
     @Resource
     private RoomService roomService;
 
+    @Test
+    public void testFinaAll() throws Exception {
+        List<Display> hotels = hotelService.finaAll();
+        System.out.println(hotels);
+        logger.info(JSON.toJSONString(hotels));
+    }
+
 //    @Test
-//    public void testFinaAll() throws Exception {
-//        List<Hotel> hotels = hotelService.finaAll();
-//        System.out.println(hotels);
-//        logger.info(JSON.toJSONString(hotels));
+//    public void RoomWithPlans() throws Exception {
+//        List<Plan> rooms = planMapper.getPlansByRoomId(1,"2017-03-23","2017-03-26");
+//
+//        logger.info(JSON.toJSONString(rooms));
 //    }
-
-    @Test
-    public void RoomWithPlans() throws Exception {
-        List<Plan> rooms = planMapper.getPlansByRoomId(1,"2017-03-23","2017-03-26");
-
-        logger.info(JSON.toJSONString(rooms));
-    }
-
-    @Test
-    public void Rooms() throws Exception {
-        List<Room> rooms = roomService.getRoomByPlan(1, "2017-03-23", "2017-03-26");
-//        List<Plan> rooms = planMapper.getPlansByRoomId(1);
-        logger.info(JSON.toJSONString(rooms));
-    }
+//
+//    @Test
+//    public void Rooms() throws Exception {
+//        List<Room> rooms = roomService.getRoomByPlan(1, "2017-03-23", "2017-03-26");
+////        List<Plan> rooms = planMapper.getPlansByRoomId(1);
+//        logger.info(JSON.toJSONString(rooms));
+//    }
 }

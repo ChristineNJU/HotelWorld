@@ -6,3 +6,7 @@ import request  from '../utils/request';
 export function fetch({ id }) {
   return request(`/api/hotels/`+ id);
 }
+
+export function update(values) {
+  console.log(values);
+}

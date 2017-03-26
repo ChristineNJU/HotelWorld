@@ -36,6 +36,9 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
         <Menu.Item key={1}>
           <a  rel="noopener noreferrer" href="/hotelinfo">客栈资料</a>
         </Menu.Item>
+        <Menu.Item key={7}>
+          <a  rel="noopener noreferrer" href="/hotelroom">房间管理</a>
+        </Menu.Item>
         <Menu.Item key={2}>
           <a  rel="noopener noreferrer" href="/hotelcheckin">入店登记</a>
         </Menu.Item>
@@ -50,6 +53,9 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
         </Menu.Item>
         <Menu.Item key={6}>
           <a  rel="noopener noreferrer" href="/hotelfinance">财务情况</a>
+        </Menu.Item>
+        <Menu.Item key={8}>
+          <a  rel="noopener noreferrer" href="/hotelinvalid">失效订单</a>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key={9}>

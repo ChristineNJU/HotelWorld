@@ -64,4 +64,22 @@ public class RoomImpl implements RoomService{
         }
         return result;
     }
+
+    public int createNewRoom(int hotelId, String name, int price) {
+        Room room = new Room();
+        room.setHotelid(hotelId);
+        room.setName(name);
+        room.setPrice(price);
+        room.setStatus(1);
+        return roomMapper.insert(room);
+    }
+
+    public int statusChange(int roomId, int status) {
+
+        Room room = new Room();
+        room.setId(roomId);
+        room.setStatus(status);
+
+        return roomMapper.updateByPrimaryKeySelective(room);
+    }
 }

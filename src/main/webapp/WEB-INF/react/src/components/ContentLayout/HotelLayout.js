@@ -10,6 +10,7 @@ function HotelLayout({ children, index }) {
     <div className={styles.main}>
       <div className={styles.leftMenu}>
         <Link className={index === 0 ? styles.linkCurrent : styles.link} to="/hotelinfo">客栈资料</Link>
+        <Link className={index === 7 ? styles.linkCurrent : styles.link} to="/hotelroom">房间管理</Link>
         <Link className={index === 1 ? styles.linkCurrent : styles.link} to="/hotelcheckin">入店登记</Link>
         <Link className={index === 2 ? styles.linkCurrent : styles.link} to="/hotelcurrent">入住情况</Link>
         <Link className={index === 3 ? styles.linkCurrent : styles.link} to="/hotelorders">查看预定</Link>

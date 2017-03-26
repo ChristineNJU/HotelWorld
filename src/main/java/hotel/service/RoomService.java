@@ -16,4 +16,8 @@ public interface RoomService {
     List<Room> getRoomByPlan(int hotelId,String begin,String end);
 
     List<Room> getRoomByPlanWithPrice(int hotelId,String begin,String end,int price);
+
+    int createNewRoom(int hotelId,String name,int price);
+
+    int statusChange(int roomId,int status);
 }

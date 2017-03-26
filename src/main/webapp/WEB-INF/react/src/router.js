@@ -87,6 +87,16 @@ function RouterConfig({ history, app }) {
           cb(null, require('./routes/HotelInfo'));
         });
       },
+    },
+    {
+      path: '/hotelroom',
+      name: 'hotelroom',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/HotelRoom'));
+        });
+      },
     },{
       path: '/hotelcheckin',
       name: 'hotelcheckin',

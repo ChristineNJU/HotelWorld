@@ -95,6 +95,7 @@
     <include refid="Base_Column_List" />
     from room
     where hotelid = #{id,jdbcType=INTEGER}
+    AND status = 1
   </select>
 
   <resultMap id="ConResultMap" type="hotel.vo.RoomCon" >
@@ -102,6 +103,8 @@
     <result column="price" property="price" jdbcType="INTEGER" />
   </resultMap>
   <select id="selectConRooms" resultMap="ConResultMap" parameterType="java.lang.Integer" >
-    SELECT price,count(id) AS `count` FROM room where hotelid = #{id,jdbcType=INTEGER} GROUP BY price;
+    SELECT price,count(id) AS `count` FROM room
+    where hotelid = #{id,jdbcType=INTEGER} AND status = 1
+    GROUP BY price;
   </select>
 </mapper>

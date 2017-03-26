@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hotel.dao.BillMapper" >
+  <resultMap id="BaseResultMap" type="hotel.model.Bill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="give" property="give" jdbcType="INTEGER" />
+    <result column="reserve" property="reserve" jdbcType="INTEGER" />
+    <result column="percent" property="percent" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, time, give, reserve, percent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from finance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="getAllBills" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from finance
+    ORDER BY TIME DESC
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from finance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="hotel.model.Bill" >
+    insert into finance (id, time, give, 
+      reserve, percent)
+    values (#{id,jdbcType=INTEGER}, #{time,jdbcType=DATE}, #{give,jdbcType=INTEGER}, 
+      #{reserve,jdbcType=INTEGER}, #{percent,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="hotel.model.Bill" >
+    insert into finance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="give != null" >
+        give,
+      </if>
+      <if test="reserve != null" >
+        reserve,
+      </if>
+      <if test="percent != null" >
+        percent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="give != null" >
+        #{give,jdbcType=INTEGER},
+      </if>
+      <if test="reserve != null" >
+        #{reserve,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null" >
+        #{percent,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="hotel.model.Bill" >
+    update finance
+    <set >
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="give != null" >
+        give = #{give,jdbcType=INTEGER},
+      </if>
+      <if test="reserve != null" >
+        reserve = #{reserve,jdbcType=INTEGER},
+      </if>
+      <if test="percent != null" >
+        percent = #{percent,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="hotel.model.Bill" >
+    update finance
+    set time = #{time,jdbcType=DATE},
+      give = #{give,jdbcType=INTEGER},
+      reserve = #{reserve,jdbcType=INTEGER},
+      percent = #{percent,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="HotelBenefitMap" type="hotel.model.HotelBenefits" >
+    <result column="hotelid" property="hotelid" jdbcType="INTEGER" />
+    <result column="hotelname" property="hotelname" jdbcType="VARCHAR" />
+    <result column="benefit" property="benefit" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="getHotelBenefits" resultMap="HotelBenefitMap">
+    SELECT hotelid,hotelname,sum(price) as benefit
+    FROM orders LEFT JOIN hotel ON orders.hotelid = hotel.id
+    WHERE endtime > (SELECT max(`time`) FROM finance)
+    GROUP BY hotelid,hotelname;
+  </select>
+</mapper>

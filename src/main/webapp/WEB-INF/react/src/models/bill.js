@@ -1,18 +1,23 @@
 import * as billService from '../services/bill';
+import {browserHistory} from 'dva/router';
 
 export default {
   namespace: 'bill',
   state: {
     benefits:[],
-    bills:[]
+    bills:[],
+    percent:0.1
   },
   reducers: {
     renderBenefits(state,{payload:{benefits}}){
-      console.log(benefits);
       return {...state,benefits:benefits}
     },
     renderBills(state,{payload:{bills}}){
       return {...state,bills:bills}
+    },
+    percentChange(state,{payload:{percent}}){
+      // console.log('111');
+      return {...state,percent:percent}
     }
   },
   effects: {
@@ -33,6 +38,10 @@ export default {
           bills:data
         }
       })
+    },
+    *createBill({payload},{call,put}){
+      const {data} = yield call(billService.createBill,{percent:payload.percent});
+      browserHistory.push('/admingive');
     }
   },
   subscriptions: {

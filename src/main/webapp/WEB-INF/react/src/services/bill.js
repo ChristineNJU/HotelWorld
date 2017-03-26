@@ -10,3 +10,13 @@ export function getBenefits() {
 export function getBills() {
   return request(`/api/bills`)
 }
+
+export function createBill(value) {
+  console.log(value);
+  // return;
+  return request(`/api/bills`,{
+    method:'POST',
+    body:JSON.stringify(value)
+  })
+}
+

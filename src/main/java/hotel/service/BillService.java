@@ -12,4 +12,6 @@ public interface BillService {
     List<HotelBenefits> getBenefits();
 
     List<Bill> getBills();
+
+    int createBill(Double percent);
 }

@@ -104,7 +104,7 @@
   </resultMap>
   <select id="getHotelBenefits" resultMap="HotelBenefitMap">
     SELECT hotelid,hotelname,sum(price) as benefit
-    FROM orders LEFT JOIN hotel ON orders.hotelid = hotel.id
+    FROM hotel LEFT JOIN orders ON orders.hotelid = hotel.id
     WHERE endtime > (SELECT max(`time`) FROM finance)
     AND orders.status = 4
     GROUP BY hotelid,hotelname;

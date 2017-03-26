@@ -8,11 +8,29 @@ import {Button,Form,Table,InputNumber,Row} from 'antd';
 const FotmItem = Form.Item;
 
 
-function AdminGive({dispatch,benefits}) {
+function AdminGive({dispatch,benefits,percent}) {
   const formItemLayout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 12 },
   };
+
+  function percentChange(value) {
+    dispatch({
+      type:'bill/percentChange',
+      payload:{
+        percent:value
+      }
+    })
+  }
+
+  function createBill() {
+    dispatch({
+      type:'bill/createBill',
+      payload:{
+        percent:percent
+      }
+    })
+  }
 
   const columns = [{
     title: '客栈编号',
@@ -30,15 +48,14 @@ function AdminGive({dispatch,benefits}) {
 
   return (
     <div>
-      {/*<Form>*/}
-        <Row
-                  style={{justifyContent:'flex-start',alignItems:'center',padding:'10px 0',display: 'flex'}}>
-          <span>抽成：</span>
-          <InputNumber min={0} max={0.9} step={0.1} defaultValue={0.1}
-                       style={{width:'20%',marginRight:'20px'}} size="large"/>
-          <Button size="large">结账</Button>
-        </Row>
-      {/*</Form>*/}
+      <Row
+                style={{justifyContent:'flex-start',alignItems:'center',padding:'10px 0',display: 'flex'}}>
+        <span>抽成：</span>
+        <InputNumber min={0} max={0.9} step={0.1} defaultValue={0.1}
+                     style={{width:'20%',marginRight:'20px'}} size="large"
+                      value={percent} onChange={percentChange}/>
+        <Button size="large" onClick={createBill}>结账</Button>
+      </Row>
       <Table columns={columns} dataSource={benefits} style={{fontSize:'0.5em'}}/>
     </div>
   )
@@ -46,7 +63,7 @@ function AdminGive({dispatch,benefits}) {
 
 
 function mapStateToProps(state) {
-  return {benefits:state.bill.benefits}
+  return {benefits:state.bill.benefits,percent:state.bill.percent}
 }
 
 export default connect(mapStateToProps)(AdminGive);

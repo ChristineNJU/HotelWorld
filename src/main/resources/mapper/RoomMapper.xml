@@ -95,7 +95,7 @@
     <include refid="Base_Column_List" />
     from room
     where hotelid = #{id,jdbcType=INTEGER}
-    AND status = 1
+
   </select>
 
   <resultMap id="ConResultMap" type="hotel.vo.RoomCon" >

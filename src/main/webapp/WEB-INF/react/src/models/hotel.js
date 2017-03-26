@@ -22,7 +22,9 @@ export default {
   },
   reducers: {
     init(state,{payload:{info,rooms}}){
-      return {...state,info,rooms,hasLogin:localStorage.getItem("type") == 1}
+      console.log(localStorage.getItem("userType") == 1);
+      console.log(localStorage.getItem("userType"));
+      return {...state,info,rooms,hasLogin:localStorage.getItem("userType") == 1}
     },
     initIncludingChecking(state,{payload:{info,rooms,infoChecking}}){
       // console.log(info,rooms,infoChecking);

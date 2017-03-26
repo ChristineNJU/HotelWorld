@@ -1,5 +1,7 @@
 package hotel.model;
 
+import hotel.Util.MyDate;
+
 import java.util.Date;
 
 public class Bill {
@@ -12,6 +14,8 @@ public class Bill {
     private Integer reserve;
 
     private Double percent;
+
+    private String date;
 
     public Integer getId() {
         return id;
@@ -27,6 +31,7 @@ public class Bill {
 
     public void setTime(Date time) {
         this.time = time;
+        this.date = MyDate.getFormatedDate(time);
     }
 
     public Integer getGive() {
@@ -51,5 +56,9 @@ public class Bill {
 
     public void setPercent(Double percent) {
         this.percent = percent;
+    }
+
+    public String getDate() {
+        return date;
     }
 }

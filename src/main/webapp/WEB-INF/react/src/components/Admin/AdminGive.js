@@ -8,7 +8,7 @@ import {Button,Form,Table,InputNumber,Row} from 'antd';
 const FotmItem = Form.Item;
 
 
-function AdminGive({dispatch}) {
+function AdminGive({dispatch,benefits}) {
   const formItemLayout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 12 },
@@ -16,31 +16,37 @@ function AdminGive({dispatch}) {
 
   const columns = [{
     title: '客栈编号',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'hotelNumber',
+    key: 'hotelNumber',
   },{
     title: '客栈名字',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'hotelname',
+    key: 'hotelname',
   },{
     title: '营业额',
-    dataIndex: 'type',
-    key: 'type',
+    dataIndex: 'benefit',
+    key: 'benefit',
   }];
 
   return (
     <div>
       {/*<Form>*/}
-        <Row label="抽成" {...formItemLayout}
+        <Row
                   style={{justifyContent:'flex-start',alignItems:'center',padding:'10px 0',display: 'flex'}}>
           <span>抽成：</span>
-          <InputNumber style={{width:'20%',marginRight:'20px'}} size="large"/>
+          <InputNumber min={0} max={0.9} step={0.1} defaultValue={0.1}
+                       style={{width:'20%',marginRight:'20px'}} size="large"/>
           <Button size="large">结账</Button>
         </Row>
       {/*</Form>*/}
-      <Table columns={columns} style={{fontSize:'0.5em'}}/>
+      <Table columns={columns} dataSource={benefits} style={{fontSize:'0.5em'}}/>
     </div>
   )
 }
 
-export default AdminGive;
+
+function mapStateToProps(state) {
+  return {benefits:state.bill.benefits}
+}
+
+export default connect(mapStateToProps)(AdminGive);

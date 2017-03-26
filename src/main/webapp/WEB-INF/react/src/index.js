@@ -21,6 +21,8 @@ app.use(createLoading());
 
 app.model(require("./models/hotels"));
 
+app.model(require("./models/bill"));
+
 app.model(require("./models/room"));
 
 app.model(require("./models/order"));

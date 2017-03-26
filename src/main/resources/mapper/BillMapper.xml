@@ -106,7 +106,7 @@
     SELECT hotelid,hotelname,sum(price) as benefit
     FROM hotel LEFT JOIN orders ON orders.hotelid = hotel.id
     WHERE endtime > (SELECT max(`time`) FROM finance)
-    AND orders.status = 4
+    AND orders.status = 4 AND vipid IS NOT NULL
     GROUP BY hotelid,hotelname;
   </select>
 </mapper>

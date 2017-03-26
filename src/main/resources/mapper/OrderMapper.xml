@@ -35,6 +35,12 @@
     from orders
     where vipname = #{vipname,jdbcType=VARCHAR}
   </select>
+  <select id="getOrderByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
   <select id="getOrdersByHotelId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     <include refid="Base_Column_List"/>

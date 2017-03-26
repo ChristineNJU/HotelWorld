@@ -32,7 +32,7 @@ export default {
       let prices = [];
       if (queryResult != null) {
         for (let room of queryResult) {
-          if (!(room.price in prices)) {
+          if (!(room.price in prices) && room.status === 1) {
             prices.push(room.price);
           }
         }

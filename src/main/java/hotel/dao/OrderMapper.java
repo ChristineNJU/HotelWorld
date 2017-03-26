@@ -15,4 +15,6 @@ public interface OrderMapper {
     List<Order> getOrdersByHotelId(int hotelid);
 
     int statusChange(@Param("orderid") int orderid, @Param("status") int status);
+
+    Order getOrderByKey(int id);
 }

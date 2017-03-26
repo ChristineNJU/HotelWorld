@@ -14,4 +14,6 @@ public interface VipService {
     int pointsToMoney(String token);
 
     int addMoney(String token,int money);
+
+    int updateVipAfterOrderComfirm(Vip vip);
 }

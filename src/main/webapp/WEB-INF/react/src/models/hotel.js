@@ -19,11 +19,10 @@ export default {
       count:null,
     }],
     hasLogin:null,
+    vipDiscount:null,
   },
   reducers: {
     init(state,{payload:{info,rooms}}){
-      console.log(localStorage.getItem("userType") == 1);
-      console.log(localStorage.getItem("userType"));
       return {...state,info,rooms,hasLogin:localStorage.getItem("userType") == 1}
     },
     initIncludingChecking(state,{payload:{info,rooms,infoChecking}}){
@@ -50,7 +49,11 @@ export default {
           info:data.detail,
           rooms:data.rooms,
         }
-      })
+      });
+
+      if(localStorage.getItem("userType") == 1){
+
+      }
     },
     *fetchIncludingChecking({payload},{call,put}){
       const {data} = yield call (hotelService.fetch,{id:payload.id});
@@ -104,6 +107,9 @@ export default {
             type: `fetch`,
             payload: {id:id}
           });
+          dispatch({
+            type:`user/fetch`,payload:{username:localStorage.getItem("username")}
+          })
         }
 
         //客栈看自己的页面

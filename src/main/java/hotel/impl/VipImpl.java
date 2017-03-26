@@ -54,4 +54,8 @@ public class VipImpl implements VipService {
         return vipMapper.addMoney(token,money);
     }
 
+    public int updateVipAfterOrderComfirm(Vip vip){
+        return vipMapper.updateByPrimaryKeySelective(vip);
+    }
+
 }

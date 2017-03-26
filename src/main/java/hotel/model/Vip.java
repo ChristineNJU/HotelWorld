@@ -32,6 +32,8 @@ public class Vip {
 
     private String vipNumber;
 
+    private Double discount;
+
     public Integer getId() {
         return id;
     }
@@ -112,6 +114,7 @@ public class Vip {
 
     public void setLevel(Integer level) {
         this.level = level;
+        this.discount = 1-0.05*level;
     }
 
     public String getUsername() {
@@ -132,5 +135,9 @@ public class Vip {
 
     public String getVipNumber() {
         return vipNumber;
+    }
+
+    public Double getDiscount() {
+        return discount;
     }
 }

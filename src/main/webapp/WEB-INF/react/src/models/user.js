@@ -16,6 +16,7 @@ export default {
       id:'',
       status:null,
       money:0,
+      discount:null,
     },
     moneySuccess:null,
     inputValue:null,
@@ -63,9 +64,10 @@ export default {
         }
       });
 
-      setTimeout(function () {
+      // console.log('1111');
+      // setTimeout(function () {
         browserHistory.push('/uservip');
-      },1000)
+
     },
   },
   subscriptions: {

@@ -10,7 +10,7 @@ import styles from './HotelSingle.css'
 import moment from 'moment';
 
 
-function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order}) {
+function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount,money}) {
   const formItemLayout = {
     labelCol: { span: 1 },
     wrapperCol: { span: 8 },
@@ -100,7 +100,10 @@ function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order}) {
           <p className={styles.label}>预定房间</p>
           <Form style={{marginTop:'1em'}}>
             <FormItem label="折扣" {...formItemLayout}>
-              <span style={{color:'#FE745F'}}>0.9折</span>
+              <span style={{color:'#FE745F'}}>原价 * {discount}</span>
+            </FormItem>
+            <FormItem label="余额" {...formItemLayout}>
+              <span style={{color:'#FE745F'}}>{money}</span>
             </FormItem>
 
             <FormItem label="时间" {...formItemLayout}>
@@ -132,11 +135,12 @@ function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order}) {
             <FormItem >
               <p>价格:
                 <span style={{color:'#FE745F'}}>
-                  {order.price * order.count * query.gap}
+                  {order.price * order.count * query.gap * discount}
                 </span>
               </p>
               <br/>
               <Button type="primary" htmlType="submit" size="large" style={{fontWeight:'lighter'}}
+                      disabled={money < order.price * order.count * query.gap * discount}
                       onClick={handleClick}>预定</Button>
             </FormItem>
             :''}
@@ -169,10 +173,10 @@ function disabledDate(current) {
 function mapStateToProps(state) {
   const { info,rooms,hasLogin } = state.hotel;
   const {roomShow,query,order} = state.order;
-  // console.log(order);
+  const{discount,money} = state.user.user;
   return {
     loading: state.loading.models.hotels,
-    info,rooms,hasLogin,roomShow,query,order
+    info,rooms,hasLogin,roomShow,query,order,discount,money
   };
 
 }

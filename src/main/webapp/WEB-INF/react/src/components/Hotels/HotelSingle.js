@@ -3,18 +3,62 @@
  */
 import React from 'react';
 import { connect } from 'dva';
-import {Icon,Card,Form,Button,Input,InputNumber,DatePicker,Select} from 'antd';
+import {Icon,Card,Form,Button,Input,Table,DatePicker,Select} from 'antd';
 const FormItem = Form.Item;
 const {RangePicker } = DatePicker;
 import styles from './HotelSingle.css'
 import moment from 'moment';
 
 
-function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount,money}) {
+function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount,money,hotelOrders,userType}) {
   const formItemLayout = {
     labelCol: { span: 1 },
     wrapperCol: { span: 8 },
   };
+  const columns = [{
+    title: '房间号',
+    dataIndex: 'roomname',
+    key: 'roomname',
+  }, {
+    title: '房间价格',
+    dataIndex: 'price',
+    key: 'price',
+  },{
+    title: '会员号',
+    dataIndex: 'vipNumber',
+    key: 'vipNumber',
+  },{
+    title: '住客手机',
+    dataIndex: 'phone',
+    key: 'phone',
+  },{
+    title: '时间',
+    dataIndex: 'timestart',
+    key: 'timestart',
+    render:(text,row,index) =>{
+      return row.begin + ' ~ '+row.end;
+    }
+  },{
+    title:'状态',
+    dataIndex:'operation',
+    key:'dataIndex',
+    render:(text,row,index)=>{
+      switch(row.status){
+        case 0:
+          return(
+            '未入住'
+          );
+        case 1:
+          return '顾客已取消';
+        case 2:
+          return '过期已取消';
+        case 3:
+          return '正在入住';
+        case 4:
+          return '已离店';
+      }
+    }
+  }];
   const dateFormat='YYYY-MM-DD';
 
   function dateChange(e){
@@ -81,6 +125,7 @@ function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount
     ?[moment(query.begin, dateFormat), moment(query.end, dateFormat)]
     :null;
 
+  console.log(hotelOrders);
   return(
     <div className={styles.main}>
       <h3>{info.name}</h3>
@@ -146,10 +191,14 @@ function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount
             :''}
 
           </Form>
+
         </div>
         :''
       }
-
+      {userType == 3 ?
+        <Table columns={columns} dataSource={hotelOrders}/>
+        :''
+      }
     </div>
   )
 }
@@ -173,10 +222,14 @@ function disabledDate(current) {
 function mapStateToProps(state) {
   const { info,rooms,hasLogin } = state.hotel;
   const {roomShow,query,order} = state.order;
+  const {orders} = state.order.hotelOrders;
+  // console.log( state.order);
+  // console.log( state.order.hotelOrders);
   const{discount,money} = state.user.user;
+  const userType = localStorage.getItem("userType");
   return {
     loading: state.loading.models.hotels,
-    info,rooms,hasLogin,roomShow,query,order,discount,money
+    info,rooms,hasLogin,roomShow,query,order,discount,money,hotelOrders:state.order.hotelOrders,userType
   };
 
 }

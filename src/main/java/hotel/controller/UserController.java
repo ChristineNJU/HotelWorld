@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +90,12 @@ public class UserController {
 
         System.out.println(JSON.toJSONString(result));
         return result;
+    }
+
+    @RequestMapping(value="/user",method = RequestMethod.GET)
+    public @ResponseBody
+    List<Vip> getAllVip(@RequestBody String body)throws Exception{
+            return vipService.getAllVip();
     }
 
     @RequestMapping(value="/user/{username}",method = RequestMethod.GET)

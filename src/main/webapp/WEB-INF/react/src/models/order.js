@@ -1,3 +1,4 @@
+import pathToRegexp from 'path-to-regexp';
 import * as orderServices from '../services/order';
 import {browserHistory} from 'dva/router';
 
@@ -84,7 +85,7 @@ export default {
   },
   effects: {
     *fetch({payload},{call,put}){
-      let username = localStorage.getItem("username");
+      let username = payload.username;
       const {data} = yield call(orderServices.queryOrders,{payload:{queryString: '?username=' + username}});
         // console.log(data);
         yield put({
@@ -95,8 +96,11 @@ export default {
         })
     },
     *fetchHotelOrders({payload},{call,put}){
-      let hotelId = localStorage.getItem("hotelId");
+      // let hotelId = localStorage.getItem("hotelId");
+      let hotelId = payload.hotelId;
+      console.log('in fetch hotel orders',hotelId);
       const {data} = yield call(orderServices.queryOrders,{payload:{queryString:'?hotelId=' + hotelId}});
+      console.log('orders',data);
       yield put({
         type:'getHotelOrders',
         payload:{
@@ -232,12 +236,18 @@ export default {
         if( pathname === 'userorders') {
           // console.log('in setup');
           dispatch({
-            type: 'fetch'
+            type: 'fetch',
+            payload:{
+              username:localStorage.getItem("username")
+            }
           });
         }
         if( pathname === 'hotelorders') {
           dispatch({
-            type: 'fetchHotelOrders'
+            type: 'fetchHotelOrders',
+            payload:{
+              hotelId:localStorage.getItem("hotelId")
+            }
           });
         }
         if( pathname === 'hotelcurrent') {
@@ -255,6 +265,17 @@ export default {
             type: 'fetchHotelInvalid'
           });
         }
+        const match_detail = pathToRegexp(`/adminviporders/:username`).exec(location.pathname);
+        if (match_detail){
+          // console.log();
+          dispatch({
+            type: 'fetch',
+            payload:{
+              username:match_detail[1]
+            }
+          });
+        }
+
       })
     }
   },

@@ -16,7 +16,7 @@ export default {
       id:'',
       status:null,
       money:0,
-      discount:null,
+      discount:1,
     },
     moneySuccess:null,
     inputValue:null,
@@ -36,11 +36,13 @@ export default {
   },
   effects: {
     *fetch({payload},{call,put},){
-      const {data} = yield call (sessionService.getVip,{username:payload.username});
-      yield put({
-        type:'init',
-        payload:data,
-      })
+      if(localStorage.getItem("userType") == 1) {
+        const {data} = yield call(sessionService.getVip, {username: payload.username});
+        yield put({
+          type: 'init',
+          payload: data,
+        })
+      }
     },
     *pointsToMoney({payload},{call,put}){
       const {data} = yield call (sessionService.pointsToMoney,{type:1,amount:null,token:localStorage.getItem("token")});

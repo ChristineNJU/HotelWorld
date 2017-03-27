@@ -178,6 +178,24 @@ function RouterConfig({ history, app }) {
           cb(null, require('./routes/AdminMoney'));
         });
       },
+    },{
+      path: '/adminvip',
+      name: 'adminvip',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/AdminVip'));
+        });
+      },
+    },{
+      path: '/adminviporders/:username',
+      name: 'adminviporders',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          // registerModel(app, require('./models/users'));
+          cb(null, require('./routes/AdminVipOrders'));
+        });
+      },
     }
 
   ];

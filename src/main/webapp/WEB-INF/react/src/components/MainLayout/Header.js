@@ -77,6 +77,9 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
         <Menu.Item key={3}>
           <a  rel="noopener noreferrer" href="/adminmoney">财务情况</a>
         </Menu.Item>
+        <Menu.Item key={4}>
+          <a  rel="noopener noreferrer" href="/adminvip">会员情况</a>
+        </Menu.Item>
         <Menu.Divider />
         <Menu.Item key={9}>
           <a  rel="noopener noreferrer" onClick={handleLogout}>退出登录</a>

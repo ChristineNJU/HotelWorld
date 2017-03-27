@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,6 +57,10 @@ public class VipImpl implements VipService {
 
     public int updateVipAfterOrderComfirm(Vip vip){
         return vipMapper.updateByPrimaryKeySelective(vip);
+    }
+
+    public List<Vip> getAllVip() {
+        return vipMapper.getAllVip();
     }
 
 }

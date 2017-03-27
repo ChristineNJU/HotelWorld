@@ -19,7 +19,8 @@ export default {
       count:null,
     }],
     hasLogin:null,
-    vipDiscount:null,
+    vipDiscount:1,
+    orders:[],
   },
   reducers: {
     init(state,{payload:{info,rooms}}){
@@ -109,8 +110,16 @@ export default {
           });
           dispatch({
             type:`user/fetch`,payload:{username:localStorage.getItem("username")}
-          })
+          });
+          if(localStorage.getItem("userType") == 3){
+            // console.log('in set up',localStorage.getItem("userType"));
+            dispatch({
+              type: `order/fetchHotelOrders`,
+              payload: {hotelId: id}
+            })
+          }
         }
+
 
         //客栈看自己的页面
         if(pathname === 'hotelcheckin'){

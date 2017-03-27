@@ -5,6 +5,8 @@ import hotel.model.Vip;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface VipMapper {
     int deleteByPrimaryKey(Integer id);
@@ -26,4 +28,6 @@ public interface VipMapper {
     int pointsToMoney(String token);
 
     int addMoney(@Param("token")String token, @Param("money")int money);
+
+    List<Vip> getAllVip();
 }

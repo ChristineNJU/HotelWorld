@@ -180,4 +180,10 @@
     set money = money + #{money}
     where username = (SELECT username FROM token where token = #{token})
   </update>
+
+  <select id="getAllVip" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from vip
+  </select>
 </mapper>

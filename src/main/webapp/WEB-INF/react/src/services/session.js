@@ -52,3 +52,12 @@ export function pointsToMoney({type,amount,token}) {
     body:JSON.stringify({type,amount,token})
   });
 }
+
+export function changeCredit({credit,username}) {
+  // console.log({credit,username});
+  // return;
+  return request(`/api/money`,{
+    method:`PUT`,
+    body:JSON.stringify({credit,username})
+  })
+}

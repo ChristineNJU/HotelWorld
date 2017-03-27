@@ -63,4 +63,8 @@ public class VipImpl implements VipService {
         return vipMapper.getAllVip();
     }
 
+    public int changeCredit(String credit, String username) {
+        return vipMapper.updateCredit(credit,username);
+    }
+
 }

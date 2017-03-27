@@ -7,7 +7,7 @@ const FormItem = Form.Item;
 import { connect} from 'dva';
 import styles from './user.css';
 
-function Vip({dispatch,user,moneySuccess,inputValue}) {
+function Vip({dispatch,user,moneySuccess,inputValue,creditValue}) {
   const formItemLayout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 12 },
@@ -48,6 +48,26 @@ function Vip({dispatch,user,moneySuccess,inputValue}) {
       return <Alert message="余额增加成功" type="success" className={styles.notice}/>;
     if (moneySuccess === 0)
       return <Alert message="余额增加失败，请重新尝试" type="error" className={styles.notice}/>;
+  }
+
+  function creditChange(e) {
+    // console.log(e);
+    dispatch({
+      type:'user/creditChange',
+      payload:{
+        value:e.target.value
+      }
+    })
+  }
+
+  function confirmCreditChange() {
+    dispatch({
+      type:'user/changeCredit',
+      payload:{
+        credit:creditValue,
+        username:localStorage.getItem("username")
+      }
+    })
   }
 
 
@@ -97,8 +117,15 @@ function Vip({dispatch,user,moneySuccess,inputValue}) {
 
         <FormItem label="充值余额" {...formItemLayout}>
           <div style={{display:'flex',justifyContent:'flex-start'}}>
-            <InputNumber style={{width:'120px'}} size="large" onChange={inputNumberChange} value={inputValue==null?'':inputValue}>{inputValue}</InputNumber>
+            <InputNumber style={{width:'200px'}} size="large" onChange={inputNumberChange} value={inputValue==null?'':inputValue}>{inputValue}</InputNumber>
             <Button type="primary"  style={{fontWeight:'lighter'}} onClick={addMoney}>充值</Button>
+          </div>
+        </FormItem>
+
+        <FormItem label="换银行卡" {...formItemLayout}>
+          <div style={{display:'flex',justifyContent:'flex-start'}}>
+            <Input style={{width:'200px',marginRight:'10px'}} size="large" onChange={creditChange} value={creditValue==null?'':creditValue}/>
+            <Button type="primary"  style={{fontWeight:'lighter'}} onClick={confirmCreditChange}>确定</Button>
           </div>
         </FormItem>
 
@@ -115,6 +142,7 @@ function mapStateToProps(state) {
     user:state.user.user,
     moneySuccess:state.user.moneySuccess,
     inputValue:state.user.inputValue,
+    creditValue:state.user.creditValue
   }
 }
 

@@ -186,4 +186,9 @@
     <include refid="Base_Column_List" />
     from vip
   </select>
+  <update id="updateCredit" parameterType="java.lang.String" >
+    update vip
+    set credit = #{credit,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=INTEGER}
+  </update>
 </mapper>

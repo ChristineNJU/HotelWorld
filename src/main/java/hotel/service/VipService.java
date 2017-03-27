@@ -20,4 +20,6 @@ public interface VipService {
     int updateVipAfterOrderComfirm(Vip vip);
 
     List<Vip> getAllVip();
+
+    int changeCredit(String credit,String username);
 }

@@ -24,7 +24,7 @@ public class MoneyController {
 
     @RequestMapping(value="/money",method = RequestMethod.POST)
     public @ResponseBody
-    Map register(@RequestBody String body)throws Exception{
+    Map addMoney(@RequestBody String body)throws Exception{
         Map<String,Object> result = new HashMap<String,Object>();
         System.out.println(body);
         JSONObject params = JSON.parseObject(body);
@@ -43,4 +43,18 @@ public class MoneyController {
         System.out.println(JSON.toJSONString(result));
         return result;
     }
+
+    @RequestMapping(value="/money",method = RequestMethod.PUT)
+    public @ResponseBody
+    Map changeBank(@RequestBody String body)throws Exception{
+        Map<String,Object> result = new HashMap<String,Object>();
+        JSONObject ob = JSON.parseObject(body);
+        String username = ob.getString("username");
+        String credit = ob.getString("credit");
+        int changeResult = vipService.changeCredit(credit,username);
+        result.put("success",changeResult);
+        return result;
+    }
+
+
 }

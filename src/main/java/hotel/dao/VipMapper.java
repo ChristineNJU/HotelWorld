@@ -27,7 +27,11 @@ public interface VipMapper {
 
     int pointsToMoney(String token);
 
-    int addMoney(@Param("token")String token, @Param("money")int money);
+    int addMoney(@Param("token")String token,
+                 @Param("money")int money);
 
     List<Vip> getAllVip();
+
+    int updateCredit(@Param("credit") String credit,
+                     @Param("username") String username);
 }

@@ -20,6 +20,7 @@ export default {
     },
     moneySuccess:null,
     inputValue:null,
+    creditValue:null,
   },
   reducers: {
     init(state,{payload}){
@@ -32,6 +33,12 @@ export default {
     inputValueChange(state,{payload}){
       // console.log(payload);
       return {...state,inputValue:payload.inputValue};
+    },
+    creditChange(state,{payload}){
+      return {...state,creditValue:payload.value}
+    },
+    creditChangeResult(state,{payload}){
+      return {...state,creditValue:null,user:{...state.user,credit:payload.credit}};
     }
   },
   effects: {
@@ -65,12 +72,17 @@ export default {
           success:data.success != undefined ? data.success : null
         }
       });
-
-      // console.log('1111');
-      // setTimeout(function () {
-        browserHistory.push('/uservip');
-
+      browserHistory.push('/uservip');
     },
+    *changeCredit({payload},{call,put}){
+      const {data} = yield call(sessionService.changeCredit,payload);
+      yield put({
+        type:'creditChangeResult',
+        payload:{
+          credit:payload.credit
+        }
+      });
+    }
   },
   subscriptions: {
     setup({dispatch,history}){

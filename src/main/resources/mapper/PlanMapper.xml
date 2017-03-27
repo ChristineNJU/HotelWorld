@@ -30,4 +30,16 @@
     WHERE roomid=#{roomid,jdbcType=INTEGER}
     AND `time`=#{time,jdbcType=DATE}
   </update>
+
+  <resultMap id="CheckInMap" type="hotel.vo.CheckIn" >
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="getCheckIns" resultMap="CheckInMap">
+    SELECT `time` as date, count(plan.roomid) AS `count`
+    FROM plan LEFT JOIN room ON plan.roomid = room.id
+    WHERE room.hotelid=#{hotelId,jdbcType=INTEGER} AND plan.status = 1
+    GROUP BY `time`;
+  </select>
+
 </mapper>

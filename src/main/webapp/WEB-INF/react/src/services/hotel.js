@@ -14,3 +14,7 @@ export function update(values) {
     body:JSON.stringify(values)
   })
 }
+
+export function fetchCheckIns(hotelId) {
+  return request(`/api/plans/`+hotelId);
+}

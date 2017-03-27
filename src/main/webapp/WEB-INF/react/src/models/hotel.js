@@ -21,10 +21,17 @@ export default {
     hasLogin:null,
     vipDiscount:1,
     orders:[],
+    checkIns:{
+      dates:[],
+      counts:[]
+    }
   },
   reducers: {
     init(state,{payload:{info,rooms}}){
       return {...state,info,rooms,hasLogin:localStorage.getItem("userType") == 1}
+    },
+    initCharts(state,{payload:{dates,counts}}){
+      return {...state,checkIns:{dates:dates,counts:counts}}
     },
     initIncludingChecking(state,{payload:{info,rooms,infoChecking}}){
       // console.log(info,rooms,infoChecking);
@@ -79,6 +86,16 @@ export default {
         }
       })
     },
+    *fetchCheckIns({payload},{call,put}){
+      const {data} = yield call(hotelService.fetchCheckIns,payload.hotelId);
+      yield put({
+        type:'initCharts',
+        payload:{
+          dates:data.dates,
+          counts:data.counts,
+        }
+      })
+    },
     *infoChange({payload},{call,put}){
       const {data} = yield call(
         hotelService.update,
@@ -116,6 +133,10 @@ export default {
             dispatch({
               type: `order/fetchHotelOrders`,
               payload: {hotelId: id}
+            });
+            dispatch({
+              type:`fetchCheckIns`,
+              payload:{hotelId:id}
             })
           }
         }

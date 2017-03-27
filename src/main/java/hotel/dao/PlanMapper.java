@@ -1,6 +1,7 @@
 package hotel.dao;
 
 import hotel.model.Plan;
+import hotel.vo.CheckIn;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,6 @@ public interface PlanMapper {
 
     int cancelPlan(@Param("roomid") int roomid,
                    @Param("time") Date time);
+
+    List<CheckIn> getCheckIns(int hotelId);
 }

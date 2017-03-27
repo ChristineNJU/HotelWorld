@@ -8,9 +8,9 @@ const FormItem = Form.Item;
 const {RangePicker } = DatePicker;
 import styles from './HotelSingle.css'
 import moment from 'moment';
+import ReactEcharts from 'echarts-for-react';
 
-
-function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount,money,hotelOrders,userType}) {
+function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount,money,hotelOrders,userType,checkIns}) {
   const formItemLayout = {
     labelCol: { span: 1 },
     wrapperCol: { span: 8 },
@@ -125,7 +125,6 @@ function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount
     ?[moment(query.begin, dateFormat), moment(query.end, dateFormat)]
     :null;
 
-  console.log(hotelOrders);
   return(
     <div className={styles.main}>
       <h3>{info.name}</h3>
@@ -196,11 +195,59 @@ function HotelSingle({dispatch,info,rooms,hasLogin,roomShow,query,order,discount
         :''
       }
       {userType == 3 ?
+        <div>
+          <ReactEcharts
+            option={getOption()}
+            notMerge={true}
+            lazyUpdate={true}/>
+          <br/>
         <Table columns={columns} dataSource={hotelOrders}/>
+        </div>
         :''
       }
     </div>
-  )
+  );
+
+  function getOption() {
+    return {
+      title: {
+        text: '入住数量统计'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data:['入住数量']
+      },
+      grid: {
+        left: '0',
+        right: '0',
+        bottom: '10%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: checkIns.dates
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name:'入住数量',
+          type:'line',
+          stack: '总量',
+          data:checkIns.counts
+        }
+      ]
+    };
+  }
 }
 
 function RoomType({price,number}){
@@ -220,16 +267,17 @@ function disabledDate(current) {
 }
 
 function mapStateToProps(state) {
-  const { info,rooms,hasLogin } = state.hotel;
+  const { info,rooms,hasLogin,checkIns } = state.hotel;
   const {roomShow,query,order} = state.order;
   const {orders} = state.order.hotelOrders;
-  // console.log( state.order);
-  // console.log( state.order.hotelOrders);
   const{discount,money} = state.user.user;
   const userType = localStorage.getItem("userType");
+
+  // console.log(checkIns);
   return {
     loading: state.loading.models.hotels,
     info,rooms,hasLogin,roomShow,query,order,discount,money,hotelOrders:state.order.hotelOrders,userType
+    ,checkIns
   };
 
 }

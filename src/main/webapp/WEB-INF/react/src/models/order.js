@@ -98,9 +98,7 @@ export default {
     *fetchHotelOrders({payload},{call,put}){
       // let hotelId = localStorage.getItem("hotelId");
       let hotelId = payload.hotelId;
-      console.log('in fetch hotel orders',hotelId);
       const {data} = yield call(orderServices.queryOrders,{payload:{queryString:'?hotelId=' + hotelId}});
-      console.log('orders',data);
       yield put({
         type:'getHotelOrders',
         payload:{

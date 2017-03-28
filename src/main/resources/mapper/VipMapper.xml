@@ -181,6 +181,18 @@
     where username = (SELECT username FROM token where token = #{token})
   </update>
 
+  <update id="updateVipStatus">
+    update vip
+    set status = 1
+    where username = (SELECT username FROM token where token = #{token})
+  </update>
+
+  <update id="cancelVip">
+    update vip
+    set status = 3
+    where username = (SELECT username FROM token where token = #{token})
+  </update>
+
   <select id="getAllVip" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

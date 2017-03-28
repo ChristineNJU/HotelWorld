@@ -25,7 +25,7 @@ export default {
   reducers: {
     init(state,{payload}){
       // console.log(payload);
-      return {...state,user:payload.user,moneySuccess:null};
+      return {...state,user:payload.user,moneySuccess:null,creditValue:null,inputValue:null};
     },
     moneyResult(state,{payload}){
       return {...state,moneySuccess:payload.success,inputValue:null};
@@ -66,12 +66,10 @@ export default {
     },
     *addMoney({payload},{call,put}){
       const {data} = yield call (sessionService.pointsToMoney,{type:2,amount:payload.amount,token:localStorage.getItem("token")});
-      yield put({
-        type:'moneyResult',
-        payload:{
-          success:data.success != undefined ? data.success : null
-        }
-      });
+      browserHistory.push('/uservip');
+    },
+    *deleteVip({payload},{call,put}){
+      const {data} = yield call (sessionService.deleteVip,{token:localStorage.getItem("token")});
       browserHistory.push('/uservip');
     },
     *changeCredit({payload},{call,put}){

@@ -3,6 +3,8 @@
  */
 import * as sessionService from '../services/session';
 import { browserHistory } from 'dva/router';
+import {vipRegisterService} from '../services/session';
+import request from '../utils/request';
 
 export default {
   namespace:'session',
@@ -84,19 +86,25 @@ export default {
     },
     *vipRegister({payload},{call,put}){
       let values = {...payload.values,type:1};
-      const result = yield call (sessionService.vipRegister,{values:values}).data;
+      // console.log('in model');
+      // const result = yield call(vipRegisterService,{values:values}).data;
+      const result = yield request(`/api/user`,{
+        method:'POST',
+        body:JSON.stringify({values:values})
+      });
+      const {data} = result;
 
       yield put({
         type:'vipRegisterResult',
         payload:{
-          registerSuccess:result.success,
-          token:result.token,
+          registerSuccess:data.success,
+          token:data.token,
           username:payload.values.username,
           userType:1,
         }
       });
 
-      if(result.success == 1){
+      if(data.success == 1){
         const path = `/`;
         setTimeout(
           function(){

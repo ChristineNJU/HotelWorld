@@ -70,6 +70,14 @@ function Vip({dispatch,user,moneySuccess,inputValue,creditValue}) {
     })
   }
 
+  function cancelDelete() {
+    dispatch({
+      type:'user/deleteVip',
+      payload:{
+      },
+    })
+  }
+
 
   return(
     <div>
@@ -80,7 +88,14 @@ function Vip({dispatch,user,moneySuccess,inputValue,creditValue}) {
         </FormItem>
 
         <FormItem label="会员状态" {...formItemLayout}>
-          <p className={styles.info}>{statusMap[user.status]}</p>
+          <div>
+          <p className={styles.info}>
+            {statusMap[user.status]}
+            {user.status == 1?<Button  style={{fontWeight:'lighter',marginLeft:'20px'}}
+                                      onClick={cancelDelete}>停止会员</Button>:''}
+          </p>
+
+          </div>
         </FormItem>
 
         <FormItem label="会员级别" {...formItemLayout}>

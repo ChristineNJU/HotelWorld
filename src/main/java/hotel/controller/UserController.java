@@ -65,6 +65,7 @@ public class UserController {
         int type = params.getInteger("type");
 
         int success = 0;
+        System.out.println("success-----");
         if(type == 1){
             success = vipService.vipRegister(
                     params.getString("username"),params.getString("name"),params.getString("gender"),
@@ -80,6 +81,7 @@ public class UserController {
 
 
         result.put("success",success > 0 ? 1 : 0);
+        System.out.println("success");
 
         if(success > 0){
             String token = sessionService.getSession(params.getString("username"),1);
@@ -105,6 +107,14 @@ public class UserController {
         Vip vip = vipService.getUserByUsername(username);
         System.out.println(JSON.toJSONString(vip));
         result.put("user",vip);
+        return result;
+    }
+
+    @RequestMapping(value="/user/{token}",method = RequestMethod.DELETE)
+    public @ResponseBody
+    Map cancelVip(@PathVariable String token)throws Exception{
+        Map<String,Object> result = new HashMap<String,Object>();
+        result.put("success",vipService.cancelVip(token));
         return result;
     }
 }

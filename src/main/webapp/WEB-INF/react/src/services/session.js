@@ -25,7 +25,9 @@ export function adminLogin(values){
 }
 
 
-export function vipRegister(values){
+export function vipRegisterService(values){
+  console.log('22222');
+  console.log(values);
   return request(`/api/user`,{
     method:'POST',
     body:JSON.stringify(values)
@@ -59,5 +61,11 @@ export function changeCredit({credit,username}) {
   return request(`/api/money`,{
     method:`PUT`,
     body:JSON.stringify({credit,username})
+  })
+}
+
+export function deleteVip({token}) {
+  return request(`/api/user/`+token,{
+    method:`DELETE`
   })
 }

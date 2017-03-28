@@ -52,7 +52,11 @@ public class VipImpl implements VipService {
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("token",token);
         map.put("money",money);
-        return vipMapper.addMoney(token,money);
+        int addResult = vipMapper.addMoney(token,money);
+        if(addResult == 1 && money >= 1000){
+            vipMapper.updateVipStatus(token);
+        }
+        return addResult;
     }
 
     public int updateVipAfterOrderComfirm(Vip vip){
@@ -65,6 +69,10 @@ public class VipImpl implements VipService {
 
     public int changeCredit(String credit, String username) {
         return vipMapper.updateCredit(credit,username);
+    }
+
+    public int cancelVip(String token) {
+        return vipMapper.cancelVip(token);
     }
 
 }

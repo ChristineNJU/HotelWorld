@@ -22,4 +22,6 @@ public interface VipService {
     List<Vip> getAllVip();
 
     int changeCredit(String credit,String username);
+
+    int cancelVip(String token);
 }

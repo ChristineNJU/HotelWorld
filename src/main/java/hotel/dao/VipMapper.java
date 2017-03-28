@@ -30,7 +30,13 @@ public interface VipMapper {
     int addMoney(@Param("token")String token,
                  @Param("money")int money);
 
+    int updateVipStatus(String token);
+
+    int cancelVip(String token);
+
     List<Vip> getAllVip();
+
+
 
     int updateCredit(@Param("credit") String credit,
                      @Param("username") String username);

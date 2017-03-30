@@ -16,5 +16,8 @@ public interface OrderMapper {
 
     int statusChange(@Param("orderid") int orderid, @Param("status") int status);
 
+    int vipIn(@Param("orderid") int orderid,
+              @Param("peoplename") String peoplename);
+
     Order getOrderByKey(int id);
 }

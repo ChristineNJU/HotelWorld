@@ -88,6 +88,7 @@ export default {
     },
     *fetchCheckIns({payload},{call,put}){
       const {data} = yield call(hotelService.fetchCheckIns,payload.hotelId);
+      console.log(data);
       yield put({
         type:'initCharts',
         payload:{

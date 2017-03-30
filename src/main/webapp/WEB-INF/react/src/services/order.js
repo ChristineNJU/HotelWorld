@@ -26,3 +26,13 @@ export function vipCancelOrder(values) {
     body:JSON.stringify(values)
   })
 }
+
+export function vipIn(values) {
+  console.log(222);
+  console.log(values);
+  // return;
+  return request(`api/orders`,{
+    method:'PUT',
+    body:JSON.stringify(values)
+  })
+}

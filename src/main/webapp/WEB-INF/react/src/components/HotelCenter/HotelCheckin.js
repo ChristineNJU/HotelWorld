@@ -36,7 +36,8 @@ function HotelCheckin({dispatch,info,rooms,hasLogin,roomShow,query,order}){
       payload:{
         price:e,
         count:order.count,
-        phone:order.phone
+        phone:order.phone,
+        peoplename:order.peoplename
       }
     })
   }
@@ -47,7 +48,8 @@ function HotelCheckin({dispatch,info,rooms,hasLogin,roomShow,query,order}){
       payload:{
         price:order.price,
         count:e,
-        phone:order.phone
+        phone:order.phone,
+        peoplename:order.peoplename
       }
     })
   }
@@ -60,6 +62,20 @@ function HotelCheckin({dispatch,info,rooms,hasLogin,roomShow,query,order}){
         price:order.price,
         count:order.count,
         phone:phone,
+        peoplename:order.peoplename
+      }
+    });
+  }
+
+  function peopleChange(e) {
+    let people = e.target.value;
+    dispatch({
+      type:'order/orderChange',
+      payload:{
+        price:order.price,
+        count:order.count,
+        phone:order.phone,
+        peoplename:people,
       }
     });
   }
@@ -88,7 +104,8 @@ function HotelCheckin({dispatch,info,rooms,hasLogin,roomShow,query,order}){
         end:query.end,
         price:order.price,
         count:order.count,
-        phone:order.phone
+        phone:order.phone,
+        peoplename:order.peoplename
       }
     })
   }
@@ -134,6 +151,12 @@ function HotelCheckin({dispatch,info,rooms,hasLogin,roomShow,query,order}){
       </FormItem>
         :''}
 
+      {roomShow != null && order.price != null?
+        <FormItem label="入住人" {...formItemLayout}>
+          <Input type="text" onChange={peopleChange} value={order.peoplename}/>
+        </FormItem>
+        :''}
+
 
       {roomShow != null && order.price != null?
       <FormItem label="价格" {...formItemLayout} style={{textAlign:'left',paddingLeft:''}}>
@@ -143,7 +166,7 @@ function HotelCheckin({dispatch,info,rooms,hasLogin,roomShow,query,order}){
                 </span>
         </p>
         <br/>
-        {order.phone != null && order.phone != '' ?
+        {order.phone != null && order.phone != ''  && order.peoplename != '' ?
           <Button type="primary"  style={{fontWeight:'lighter'}} onClick={handleSubmit}>提交</Button>
           :''}
       </FormItem>

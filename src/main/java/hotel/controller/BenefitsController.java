@@ -1,5 +1,6 @@
 package hotel.controller;
 
+import com.alibaba.fastjson.JSON;
 import hotel.model.HotelBenefits;
 import hotel.model.Order;
 import hotel.service.BillService;
@@ -33,6 +34,7 @@ public class BenefitsController {
     public @ResponseBody List<HotelBenefits> getOrdersByVip()throws Exception{
 
         List<HotelBenefits> benefits = billService.getBenefits();
+        System.out.println(JSON.toJSONString(benefits));
         return benefits;
     }
 }

@@ -36,12 +36,13 @@ public class OrderController {
         int price = params.getInteger("price");
         int count = params.getInteger("count");
         String phone = params.getString("phone");
+        String peoplename = params.getString("peoplename");
 
         int createResult = 0;
         if(username != null){
-            createResult = orderService.createOrder(hotelId,username,begin,end,price,count);
+            createResult = orderService.createOrder(hotelId,username,begin,end,price,count,peoplename);
         }else{
-            createResult = orderService.createNoneVipOrder(hotelId,phone,begin,end,price,count);
+            createResult = orderService.createNoneVipOrder(hotelId,phone,begin,end,price,count,peoplename);
         }
 
         Map<String,Object> result = new HashMap<String, Object>() ;
@@ -80,7 +81,7 @@ public class OrderController {
     /**
      * 会员取消订单：type=1
      * 酒店取消订单：type=2
-     * 已入住：type=3
+     * 已入住：type=3,这个在下一个方法
      * 已退房：type=4
      * @return
      * @throws Exception
@@ -103,5 +104,27 @@ public class OrderController {
         result.put("success",success);
         return result;
     }
+
+    /**
+     * 会员入住
+     * 已入住：type=3,这个在下一个方法
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public @ResponseBody Map<String,Object> vipIn(@RequestBody String body)throws Exception{
+
+//        List<Order> orders = orderService.getOrdersByHotelid(hotelid);
+        Map<String,Object> result = new HashMap<String,Object>();
+        JSONObject ob = JSON.parseObject(body);
+        int orderId = ob.getInteger("id");
+        String peoplename = ob.getString("peoplename");
+
+        int updateResult = orderService.vipIn(orderId,peoplename);
+        result.put("success",updateResult);
+        return result;
+    }
+
+
 
 }

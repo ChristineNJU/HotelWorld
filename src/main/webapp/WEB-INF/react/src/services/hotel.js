@@ -16,5 +16,6 @@ export function update(values) {
 }
 
 export function fetchCheckIns(hotelId) {
+  console.log('fetch check ins');
   return request(`/api/plans/`+hotelId);
 }

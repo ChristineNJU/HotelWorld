@@ -32,6 +32,10 @@ function HotelCurrent({dispatch,current}){
     title: '住客手机',
     dataIndex: 'phone',
     key: 'phone',
+  }, {
+    title: '入住人',
+    dataIndex: 'peoplename',
+    key: 'peoplename',
   },{
     title: '时间',
     dataIndex: 'timestart',

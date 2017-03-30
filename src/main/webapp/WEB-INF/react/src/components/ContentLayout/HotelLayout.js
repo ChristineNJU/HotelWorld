@@ -15,7 +15,7 @@ function HotelLayout({ children, index }) {
         <Link className={index === 2 ? styles.linkCurrent : styles.link} to="/hotelcurrent">入住情况</Link>
         <Link className={index === 3 ? styles.linkCurrent : styles.link} to="/hotelorders">查看预定</Link>
         <Link className={index === 4 ? styles.linkCurrent : styles.link} to="/hotelbefore">以往入住</Link>
-        <Link className={index === 5 ? styles.linkCurrent : styles.link} to="/hotelfinance">财务情况</Link>
+        {/*<Link className={index === 5 ? styles.linkCurrent : styles.link} to="/hotelfinance">财务情况</Link>*/}
         <Link className={index === 6 ? styles.linkCurrent : styles.link} to="/hotelinvalid">失效订单</Link>
       </div>
       <div className={styles.rightContent}>

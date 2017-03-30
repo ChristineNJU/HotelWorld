@@ -35,6 +35,16 @@ public class Order {
 
     private String vipNumber;
 
+    private String peoplename;
+
+    public String getPeoplename() {
+        return peoplename;
+    }
+
+    public void setPeoplename(String peoplename) {
+        this.peoplename = peoplename;
+    }
+
     public String getBegin() {
         return begin;
     }

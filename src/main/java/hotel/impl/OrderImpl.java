@@ -41,7 +41,7 @@ public class OrderImpl implements OrderService {
     @Resource
     private VipMapper vipMapper;
 
-    public int createOrder(int hotelId, String username, String begin, String end, int price, int count) {
+    public int createOrder(int hotelId, String username, String begin, String end, int price, int count,String peoplename) {
         Hotel hotel = hotelMapper.selectHotelByPrimaryKey(hotelId);
         List<Room> rooms= roomService.getRoomByPlanWithPrice(hotelId,begin,end,price);
         Vip vip = vipService.getUserByUsername(username);
@@ -73,6 +73,7 @@ public class OrderImpl implements OrderService {
             order.setRoomid(room.getId());
             order.setRoomname(room.getName());
             order.setVipname(username);
+            order.setPeoplename(peoplename);
 
             int insertResult = orderMapper.insertNewOrder(order);
             if(insertResult > 0){
@@ -84,7 +85,7 @@ public class OrderImpl implements OrderService {
         return 1;
     }
 
-    public int createNoneVipOrder(int hotelId, String phone, String begin, String end, int price, int count) {
+    public int createNoneVipOrder(int hotelId, String phone, String begin, String end, int price, int count,String peoplename) {
         System.out.println("in create Vip order");
 
         Hotel hotel = hotelMapper.selectHotelByPrimaryKey(hotelId);
@@ -106,6 +107,7 @@ public class OrderImpl implements OrderService {
             order.setRoomid(room.getId());
             order.setRoomname(room.getName());
             order.setVipname(null);
+            order.setPeoplename(peoplename);
 
             int insertResult = orderMapper.insertNewOrder(order);
             if(insertResult > 0){
@@ -138,6 +140,11 @@ public class OrderImpl implements OrderService {
         vip.setMoney(vip.getMoney()+order.getPrice()*MyDate.getGap(begin,end));
         vipMapper.updateByPrimaryKeySelective(vip);
         return orderChangeResult;
+    }
+
+    public int vipIn(int orderId, String peoplename) {
+
+        return orderMapper.vipIn(orderId,peoplename);
     }
 
     private void addPlans(int roomid,int hotelId,String begin,String end){

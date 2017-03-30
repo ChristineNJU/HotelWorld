@@ -14,6 +14,7 @@ export default {
       price: null,
       count: 1,
       phone:null,
+      peoplename:'',
     },
     roomShow: null,
     orderSuccess: null,
@@ -25,8 +26,9 @@ export default {
     hotelInvalid:[],
   },
   reducers: {
-    orderChange(state, {payload:{price, count,phone}}){
-      return {...state, order: {price: price, count: count,phone:phone}};
+    orderChange(state, {payload:{price, count,phone,peoplename}}){
+      console.log(peoplename,'12222');
+      return {...state, order: {price: price, count: count,phone:phone,peoplename:peoplename}};
     },
     loadQueryResult(state, {payload:{queryResult, begin, end, gap}}){
       let roomShow = {};
@@ -149,7 +151,7 @@ export default {
       })
     },
     *orderConfirm({payload}, {call, put}){
-      let values = {...payload, username: localStorage.getItem('username')};
+      let values = {...payload, username: localStorage.getItem('username'),peoplename:''};
       // console.log(values);
       const {data} = yield call(orderServices.createOrder, {values: values});
       if (data.success != null && data.success != undefined) {
@@ -216,7 +218,8 @@ export default {
       }
     },
     *hotelCheckIn({payload}, {call, put}){
-      const {data} = yield call(orderServices.vipCancelOrder,{...payload.order,type:3});
+      console.log('111');
+      const {data} = yield call(orderServices.vipIn,{id:payload.order.id,peoplename:payload.peoplename});
       if(data.success == 1) {
         browserHistory.push('/hotelorders');
       }

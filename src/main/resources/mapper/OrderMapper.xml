@@ -14,17 +14,19 @@
     <result column="roomid" property="roomid" jdbcType="INTEGER" />
     <result column="roomname" property="roomname" jdbcType="VARCHAR" />
     <result column="vipname" property="vipname" jdbcType="VARCHAR" />
+    <result column="peoplename" property="peoplename" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, hotelid, hotelname, begintime,endtime, phone, status, price, vipid, roomid, roomname, vipname
+    id, hotelid, hotelname, begintime,endtime, phone, status, price, vipid, roomid, roomname, vipname,peoplename
   </sql>
   <insert id="insertNewOrder" parameterType="hotel.model.Order" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into orders (hotelid, hotelname,
     begintime, endtime, phone,vipname,
-    status, price, vipid,roomid,roomname)
+    status, price, vipid,roomid,roomname,peoplename)
     values (#{hotelid,jdbcType=INTEGER},#{hotelname,jdbcType=VARCHAR},
     #{begintime,jdbcType=DATE},#{endtime,jdbcType=DATE},#{phone,jdbcType=VARCHAR},#{vipname,jdbcType=VARCHAR},
-    #{status,jdbcType=INTEGER},#{price,jdbcType=INTEGER},#{vipid,jdbcType=INTEGER},#{roomid,jdbcType=INTEGER},#{roomname,jdbcType=VARCHAR})
+    #{status,jdbcType=INTEGER},#{price,jdbcType=INTEGER},#{vipid,jdbcType=INTEGER},#{roomid,jdbcType=INTEGER},
+    #{roomname,jdbcType=VARCHAR},#{peoplename,jdbcType=VARCHAR})
     <selectKey keyProperty="id" resultType="int" order="AFTER">
       SELECT LAST_INSERT_ID();
     </selectKey>
@@ -51,6 +53,10 @@
   </select>
   <update id="statusChange">
     UPDATE orders SET status = #{status,jdbcType=INTEGER}
+    WHERE id=#{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="vipIn">
+    UPDATE orders SET status = 3,peoplename=#{peoplename,jdbcType=VARCHAR}
     WHERE id=#{orderid,jdbcType=INTEGER}
   </update>
 

@@ -51,9 +51,9 @@ function Header({ dispatch,location, token, username, userType,loginSuccess,regi
         <Menu.Item key={5}>
           <a  rel="noopener noreferrer" href="/hotelbefore">以往入住</a>
         </Menu.Item>
-        <Menu.Item key={6}>
-          <a  rel="noopener noreferrer" href="/hotelfinance">财务情况</a>
-        </Menu.Item>
+        {/*<Menu.Item key={6}>*/}
+          {/*<a  rel="noopener noreferrer" href="/hotelfinance">财务情况</a>*/}
+        {/*</Menu.Item>*/}
         <Menu.Item key={8}>
           <a  rel="noopener noreferrer" href="/hotelinvalid">失效订单</a>
         </Menu.Item>
